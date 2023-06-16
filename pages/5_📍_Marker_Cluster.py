@@ -32,7 +32,7 @@ with st.expander("See source code"):
             watersupply_mekong,
             x="longitude",
             y="latitude",
-            color_column='province',
+            # color_column='province',
             icon_names=['gear', 'map', 'leaf', 'globe'],
             spin=True,
             add_legend=True,
