@@ -5,8 +5,8 @@ st.set_page_config(layout="wide")
 
 st.sidebar.info(
     """
-    - Web App URL: <https://streamlit.geemap.org>
-    - GitHub repository: <https://github.com/giswqs/streamlit-geospatial>
+    - Web: <https://becagis.streamlit.app/>
+    - GitHub: <https://github.com/thangqd/streamlit-becagis>
     """
 )
 
@@ -22,13 +22,13 @@ st.title("Heatmap")
 
 with st.expander("See source code"):
     with st.echo():
-        filepath = "https://raw.githubusercontent.com/giswqs/leafmap/master/examples/data/us_cities.csv"
-        m = leafmap.Map(center=[40, -100], zoom=4, tiles="stamentoner")
+        filepath = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/watersupply_mekong.csv"
+        m = leafmap.Map(center=[10.045180, 105.78841], zoom=8, tiles="stamentoner")
         m.add_heatmap(
             filepath,
             latitude="latitude",
             longitude="longitude",
-            value="pop_max",
+            value="id",
             name="Heat map",
             radius=20,
         )
