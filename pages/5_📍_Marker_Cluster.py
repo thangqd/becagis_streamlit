@@ -25,9 +25,9 @@ with st.expander("See source code"):
 
         m = leafmap.Map(center=[10.045180, 105.78841], zoom=10)       
         watersupply_mekong = 'https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/watersupply_mekong.csv'
-        # provinces = 'https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/vn_provinces.geojson'
+        provinces = 'https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/vn_provinces.geojson'
 
-        # m.add_geojson(regions, layer_name='Vietnam Province')
+        m.add_geojson(provinces, layer_name='Vietnam Province')
         m.add_points_from_xy(
             watersupply_mekong,
             x="longitude",
