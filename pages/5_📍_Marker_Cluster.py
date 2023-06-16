@@ -23,7 +23,7 @@ st.title("Marker Cluster")
 with st.expander("See source code"):
     with st.echo():
 
-        m = leafmap.Map(center=[10.045180, 105.78841], zoom=10)       
+        m = leafmap.Map(center=[10.045180, 105.78841], zoom=8)       
         watersupply_mekong = 'https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/watersupply_mekong.csv'
         provinces = 'https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/vn_provinces.geojson'
 
