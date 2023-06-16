@@ -33,7 +33,7 @@
     </spatialrefsys>
   </crs>
   <extent>
-    <spatial minx="0" maxz="0" minz="0" maxy="0" maxx="0" dimensions="2" crs="EPSG:4326" miny="0"/>
+    <spatial miny="0" maxz="0" dimensions="2" maxy="0" crs="EPSG:4326" maxx="0" minx="0" minz="0"/>
     <temporal>
       <period>
         <start></start>
