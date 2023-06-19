@@ -22,7 +22,7 @@ st.title("Heatmap")
 
 with st.expander("See source code"):
     with st.echo():
-        filepath = "./data/dss1.csv"
+        filepath = "./data/wqi.csv"
         m = leafmap.Map(center=[10.045180, 105.78841], zoom=8, tiles="stamentoner")
         m.add_heatmap(
             filepath,
