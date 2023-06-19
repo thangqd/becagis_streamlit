@@ -17,8 +17,8 @@ warnings.filterwarnings("ignore")
 
 st.sidebar.info(
     """
-    - Web App URL: <https://becagis.streamlit.app/>
-    - GitHub repository: <https://github.com/thangqd/becagis_streamlit>
+    - Web: <https://becagis.streamlit.app/>
+    - GitHub: <https://github.com/thangqd/becagis_streamlit>
     """
 )
 

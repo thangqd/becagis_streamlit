@@ -13,7 +13,7 @@ st.sidebar.info(
 st.sidebar.title("Contact")
 st.sidebar.info(
     """
-    Thang Quach: <https://wetlands.io>
+    Thang Quach: <https://thangqd.github.io>
     [GitHub](https://github.com/thangqd) | [Twitter](https://twitter.com/thangqd) | [LinkedIn](https://www.linkedin.com/thangqd)
     """
 )
@@ -24,7 +24,7 @@ with st.expander("See source code"):
     with st.echo():
 
         m = leafmap.Map(center=[10.045180, 105.78841], zoom=8)       
-        watersupply_mekong = 'https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/watersupply_mekong.csv'
+        watersupply_mekong = 'https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/wqi.csv'
         provinces = 'https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/vn_provinces.geojson'
 
         m.add_geojson(provinces, layer_name='Vietnam Province')

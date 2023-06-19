@@ -22,7 +22,7 @@ st.title("Heatmap")
 
 with st.expander("See source code"):
     with st.echo():
-        filepath = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/watersupply_mekong.csv"
+        filepath = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/wqi.csv"
         m = leafmap.Map(center=[10.045180, 105.78841], zoom=8, tiles="stamentoner")
         m.add_heatmap(
             filepath,

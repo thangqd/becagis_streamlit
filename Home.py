@@ -6,16 +6,16 @@ st.set_page_config(layout="wide")
 st.sidebar.title("About")
 st.sidebar.info(
     """
-    - Web App URL: <https://streamlit.geemap.org>
-    - GitHub repository: <https://github.com/giswqs/streamlit-geospatial>
+    - Web: <https://becagis.streamlit.app/>
+    - GitHub: <https://github.com/thangqd/becagis_streamlit>
     """
 )
 
 st.sidebar.title("Contact")
 st.sidebar.info(
     """
-    Qiusheng Wu: <https://wetlands.io>
-    [GitHub](https://github.com/giswqs) | [Twitter](https://twitter.com/giswqs) | [YouTube](https://www.youtube.com/c/QiushengWu) | [LinkedIn](https://www.linkedin.com/in/qiushengwu)
+    Thang Quach: <https://thangqd.github.io>
+    [GitHub](https://github.com/thangqd) | [Twitter](https://twitter.com/thangqd) | [LinkedIn](https://www.linkedin.com/in/thangqd)
     """
 )
 
@@ -23,12 +23,12 @@ st.sidebar.title("Support")
 st.sidebar.info(
     """
     If you want to reward my work, I'd love a cup of coffee from you. Thanks!
-    [buymeacoffee.com/giswqs](http://buymeacoffee.com/giswqs)
+    [buymeacoffee.com/giswqs](http://buymeacoffee.com/quachdongthang)
     """
 )
 
 
-st.title("Streamlit for Geospatial Applications")
+st.title("BecaGIS on Streamlit"){}
 
 st.markdown(
     """
