@@ -21,6 +21,7 @@ laspy
 segment-geospatial
 torch
 localtileserver
+osmnx
 
 # git+https://github.com/giswqs/leafmap
 # git+https://github.com/giswqs/geemap
