@@ -3,6 +3,8 @@ import pandas as pd
 import geopandas as gpd
 import numpy as np
 import sys, os
+import leafmap.foliumap as leafmap
+
 
 st.set_page_config(layout="wide")
 
@@ -23,6 +25,8 @@ st.sidebar.info(
 
 with st.expander("See source code"):
     with st.echo():
-        input = "./data/watersupply_mekong.csv"
-        df = pd.read_csv(input)        
-st.line_chart(df,y= 'id',x='province')
+        url = 'https://github.com/opengeos/data/raw/main/lidar/madison.zip'
+        filename = 'madison.las'
+        leafmap.download_file(url, 'madison.zip', unzip=True)
+        las = leafmap.read_lidar(filename)
+leafmap.view_lidar(filename, cmap='terrain', backend='pyvista')

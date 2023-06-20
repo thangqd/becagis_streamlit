@@ -21,7 +21,7 @@ st.sidebar.info(
 # Customize page title
 st.title("BecaGIS on Streamlit")
 
-m = leafmap.Map(minimap_control=True)
+m = leafmap.Map(minimap_control=True,tiles=None)
 m.add_basemap("Stamen.Watercolor")
 m.to_streamlit(height=500)
 st.markdown(
