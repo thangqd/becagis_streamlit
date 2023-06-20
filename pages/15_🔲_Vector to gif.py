@@ -49,7 +49,7 @@ with st.expander("See source code"):
         # )
         pass
 st.write("![Your Awsome GIF](https://media.giphy.com/media/3ohzdIuqJoo8QdKlnW/giphy.gif)")
-st.write("![Building](buildings.gif)")
+st.write("![Building](https://github.com/thangqd/becagis_streamlit/blob/main/buildings.gif)")
 
 # m.to_streamlit(height=700)
 # st.write("![Your Awsome GIF](https://media.giphy.com/media/3ohzdIuqJoo8QdKlnW/giphy.gif)")
