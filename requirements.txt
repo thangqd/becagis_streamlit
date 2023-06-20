@@ -17,6 +17,7 @@ streamlit-folium
 streamlit-keplergl
 tropycal
 leafmap[lidar]
+laspy
 # git+https://github.com/giswqs/leafmap
 # git+https://github.com/giswqs/geemap
 
