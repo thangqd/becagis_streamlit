@@ -23,8 +23,8 @@ st.sidebar.info(
     """
 )
 
-# with st.expander("See source code"):
-#     with st.echo():
-#         laz = './data/pentagon.laz'   
-# leafmap.view_lidar(laz, cmap='terrain', backend='pyvista')
+with st.expander("See source code"):
+    with st.echo():
+        laz = './data/pentagon.laz'   
+leafmap.view_lidar(laz, cmap='terrain', backend='pyvista')
    

@@ -42,9 +42,9 @@ def app():
 
     with row1_col2:
 
-        becagis_opendata = "https://opendata.hcmgis.vn/geoserver/ows"
+        becagis_opendata = "https://services.terrascope.be/wms/v2"
         url = st.text_input(
-            "Enter a WMS URL:", value="https://opendata.hcmgis.vn/geoserver/ows"
+            "Enter a WMS URL:", value="https://services.terrascope.be/wms/v2"
         )
         empty = st.empty()
 
@@ -70,7 +70,7 @@ def app():
             #     )
 
         with row1_col1:
-            m = leafmap.Map(center=(36.3, 0), zoom=2)
+            m = leafmap.Map(center=(10.045180, 105.78841), zoom=2)
 
             if layers is not None:
                 for layer in layers:
