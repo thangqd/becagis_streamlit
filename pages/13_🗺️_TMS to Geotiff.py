@@ -39,5 +39,5 @@ with st.expander("See source code"):
         # leafmap.tms_to_geotiff(image, bbox=bbox, zoom=13, source='Satellite')
 
 # m.add_raster(image, layer_name='Image')    
-# m.to_streamlit(height=700)
+m.to_streamlit(height=700)
 

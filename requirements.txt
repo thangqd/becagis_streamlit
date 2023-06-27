@@ -22,6 +22,7 @@ segment-geospatial
 torch
 localtileserver
 osmnx
+rasterstats
 
 # git+https://github.com/giswqs/leafmap
 # git+https://github.com/giswqs/geemap
