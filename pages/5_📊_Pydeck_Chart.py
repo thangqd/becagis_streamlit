@@ -41,9 +41,13 @@ HEXAGON_URL = (
     "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/watersupply_mekong.csv"  
 )
 
+SCATTERPLOT_URL = (
+    "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/wqi.csv"  
+)
+
 # Define a layer to display on a map
 hexagon = pdk.Layer(
-    "HexagonLayer",
+    # "HexagonLayer",
     HEXAGON_URL,
     get_position=["longitude", "latitude"],
     auto_highlight=True,
@@ -53,6 +57,15 @@ hexagon = pdk.Layer(
     extruded=True,
     coverage=1,
 )
+
+scatterplot = pdk.Layer(
+    'ScatterplotLayer',     # Change the `type` positional argument here
+    SCATTERPLOT_URL,
+    get_position=["longitude", "latitude"],
+    auto_highlight=True,
+    get_radius=1000,          # Radius is given in meters
+    get_fill_color=[180, 0, 200, 140],  # Set an RGBA value for fill
+    pickable=True)
 
 
 # Set the viewport location
@@ -67,5 +80,5 @@ st.pydeck_chart(pdk.Deck(
     map_style=None,
     initial_view_state=view_state,
     # layers=[geojson,hexagon]
-    layers=[geojson,hexagon]
+    layers=[hexagon,scatterplot]
 ))
