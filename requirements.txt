@@ -4,6 +4,7 @@ geopandas
 leafmap
 palettable
 streamlit
+streamlit_extras
 streamlit-elements
 torch
 prophet
