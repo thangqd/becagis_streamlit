@@ -1,5 +1,6 @@
 import streamlit as st
 from itertools import cycle
+import streamlit.components.v1 as components
 
 
 st.set_page_config(layout="wide")
@@ -52,7 +53,6 @@ IMAGES = [
     "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/AIFaces/ai_face5.png",
     "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/AIFaces/ai_face6.png",
 ]
-# st.write(IMAGES)
 
 
 def slideshow_swipeable(images):
@@ -71,7 +71,7 @@ def slideshow_swipeable(images):
 
         # Use mui.Stack to vertically display the slideshow and the pagination centered.
         # https://mui.com/material-ui/react-stack/#usage
-        with mui.Stack(spacing=2, alignItems="center"):
+        with mui.Stack(spacing=2, alignItems="cnter"):
 
             # Create a swipeable view that updates st.session_state[key] thanks to sync().
             # It also sets the index so that changing the pagination (see below) will also
@@ -80,7 +80,7 @@ def slideshow_swipeable(images):
             # https://react-swipeable-views.com/demos/demos/
             with mui.SwipeableViews(index=index, resistance=True, onChangeIndex=sync(key)):
                 for image in images:
-                    html.img(src=image, css={"width": "100%"})
+                    html.img(src=image, css={"width": "50%"})
 
             # Create a handler for mui.Pagination.
             # https://mui.com/material-ui/react-pagination/#controlled-pagination
@@ -94,6 +94,14 @@ def slideshow_swipeable(images):
             # https://mui.com/material-ui/react-pagination/#controlled-pagination
             mui.Pagination(page=index+1, count=len(images), color="primary", onChange=handle_change)
 
-slideshow_swipeable(IMAGES)
+# slideshow_swipeable(IMAGES)
+
+imageCarouselComponent = components.declare_component("image-carousel-component", path="frontend/public")
+
+selectedImageUrl = imageCarouselComponent(imageUrls=IMAGES, height=200)
+
+if selectedImageUrl is not None:
+    st.image(selectedImageUrl)
+
 
 
