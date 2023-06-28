@@ -20,6 +20,7 @@ st.sidebar.info(
 )
 
 DATA_URL = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/airlines_vn.csv"
+# DATA_URL = "https://raw.githubusercontent.com/ajduberstein/sf_public_data/master/bay_area_commute_routes.csv"
 df = pd.read_csv(DATA_URL)
 st.write (df)
 
@@ -29,10 +30,12 @@ RED_RGB = [240, 100, 0, 40]
 arc_layer = pdk.Layer(
     "ArcLayer",
     data=df,
-    # get_width="S000 * 2",
+    get_width="lat_f /2",
     # get_width=2,
     get_source_position=["lon_f", "lat_f"],
     get_target_position=["lon_t", "lat_t"],
+    # get_source_position=["lng_h", "lat_h"],
+    # get_target_position=["lng_w", "lat_w"],
     get_tilt=15,
     get_source_color=RED_RGB,
     get_target_color=GREEN_RGB,
@@ -41,6 +44,8 @@ arc_layer = pdk.Layer(
 )
 
 view_state = pdk.ViewState(latitude=10.045180, longitude=105.78841, bearing=45, pitch=50, zoom=8)
+# view_state = pdk.ViewState(latitude=37.7576171, longitude=-122.5776844, bearing=45, pitch=50, zoom=8)
+
 
 # TOOLTIP_TEXT = {"html": "{id} jobs <br /> Home of commuter in red; work location in green"}
 # r = pdk.Deck(arc_layer, initial_view_state=view_state, tooltip=TOOLTIP_TEXT)
