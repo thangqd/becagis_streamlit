@@ -36,12 +36,11 @@ st.image("./data/prettymapp/flightroute.png")
 # source_code = HtmlFile.read() 
 # components.html(source_code,height = 400)
 
-
-
-
-
 st.markdown(
     """
     BecaGIS Streamlit is inspired by [streamlit-geospatial](https://github.com/giswqs/streamlit-geospatial).
     """
 )
+from streamlit_extras.buy_me_a_coffee import button
+
+button(username="quachdongthang", floating=False, width=221)
