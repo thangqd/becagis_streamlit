@@ -24,7 +24,7 @@ st.sidebar.info(
 from PIL import Image
 import os
 import streamlit as st
-from streamlit_elements import elements, mui, html, sync
+# from streamlit_elements import elements, mui, html, sync
 
 
 HtmlFile = open("./data/image_slideshow.html", 'r', encoding='utf-8')
