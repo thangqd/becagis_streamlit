@@ -39,19 +39,20 @@ import os
 #         st.image(image)
 import streamlit as st
 from streamlit_elements import elements, mui, html, sync
-path = "./data/AIFaces/"
-list =os.listdir(path)
-IMAGES = []
-for i in range (len(list)) :
-    IMAGES.append(path + list[i])
+# path = "./data/AIFaces/"
+# list =os.listdir(path)
+# IMAGES = []
+# for i in range (len(list)) :
+#     IMAGES.append(path + list[i])
 IMAGES = [
-    "https://unsplash.com/photos/GJ8ZQV7eGmU/download?force=true&w=1920",
-    "https://unsplash.com/photos/eHlVZcSrjfg/download?force=true&w=1920",
-    "https://unsplash.com/photos/zVhYcSjd7-Q/download?force=true&w=1920",
-    "https://unsplash.com/photos/S5uIITJDq8Y/download?ixid=MnwxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNjUyOTAzMzAz&force=true&w=1920",
-    "https://unsplash.com/photos/E4bmf8BtIBE/download?ixid=MnwxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNjUyOTEzMzAw&force=true&w=1920",
+    "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/AIFaces/ai_face1.png",
+    "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/AIFaces/ai_face2.png",
+    "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/AIFaces/ai_face3.png",
+    "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/AIFaces/ai_face4.png",
+    "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/AIFaces/ai_face5.png",
+    "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/AIFaces/ai_face6.png",
 ]
-st.write(IMAGES)
+# st.write(IMAGES)
 
 
 def slideshow_swipeable(images):
