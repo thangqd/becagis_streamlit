@@ -30,7 +30,7 @@ RED_RGB = [240, 100, 0, 40]
 arc_layer = pdk.Layer(
     "ArcLayer",
     data=df,
-    get_width="lat_f /2",
+    get_width="id*2",
     # get_width=2,
     get_source_position=["lon_f", "lat_f"],
     get_target_position=["lon_t", "lat_t"],
