@@ -42,7 +42,7 @@ SCATTERPLOT_URL = (
 )
 
 HEXAGON_URL = (
-    "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/airports.csv"  
+    "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/watersupply_mekong.csv"  
 )
 HEATMAP_URL = (
     "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/airports.csv"  

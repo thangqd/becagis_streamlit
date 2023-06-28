@@ -23,7 +23,7 @@ st.title("Marker Cluster")
 
 with st.expander("See source code"):
     with st.echo():
-        m = leafmap.Map(center=[10.045180, 105.78841], zoom=0, tiles="stamentoner")       
+        m = leafmap.Map(center=[10.045180, 105.78841], zoom=8, tiles="stamentoner")       
         # watersupply_mekong = './data/wqi.csv'
         airports =  'https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/watersupply_mekong.csv'
         df = pd.read_csv(airports)
