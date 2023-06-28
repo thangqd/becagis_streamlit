@@ -1,5 +1,6 @@
 import streamlit as st
 import leafmap.foliumap as leafmap
+import streamlit.components.v1 as components
 
 st.set_page_config(layout="wide")
 
@@ -25,9 +26,12 @@ with col1:
 with col2:
     st.title("BecaGIS on Streamlit")
 
-m = leafmap.Map(minimap_control=True,tiles=None)
-m.add_basemap("Stamen.Watercolor")
-m.to_streamlit(height=500)
+st.image("./data/prettymapp/flightroute.png")
+
+# m = leafmap.Map(minimap_control=True,tiles=None)
+# m.add_basemap("Stamen.Watercolor")
+# m.to_streamlit(height=500)
+
 st.markdown(
     """
     BecaGIS Streamlit is inspired by [streamlit-geospatial](https://github.com/giswqs/streamlit-geospatial).
