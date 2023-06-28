@@ -36,7 +36,7 @@ with st.expander("See source code"):
             # color_column='province',
             icon_names=['gear', 'map', 'leaf', 'globe'],
             spin=True,
-            add_legend=True,
+            add_legend=True
         )
 
 m.to_streamlit(height=700)
