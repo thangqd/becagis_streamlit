@@ -40,7 +40,7 @@ point_cloud_layer = pdk.Layer(
     point_size=3,
 )
 
-view_state = pdk.ViewState(target=target, controller=True, rotation_x=15, rotation_orbit=30, zoom=5.3)
+view_state = pdk.ViewState(target=target, controller=True, rotation_x=15, rotation_orbit=30, zoom=4.5)
 view = pdk.View(type="OrbitView", controller=True)
 r = pdk.Deck(point_cloud_layer, initial_view_state=view_state, views=[view])
 # st.pydeck_chart(r)
@@ -49,7 +49,7 @@ r.to_html("point_cloud_layer.html", css_background_color="#000000")
 
 HtmlFile = open("point_cloud_layer.html", 'r', encoding='utf-8')
 source_code = HtmlFile.read() 
-components.html(source_code)
+components.html(source_code,height = 500)
 # components.iframe("point_cloud_layer.html")
 
 
