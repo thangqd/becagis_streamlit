@@ -23,12 +23,12 @@ st.title("Heatmap")
 with st.expander("See source code"):
     with st.echo():
         # filepath = "./data/wqi.csv"
-        filepath = "./data/airports.csv"
-        m = leafmap.Map(center=[10.045180, 105.78841], zoom=8, tiles="stamentoner")
+        filepath = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/airports.csv"
+        m = leafmap.Map(center=[10.045180, 105.78841], zoom=4, tiles="stamentoner")
         m.add_heatmap(
             filepath,
-            latitude="lattitude",
-            longitude="latitude",
+            latitude="latitude",
+            longitude="longitude",
             value="id",
             name="Heat map",
             radius=20,

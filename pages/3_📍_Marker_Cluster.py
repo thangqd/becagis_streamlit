@@ -25,7 +25,7 @@ with st.expander("See source code"):
     with st.echo():
         m = leafmap.Map(center=[10.045180, 105.78841], zoom=0, tiles="stamentoner")       
         # watersupply_mekong = './data/wqi.csv'
-        airports =  './data/airports.csv'
+        airports =  'https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/airports.csv'
         df = pd.read_csv(airports)
 
         # provinces = './data/vn_provinces.geojson'
@@ -33,8 +33,8 @@ with st.expander("See source code"):
         # m.add_geojson(provinces, layer_name='Vietnam Province')
         m.add_points_from_xy(
             df,
-            x="lon",
-            y="lat"
+            x="longitude",
+            y="latitude"
             # color_column='province',
             # icon_names=['gear', 'map', 'leaf', 'globe'],
             # spin=True,

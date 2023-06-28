@@ -46,6 +46,7 @@ HEXAGON_URL = (
 )
 HEATMAP_URL = (
     "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/airports.csv"  
+    
 )
 
 heatmap = pdk.Layer(
@@ -74,7 +75,7 @@ scatterplot = pdk.Layer(
     SCATTERPLOT_URL,
     get_position=["longitude", "latitude"],
     auto_highlight=True,
-    get_radius=2000,          # Radius is given in meters
+    get_radius=20000,          # Radius is given in meters
     get_fill_color=[180, 0, 200, 140],  # Set an RGBA value for fill
     pickable=True)
 
