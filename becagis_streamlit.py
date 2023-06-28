@@ -32,6 +32,15 @@ st.image("./data/prettymapp/flightroute.png")
 # m.add_basemap("Stamen.Watercolor")
 # m.to_streamlit(height=500)
 
+# HtmlFile = open("https://raw.githubusercontent.com/thangqd/thangqd.github.io/master/pages/fansipan/index.html", 'r', encoding='utf-8')
+# source_code = HtmlFile.read() 
+# components.html(source_code,height = 800)
+components.iframe("https://raw.githubusercontent.com/thangqd/thangqd.github.io/master/pages/fansipan/index.html",height = 800)
+
+
+
+
+
 st.markdown(
     """
     BecaGIS Streamlit is inspired by [streamlit-geospatial](https://github.com/giswqs/streamlit-geospatial).

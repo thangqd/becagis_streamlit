@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Fansipan</title>
+	<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+	<link href="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css" rel="stylesheet">
+	<script src="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js"></script>
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		#map {
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			width: 100%;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="map"></div>
+	<script>
+		mapboxgl.accessToken = 'pk.eyJ1IjoidGhhbmdxZCIsImEiOiJucHFlNFVvIn0.j5yb-N8ZR3d4SJAYZz-TZA';
+		(async () => {
+			const map = new mapboxgl.Map({
+				container: 'map',
+				zoom: 12,
+				// center: [106.16058835730833, 11.395231186298892],
+				center: [103.7736967371302, 22.306698996501883],
+				pitch: 60,
+				bearing: 120,
+				interactive: true,
+				style: 'mapbox://styles/mapbox/satellite-streets-v11'
+			});
+
+			await map.once('load');
+			// Add fog
+			map.setFog({
+				'range': [-1, 1.5],
+				'color': 'white',
+				'horizon-blend': 0.1
+			});
+
+			// Add some 3d terrain
+			map.addSource('mapbox-dem', {
+				'type': 'raster-dem',
+				'url': 'mapbox://mapbox.terrain-rgb',
+				'tileSize': 512,
+				'maxzoom': 14
+			});
+			map.setTerrain({
+				'source': 'mapbox-dem',
+				'exaggeration': 1.5
+			});
+
+			// Add two different day and night sky layers so that we may switch between
+			// them during animation. We add a sky opacity transition to slightly animate
+			// the opacity updates.
+			map.addLayer({
+				'id': 'sky-day',
+				'type': 'sky',
+				'paint': {
+					'sky-type': 'gradient',
+					'sky-opacity-transition': { 'duration': 1000 }
+				}
+			});
+			map.addLayer({
+				'id': 'sky-night',
+				'type': 'sky',
+				'paint': {
+					'sky-type': 'atmosphere',
+					'sky-atmosphere-sun': [90, 0],
+					'sky-atmosphere-halo-color': 'rgba(255, 255, 255, 0.5)',
+					'sky-atmosphere-color': 'rgba(255, 255, 255, 0.2)',
+					'sky-opacity': 0,
+					'sky-opacity-transition': { 'duration': 500 }
+				}
+			});
+
+			// Run a timing loop to switch between day and night
+			await map.once('idle');
+			let lastTime = 0.0;
+			let animationTime = 0.0;
+			let cycleTime = 0.0;
+			let day = true;
+
+			const initialBearing = map.getBearing();
+
+			function frame(time) {
+				const elapsedTime = (time - lastTime) / 2000;
+
+				animationTime += elapsedTime;
+				cycleTime += elapsedTime;
+
+				if (cycleTime > 10.0) {
+					if (day) {
+						map.setPaintProperty('sky-day', 'sky-opacity', 1);
+						map.setPaintProperty('sky-night', 'sky-opacity', 0);
+						map.setFog({ 'color': 'white' });
+					} else {
+						map.setPaintProperty('sky-day', 'sky-opacity', 0);
+						map.setPaintProperty('sky-night', 'sky-opacity', 1);
+						map.setFog({ 'color': 'rgba(66, 88, 106, 1.0)' });
+					}
+
+					day = !day;
+					cycleTime = 0.0;
+				}
+
+				const rotation = initialBearing + animationTime * 5.0;
+				map.setBearing(rotation % 360);
+
+				lastTime = time;
+
+				window.requestAnimationFrame(frame);
+			}
+
+			window.requestAnimationFrame(frame);
+		})();
+	</script>
+
+</body>
+
+</html>
