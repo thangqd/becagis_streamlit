@@ -32,13 +32,9 @@ geojson = pdk.Layer(
     filled=True,
     extruded=True,
     wireframe=True,
-    get_elevation="properties.id*100",
-    get_fill_color="[255, 255, properties.id / 255]",   
+    get_elevation="properties.area",
+    get_fill_color="[255, 0, properties.area / 255]",   
     get_line_color=[255, 255, 255],
-)
-
-HEXAGON_URL = (
-    "https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/3d-heatmap/heatmap-data.csv"  # noqa
 )
 
 HEXAGON_URL = (
@@ -49,7 +45,7 @@ HEXAGON_URL = (
 hexagon = pdk.Layer(
     "HexagonLayer",
     HEXAGON_URL,
-    get_position=["lon", "lat"],
+    get_position=["longitude", "latitude"],
     auto_highlight=True,
     elevation_scale=50,
     pickable=True,
@@ -71,5 +67,5 @@ st.pydeck_chart(pdk.Deck(
     map_style=None,
     initial_view_state=view_state,
     # layers=[geojson,hexagon]
-    layers=[hexagon]
+    layers=[geojson,hexagon]
 ))
