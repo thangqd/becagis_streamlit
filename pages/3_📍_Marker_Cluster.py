@@ -1,5 +1,6 @@
 import streamlit as st
 import leafmap.foliumap as leafmap
+import pandas as pd
 
 st.set_page_config(layout="wide")
 
@@ -22,15 +23,16 @@ st.title("Marker Cluster")
 
 with st.expander("See source code"):
     with st.echo():
-
         m = leafmap.Map(center=[10.045180, 105.78841], zoom=0, tiles="stamentoner")       
         # watersupply_mekong = './data/wqi.csv'
         airports =  './data/airports.csv'
+        df = pd.read_csv(airports)
+
         # provinces = './data/vn_provinces.geojson'
 
         # m.add_geojson(provinces, layer_name='Vietnam Province')
         m.add_points_from_xy(
-            airports,
+            df,
             x="lon",
             y="lat"
             # color_column='province',
@@ -38,5 +40,5 @@ with st.expander("See source code"):
             # spin=True,
             # add_legend=True
         )
-
+st.write(df)
 m.to_streamlit(height=700)

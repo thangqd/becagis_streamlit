@@ -29,7 +29,7 @@ with st.expander("See source code"):
             filepath,
             latitude="lat",
             longitude="lon",
-            # value="WQI",
+            value="id",
             name="Heat map",
             radius=20,
         )
