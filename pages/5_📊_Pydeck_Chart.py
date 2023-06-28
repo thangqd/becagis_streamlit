@@ -42,14 +42,14 @@ HEXAGON_URL = (
 )
 
 HEXAGON_URL = (
-    "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/hexagon.csv"  
+    "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/watersupply_mekong.csv"  
 )
 
 # Define a layer to display on a map
 hexagon = pdk.Layer(
     "HexagonLayer",
     HEXAGON_URL,
-    get_position=["longitude", "lattitude"],
+    get_position=["lon", "lat"],
     auto_highlight=True,
     elevation_scale=50,
     pickable=True,
