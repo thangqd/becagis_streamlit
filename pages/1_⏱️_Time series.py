@@ -15,10 +15,10 @@ warnings.simplefilter(action='ignore', category=FutureWarning)
 import pandas as pd
 import prophet
 import streamlit as st
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'lib'))
+# sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'lib'))
 
 # Workaround to suppress stdout/stderr output from prophet/pystan
-from stdout_suppressor import *
+import stdout_suppressor
 
 # disable verbose logging from prophet
 logging.getLogger('prophet').setLevel(logging.WARNING)
