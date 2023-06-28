@@ -37,17 +37,28 @@ geojson = pdk.Layer(
     get_line_color=[255, 255, 255],
 )
 
-HEXAGON_URL = (
+SCATTERPLOT_URL = (
     "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/watersupply_mekong.csv"  
 )
 
-SCATTERPLOT_URL = (
+HEXAGON_URL = (
+    "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/wqi.csv"  
+)
+HEATMAP_URL = (
     "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/wqi.csv"  
 )
 
+heatmap = pdk.Layer(
+    "HeatmapLayer",
+    HEATMAP_URL,
+    opacity=0.9,
+    get_position=["longitude", "latitude"],
+    # aggregation=str('MEAN'),
+    get_weight="WQI")
+
 # Define a layer to display on a map
 hexagon = pdk.Layer(
-    # "HexagonLayer",
+    "HexagonLayer",
     HEXAGON_URL,
     get_position=["longitude", "latitude"],
     auto_highlight=True,
@@ -63,7 +74,7 @@ scatterplot = pdk.Layer(
     SCATTERPLOT_URL,
     get_position=["longitude", "latitude"],
     auto_highlight=True,
-    get_radius=1000,          # Radius is given in meters
+    get_radius=2000,          # Radius is given in meters
     get_fill_color=[180, 0, 200, 140],  # Set an RGBA value for fill
     pickable=True)
 
@@ -79,6 +90,7 @@ view_state = pdk.ViewState(
 st.pydeck_chart(pdk.Deck(
     map_style=None,
     initial_view_state=view_state,
-    # layers=[geojson,hexagon]
+    # layers=[hexagon,scatterplot,heatmap]
     layers=[hexagon,scatterplot]
+
 ))
