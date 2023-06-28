@@ -24,7 +24,8 @@ localtileserver
 osmnx
 rasterstats
 prophet
-
+streamlit_image_select
+prettymapp
 # git+https://github.com/giswqs/leafmap
 # git+https://github.com/giswqs/geemap
 

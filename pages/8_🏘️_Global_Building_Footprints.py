@@ -5,25 +5,25 @@ import streamlit as st
 
 st.set_page_config(layout="wide")
 
-
-@st.cache(persist=True)
-def ee_authenticate(token_name="EARTHENGINE_TOKEN"):
-    geemap.ee_initialize(token_name=token_name)
-
 st.sidebar.info(
     """
-    - Web: <https://becagis.streamlit.app/>
-    - GitHub: <https://github.com/thangqd/becagis_streamlit>
+    - Web: [BecaGIS Streamlit](https://becagis.streamlit.app)
+    - GitHub: [BecaGIS Streamlit](https://github.com/thangqd/becagis_streamlit) 
     """
 )
 
 st.sidebar.title("Contact")
 st.sidebar.info(
     """
-    Thang Quach: <https://thangqd.github.io>
-    [GitHub](https://github.com/thangqd) | [Twitter](https://twitter.com/thangqd) | [LinkedIn](https://www.linkedin.com/in/thangqd)
+    Thang Quach: [BecaGIS Homepage](https://becagis.vn/?lang=en) | [GitHub Pages](https://thangqd.github.io)
+    [GitHub](https://github.com/thangqd) | [Twitter](https://twitter.com/quachdongthang) | [LinkedIn](https://www.linkedin.com/in/thangqd)
     """
 )
+
+@st.cache(persist=True)
+def ee_authenticate(token_name="EARTHENGINE_TOKEN"):
+    geemap.ee_initialize(token_name=token_name)
+
 
 st.title("Global Building Footprints")
 
