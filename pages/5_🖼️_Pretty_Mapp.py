@@ -6,8 +6,8 @@ import copy
 import json
 import sys,os
 from streamlit_image_select import image_select
-# sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'lib'))
-from lib.utils import (
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'lib'))
+from utils import (
     st_get_osm_geometries,
     st_plot_all,
     get_colors_from_style,
