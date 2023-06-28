@@ -19,7 +19,9 @@ st.sidebar.info(
     [GitHub](https://github.com/thangqd) | [Twitter](https://twitter.com/quachdongthang) | [LinkedIn](https://www.linkedin.com/in/thangqd)
     """
 )
-
+st.caption( """
+    Cre: [AI-Talks](https://github.com/dKosarevsky/AI-Talks) 
+    """)
 
 from PIL import Image
 import os
@@ -30,6 +32,7 @@ import streamlit as st
 HtmlFile = open("./data/image_slideshow.html", 'r', encoding='utf-8')
 source_code = HtmlFile.read() 
 components.html(source_code,height = 800)
+
 
 # path = "./data/AIFaces/"
 # list = os.listdir(path)
