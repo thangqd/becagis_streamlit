@@ -4,7 +4,9 @@ geopandas
 leafmap
 palettable
 streamlit
+streamlit-elements
 torch
 prophet
 streamlit_image_select
 prettymapp
+owslib
