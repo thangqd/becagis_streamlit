@@ -27,8 +27,8 @@ with st.expander("See source code"):
         m = leafmap.Map(center=[10.045180, 105.78841], zoom=8, tiles="stamentoner")
         m.add_heatmap(
             filepath,
-            latitude="lat",
-            longitude="lon",
+            latitude="lattitude",
+            longitude="latitude",
             value="id",
             name="Heat map",
             radius=20,

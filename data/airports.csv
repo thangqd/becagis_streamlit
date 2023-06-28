@@ -1,4 +1,4 @@
-id,name,city,country,faa,icao,alt,tz-offset,dst,tz,lon,lat
+id,name,city,country,faa,icao,alt,tz-offset,dst,tz,longitude,latitude
 "1",Goroka Airport,Goroka,Papua New Guinea,GKA,AYGA,"5282","10",U,Pacific/Port_Moresby,145.391998,-6.08169
 "2",Madang Airport,Madang,Papua New Guinea,MAG,AYMD,"20","10",U,Pacific/Port_Moresby,145.789001,-5.20708
 "3",Mount Hagen Kagamuga Airport,Mount Hagen,Papua New Guinea,HGU,AYMH,"5388","10",U,Pacific/Port_Moresby,144.296005,-5.82679

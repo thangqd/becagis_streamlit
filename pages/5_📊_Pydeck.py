@@ -38,14 +38,14 @@ geojson = pdk.Layer(
 )
 
 SCATTERPLOT_URL = (
-    "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/watersupply_mekong.csv"  
+    "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/airports.csv"  
 )
 
 HEXAGON_URL = (
-    "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/wqi.csv"  
+    "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/airports.csv"  
 )
 HEATMAP_URL = (
-    "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/wqi.csv"  
+    "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/airports.csv"  
 )
 
 heatmap = pdk.Layer(
@@ -54,7 +54,7 @@ heatmap = pdk.Layer(
     opacity=0.9,
     get_position=["longitude", "latitude"],
     # aggregation=str('MEAN'),
-    get_weight="WQI")
+    get_weight="id")
 
 # Define a layer to display on a map
 hexagon = pdk.Layer(
