@@ -23,20 +23,20 @@ st.title("Marker Cluster")
 with st.expander("See source code"):
     with st.echo():
 
-        m = leafmap.Map(center=[10.045180, 105.78841], zoom=0)       
+        m = leafmap.Map(center=[10.045180, 105.78841], zoom=0, tiles="stamentoner")       
         # watersupply_mekong = './data/wqi.csv'
         airports =  './data/airports.csv'
-        provinces = './data/vn_provinces.geojson'
+        # provinces = './data/vn_provinces.geojson'
 
-        m.add_geojson(provinces, layer_name='Vietnam Province')
+        # m.add_geojson(provinces, layer_name='Vietnam Province')
         m.add_points_from_xy(
             airports,
-            x="longitude",
-            y="latitude",
+            x="lon",
+            y="lat"
             # color_column='province',
-            icon_names=['gear', 'map', 'leaf', 'globe'],
-            spin=True,
-            add_legend=True
+            # icon_names=['gear', 'map', 'leaf', 'globe'],
+            # spin=True,
+            # add_legend=True
         )
 
 m.to_streamlit(height=700)

@@ -22,13 +22,14 @@ st.title("Heatmap")
 
 with st.expander("See source code"):
     with st.echo():
-        filepath = "./data/wqi.csv"
+        # filepath = "./data/wqi.csv"
+        filepath = "./data/airports.csv"
         m = leafmap.Map(center=[10.045180, 105.78841], zoom=8, tiles="stamentoner")
         m.add_heatmap(
             filepath,
-            latitude="latitude",
-            longitude="longitude",
-            value="WQI",
+            latitude="lat",
+            longitude="lon",
+            # value="WQI",
             name="Heat map",
             radius=20,
         )
