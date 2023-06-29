@@ -93,6 +93,6 @@ st.pydeck_chart(pdk.Deck(
     map_style=None,
     initial_view_state=view_state,
     # layers=[hexagon,scatterplot,heatmap]
-    layers=[hexagon,scatterplot]
+    layers=[hexagon,scatterplot,heatmap]
 
 ))
