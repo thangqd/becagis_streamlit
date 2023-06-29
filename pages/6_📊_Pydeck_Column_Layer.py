@@ -23,9 +23,12 @@ st.sidebar.info(
 DATA_URL = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/wqi.csv"
 df = pd.read_csv(DATA_URL)
 
-view = pdk.data_utils.compute_view(df[["longitude", "latitude"]])
-view.pitch = 75
-view.bearing = 60
+# view = pdk.data_utils.compute_view(df[["longitude", "latitude"]])
+# view.pitch = 45
+# view.bearing = 0
+
+view_state = pdk.ViewState(latitude=10.045180, longitude=105.78841, bearing=0, pitch=50, zoom=10)
+
 
 column_layer = pdk.Layer(
     "ColumnLayer",
@@ -46,10 +49,11 @@ tooltip = {
 
 r = pdk.Deck(
     column_layer,
-    initial_view_state=view,
+    initial_view_state=view_state,
     tooltip=tooltip,
     map_provider="mapbox",
-    map_style=pdk.map_styles.SATELLITE,
+    # map_style=pdk.map_styles.SATELLITE,
+    map_style=None,
 )
 
 st.pydeck_chart(r)
