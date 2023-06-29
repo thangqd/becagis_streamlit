@@ -19,9 +19,9 @@ st.sidebar.info(
     """
 )
 
-DATA_URL = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/airlines_vn.csv"
-# DATA_URL = "./data/airlines_vn.csv"
-# DATA_URL = "https://raw.githubusercontent.com/ajduberstein/sf_public_data/master/bay_area_commute_routes.csv"
+# DATA_URL = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/airlines_vn.csv"
+DATA_URL = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/airlines.csv"
+
 df = pd.read_csv(DATA_URL)
 # st.write (df)
 
@@ -31,7 +31,7 @@ RED_RGB = [240, 100, 0, 40]
 arc_layer = pdk.Layer(
     "ArcLayer",
     data=df,
-    get_width="2",
+    get_width="0.1",
     # get_width=2,
     get_source_position=["lon_f", "lat_f"],
     get_target_position=["lon_t", "lat_t"],
