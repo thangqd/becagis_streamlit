@@ -42,7 +42,7 @@ air_lines = pdk.Layer(
     auto_highlight=True,
 )
 
-view_state = pdk.ViewState(latitude=0, longitude=0, bearing=0, pitch=20, zoom=1)
+view_state = pdk.ViewState(latitude=0, longitude=20, bearing=0, pitch=20, zoom=1)
 
 TOOLTIP_TEXT = {"html": "{src} to {dst} "}
 # r = pdk.Deck(arc_layer, initial_view_state=view_state)
