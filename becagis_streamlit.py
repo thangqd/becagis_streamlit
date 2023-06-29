@@ -26,7 +26,7 @@ with col1:
 with col2:
     st.title("BecaGIS on Streamlit")
 
-st.image("./data/prettymapp/flightroute.png")
+st.image("./data/pythonmaps/flight_routes.png")
 
 # m = leafmap.Map(minimap_control=True,tiles=None)
 # m.add_basemap("Stamen.Watercolor")
