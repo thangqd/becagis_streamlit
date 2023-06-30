@@ -152,12 +152,12 @@ if not st.session_state:
 
 example_image_pattern = "./data/prettymapp/{}_small.png"
 example_image_fp = [
-    example_image_pattern.format(name.lower()) for name in list(EXAMPLES.keys())[:4]
+    example_image_pattern.format(name.lower()) for name in list(EXAMPLES.keys())[:5]
 ]
 index_selected = image_select(
     "",
     images=example_image_fp,
-    captions=list(EXAMPLES.keys())[:4],
+    captions=list(EXAMPLES.keys())[:5],
     index=0,
     return_value="index",
 )

@@ -1,4 +1,25 @@
 {
+    
+    "Portland": {
+        "address": "Portland",
+        "custom_title": "Portland",
+        "radius": 1500,
+        "style": "Peach",
+        "shape": "circle",
+        "contour_width": 1,
+        "contour_color": "#2F3537",
+        "image": "portland.png",
+        "name_on": true,
+        "font_size": 25,
+        "font_color": "#2F3737",
+        "text_x": 19,
+        "text_y": -45,
+        "text_rotation": -24,
+        "bg_shape": "circle",
+        "bg_buffer": 2,
+        "bg_color": "#F2F4CB"
+    },
+
     "HCMC": {
         "address": "Ben Thanh Ward, District 1, Hồ Chí Minh City, Vietnam",
         "custom_title": "HCMC",
