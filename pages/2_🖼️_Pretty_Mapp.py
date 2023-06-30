@@ -60,9 +60,9 @@ def get_colors_from_style(style: str) -> dict:
     return lc_class_colors
 
 @st.cache_data
-def plt_to_svg(fig: figure) -> str:
+def plt_to_svg(_fig: figure) -> str:
     imgdata = StringIO()
-    fig.savefig(
+    _fig.savefig(
         imgdata, format="svg", pad_inches=0, bbox_inches="tight", transparent=True
     )
     imgdata.seek(0)
@@ -143,7 +143,6 @@ with open("./data/prettymapp/examples.json", "r",encoding="utf-8") as f:
 
 if not st.session_state:
     st.session_state.update(EXAMPLES["Portland"])
-
     lc_class_colors = get_colors_from_style("Peach")
     st.session_state.lc_classes = list(lc_class_colors.keys())  # type: ignore
     st.session_state.update(lc_class_colors)
@@ -319,7 +318,7 @@ with st.spinner("Creating map... (may take up to a minute)"):
 #     data = svg_string
 # elif img_format == "png":
 #     import io
-#
+
 #     data = io.BytesIO()
 #     fig.savefig(data, pad_inches=0, bbox_inches="tight", transparent=True)
 # st.download_button(label="Download image", data=data, file_name=f"{fname}.{img_format}")
@@ -340,8 +339,4 @@ with ex2.expander("Export geometries as GeoJSON"):
 config = {"address": address, **config}
 with ex2.expander("Export map configuration"):
     st.write(config)
-
-
-
-
 st.session_state["previous_style"] = style
