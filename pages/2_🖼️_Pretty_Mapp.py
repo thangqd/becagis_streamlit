@@ -142,7 +142,7 @@ with open("./data/prettymapp/examples.json", "r",encoding="utf-8") as f:
     EXAMPLES = json.load(f)
 
 if not st.session_state:
-    st.session_state.update(EXAMPLES["HCMC"])
+    st.session_state.update(EXAMPLES["Portland"])
 
     lc_class_colors = get_colors_from_style("Peach")
     st.session_state.lc_classes = list(lc_class_colors.keys())  # type: ignore
