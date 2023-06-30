@@ -13,4 +13,3 @@ prettymapp
 owslib
 segment-geospatial
 geonamescache
-gadm
