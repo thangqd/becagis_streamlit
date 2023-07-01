@@ -82,7 +82,7 @@ class suppress_stdout_stderr(object):
 logging.getLogger('prophet').setLevel(logging.WARNING)
 
 # read data from csv file
-df = pd.read_csv('./data/wqi.csv')
+df = pd.read_csv('./data/wqi_timeseries.csv')
 
 # streamlit app starts here
 st.title("Prophet Test App in Streamlit")
