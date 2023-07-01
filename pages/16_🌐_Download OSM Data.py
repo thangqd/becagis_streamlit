@@ -32,6 +32,5 @@ with st.expander("See source code"):
         m = leafmap.Map(toolbar_control=False, layers_control=True)
         # m.add_osm_from_geocode("Chicago, Illinois", layer_name='Chicago, IL')
         gdf = leafmap.osm_gdf_from_place("New York City", tags={"amenity": "bar"})
-st.write(gdf)        
 m.to_streamlit(height=700)
 
