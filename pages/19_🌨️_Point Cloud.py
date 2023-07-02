@@ -43,10 +43,11 @@ r = pdk.Deck(point_cloud_layer, initial_view_state=view_state, views=[view])
 # st.pydeck_chart(r)
 r.to_html("point_cloud_layer.html", css_background_color="#000000")
 
+with open("point_cloud_layer.html", 'r', encoding='utf-8') as f: 
+    html_data = f.read()
 
-HtmlFile = open("point_cloud_layer.html", 'r', encoding='utf-8')
-source_code = HtmlFile.read() 
-components.html(source_code)
+components.html(html_data,height = 500)
+
 # components.iframe("point_cloud_layer.html")
 # with st.expander("See source code"):
 #     with st.echo():

@@ -21,8 +21,10 @@ st.sidebar.info(
 
 st.title("Cesium 3D Map")
 html = "./data/html/saigon_buildings.html"
+# html = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/html/saigon_buildings.html"
 # leafmap.cesium_to_streamlit(html,width=800, height=600, responsive=True, scrolling=False)
 
-HtmlFile = open(html, 'r', encoding='utf-8')
-source_code = HtmlFile.read() 
-components.html(source_code,height = 500)
+with open(html, 'r', encoding='utf-8') as f: 
+    html_data = f.read()
+
+components.html(html_data,height = 500)
