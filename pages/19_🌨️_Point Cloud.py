@@ -46,10 +46,8 @@ r.to_html("point_cloud_layer.html", css_background_color="#000000")
 
 HtmlFile = open("point_cloud_layer.html", 'r', encoding='utf-8')
 source_code = HtmlFile.read() 
-components.html(source_code,height = 500)
+components.html(source_code)
 # components.iframe("point_cloud_layer.html")
-
-
 # with st.expander("See source code"):
 #     with st.echo():
 #         laz = './data/pentagon.laz'   
