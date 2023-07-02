@@ -1,4 +1,4 @@
-id,airline,airline_id,src,src_id,dst,dst_id,equipment,src_lon,src_lat,dest_lon,dest_lat
+id,airline,airline_id,src,src_id,dest,dest_id,equipment,src_lon,src_lat,dest_lon,dest_lat
 1,VN,5309,AUH,2179,KUL,3304,77W,54.6511,24.433001,101.71,2.74558
 2,VN,5309,BMV,6187,SGN,3205,AT7 321,108.120003,12.6683,106.652,10.8188
 3,VN,5309,CAN,3370,SGN,3205,321,113.299004,23.392401,106.652,10.8188
