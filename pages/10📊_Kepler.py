@@ -35,6 +35,7 @@ df = pd.DataFrame(
 # df_airlines = pd.read_csv(airlines)
 
 airports =  'https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/kepler_points.csv'
+
 df_airports = pd.read_csv(airports)
 
 airlines =  'https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/kepler_arcs.csv'
