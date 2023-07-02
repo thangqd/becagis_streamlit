@@ -21,7 +21,7 @@ st.sidebar.info(
 )
 
 @st.cache(persist=True)
-def ee_authenticate(token_name="4/1AZEOvhVqB57N_JUHxe9-jfTCsrcKilDvpb8dcuA6UaDFz-s1jgpxlH3cUSg"):
+def ee_authenticate(token_name="EARTHENGINE_TOKEN"):
     geemap.ee_initialize(token_name=token_name)
 
 

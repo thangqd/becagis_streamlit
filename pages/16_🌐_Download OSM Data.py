@@ -28,9 +28,17 @@ st.title(" Download OSM Data")
 with st.expander("See source code"):
     with st.echo():
         m = leafmap.Map(toolbar_control=False, layers_control=True)
-        # m.add_osm_from_geocode("New York City", layer_name='NYC')        
-        m = leafmap.Map(toolbar_control=False, layers_control=True)
-        # m.add_osm_from_geocode("Chicago, Illinois", layer_name='Chicago, IL')
-        gdf = leafmap.osm_gdf_from_place("New York City", tags={"amenity": "bar"})
-m.to_streamlit(height=700)
+        # try: 
+            # gdf = leafmap.osm_gdf_from_place("New York City", tags={"amenity": "bar"})
+            # m.add_gdf(gdf, layer_name='New York City')
+        m.add_osm_from_point(
+                        center_point=(46.7808, -96.0156),
+                        tags={"natural": "water"},
+                        dist=10000,
+                        layer_name="Lakes",
+                    )
+        # except: 
+        #     pass
+        m
+# m.to_streamlit(height=700)
 

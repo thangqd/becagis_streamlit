@@ -1,6 +1,7 @@
 folium==0.13.0
 geemap[extra]
 geopandas
+osmnx
 leafmap
 keplergl
 palettable

@@ -21,9 +21,6 @@ st.sidebar.info(
     """
 )
 
-
-
-
 DATA_URL = "https://raw.githubusercontent.com/ajduberstein/geo_datasets/master/small_waterfall.csv"
 df = pd.read_csv(DATA_URL)
 
