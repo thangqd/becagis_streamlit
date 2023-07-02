@@ -56,8 +56,4 @@ def gadm_download(country_code, country_lod):
     m.add_gdf(gdf, layer_name='Administrative Border')
     m.to_streamlit()         
 
-st.button('Retrieve Data', on_click=gadm_download(country_code,country_lod)) 
-import ee
-ee.Authenticate()
-ee.Initialize()
-print(ee.Image("NASA/NASADEM_HGT/001").get("title").getInfo())
+st.button('Retrieve Data', on_click=gadm_download(country_code,country_lod))
