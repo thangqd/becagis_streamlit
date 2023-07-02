@@ -88,7 +88,6 @@ def app():
                     gdf = gpd.read_file(file_path)
                 lon, lat = leafmap.gdf_centroid(gdf)
                 if backend == "pydeck":
-
                     column_names = gdf.columns.values.tolist()
                     random_column = None
                     with container:

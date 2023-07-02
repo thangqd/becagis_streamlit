@@ -1,9 +1,11 @@
 folium==0.13.0
 geemap[extra]
+ee
 geopandas
 osmnx
 leafmap
 keplergl
+streamlit-keplergl
 palettable
 streamlit
 streamlit_extras
