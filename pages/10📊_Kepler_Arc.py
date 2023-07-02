@@ -28,18 +28,18 @@ df = pd.DataFrame(
         "Longitude": [-122.43, -121.89, -122.14],
     }
 )
-# airports =  'https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/airports.csv'
-# df_airports = pd.read_csv(airports)
-
-# airlines =  'https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/airlines.csv'
-# df_airlines = pd.read_csv(airlines)
-
-airports =  'https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/kepler_points.csv'
-
+airports =  'https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/airports.csv'
 df_airports = pd.read_csv(airports)
 
-airlines =  'https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/kepler_arcs.csv'
+airlines =  'https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/airlines.csv'
 df_airlines = pd.read_csv(airlines)
+
+# airports =  'https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/kepler_points.csv'
+
+# df_airports = pd.read_csv(airports)
+
+# airlines =  'https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/kepler_arcs.csv'
+# df_airlines = pd.read_csv(airlines)
 
 m = KeplerGl(height=600)
 m.add_data(
