@@ -21,17 +21,10 @@ st.sidebar.info(
 )
 
 
-df = pd.DataFrame(
-    {
-        "City": ["San Francisco", "San Jose", "Palo Alto"],
-        "Latitude": [37.77, 37.33, 37.44],
-        "Longitude": [-122.43, -121.89, -122.14],
-    }
-)
 airports =  'https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/airports.csv'
 df_airports = pd.read_csv(airports)
 
-airlines =  'https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/airlines.csv'
+airlines =  'https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/airlines_oneway.csv'
 df_airlines = pd.read_csv(airlines)
 
 m = KeplerGl(height=600)
