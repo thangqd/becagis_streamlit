@@ -22,7 +22,7 @@ st.sidebar.info(
 st.title("Pydeck Arc")
 
 # DATA_URL = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/airlines_vn.csv"
-AIRLINES_URL = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/uk_commute.csv"
+AIRLINES_URL = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/airlines.csv"
 
 airlines_df = pd.read_csv(AIRLINES_URL)
 # st.write (df)
