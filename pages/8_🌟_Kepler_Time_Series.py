@@ -19,6 +19,7 @@ st.sidebar.info(
     [GitHub](https://github.com/thangqd) | [Twitter](https://twitter.com/quachdongthang) | [LinkedIn](https://www.linkedin.com/in/thangqd)
     """
 )
+st.title("Kepler Time Series")
 
 
 wqi_timeseries =  'https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/wqi_timeseries.csv'
