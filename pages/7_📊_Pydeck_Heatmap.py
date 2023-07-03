@@ -21,7 +21,6 @@ st.sidebar.info(
 st.title("Pydeck Heatmap")
 
 
-input = "./data/csv/watersupply_mekong.geojson"
 GeoJSON_URL = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/vn_provinces.geojson"
 
 
@@ -63,7 +62,7 @@ heatmap = pdk.Layer(
 hexagon = pdk.Layer(
     "HexagonLayer",
     HEXAGON_URL,
-    get_position=["longitude", "latitude"],
+    get_position=["lon", "lat"],
     auto_highlight=True,
     elevation_scale=50,
     pickable=True,
