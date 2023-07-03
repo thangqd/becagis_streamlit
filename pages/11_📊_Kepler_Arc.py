@@ -25,14 +25,14 @@ airports =  'https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/da
 df_airports = pd.read_csv(airports)
 
 # airlines =  'https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/airlines.csv'
-airlines = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/uk_commute.csv"
+airlines = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/airlines.csv"
 
 df_airlines = pd.read_csv(airlines)
 
 m = KeplerGl(height=600)
-m.add_data(
-    data=df_airports, name="airports"
-)  # Alternative: KeplerGl(height=400, data={"name": df})
+# m.add_data(
+#     data=df_airports, name="airports"
+# )  # Alternative: KeplerGl(height=400, data={"name": df})
 
 m.add_data(
     data=df_airlines, name="airlines"
