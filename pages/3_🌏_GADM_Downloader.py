@@ -1,6 +1,7 @@
 import streamlit as st
 import geopandas as gpd
 import leafmap.kepler as leafmap
+import webbrowser
 
 # st.set_page_config(
 #     page_title="prettymapp", page_icon="🖼️", initial_sidebar_state="collapsed"
@@ -34,12 +35,11 @@ lods =  [3, 2, 4, 3, 4, 2, 4, 2, 1, 2, 3, 2, 1, 3, 5, 3, 2, 2, 5, 2, 3, 5, 2, 4,
 
 col1, col2 = st.columns(2)
 with col1:
-    selected_country = st.selectbox('Choose a country', countries,index = 238)
+    selected_country = st.selectbox('Select a country', countries,index = 238)
     selected_index = countries.index(selected_country)
 with col2:
-     country_lod = st.selectbox('Choose a level',list(range(lods[selected_index])))
+     country_lod = st.selectbox('Select a level',list(range(lods[selected_index])))
      country_code = codes[selected_index]
-
 
 
 @st.cache_data(experimental_allow_widgets=True) 
@@ -48,7 +48,7 @@ def gadm_download(country_code, country_lod):
     mid = 'gadm41_' + country_code
     suf = '_'+ str(country_lod) + '.json'
     download_url = pre + mid + suf   
-    st.write('[Download GeoJSON](' + download_url + ')')   
+    st.write('[Download GeoJSON](' + download_url + ')') 
     
     gdf = gpd.read_file(download_url)   
     lon, lat = leafmap.gdf_centroid(gdf)
