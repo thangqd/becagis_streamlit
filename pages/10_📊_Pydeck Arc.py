@@ -54,7 +54,7 @@ ARIPORTS_URL = (
 air_ports = pdk.Layer(
     'ScatterplotLayer',     # Change the `type` positional argument here
     ARIPORTS_URL,
-    get_position=["longitude", "latitude"],
+    get_position=["lon", "lat"],
     auto_highlight=True,
     get_radius=2000,          # Radius is given in meters
     get_fill_color=[180, 0, 200, 140],  # Set an RGBA value for fill
