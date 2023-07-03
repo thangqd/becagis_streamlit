@@ -1,4 +1,4 @@
-id,ward,district,province,longitude,latitude
+id,ward,district,province,lon,lat
 1,Hòa An,Chợ Mới,An Giang Province,105.497064,10.353940
 2,Hội An,Chợ Mới,An Giang Province,105.526222,10.392071
 3,Bình Phước Xuân,Chợ Mới,An Giang Province,105.566999,10.469020

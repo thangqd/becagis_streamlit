@@ -54,7 +54,7 @@ heatmap = pdk.Layer(
     "HeatmapLayer",
     HEATMAP_URL,
     opacity=0.9,
-    get_position=["longitude", "latitude"],
+    get_position=["lon", "lat"],
     # aggregation=str('MEAN'),
     get_weight="id")
 
@@ -74,7 +74,7 @@ hexagon = pdk.Layer(
 scatterplot = pdk.Layer(
     'ScatterplotLayer',     # Change the `type` positional argument here
     SCATTERPLOT_URL,
-    get_position=["longitude", "latitude"],
+    get_position=["lon", "lat"],
     auto_highlight=True,
     get_radius=20000,          # Radius is given in meters
     get_fill_color=[180, 0, 200, 140],  # Set an RGBA value for fill

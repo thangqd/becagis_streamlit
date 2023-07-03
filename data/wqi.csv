@@ -1,4 +1,4 @@
-id,matram,kyhieu,longitude,latitude,latitude,wqi
+id,matram,kyhieu,lon,lat,alt,wqi
 1,QLPH012016,QL1,105.68,9.3,0.66,24
 2,QLPH022016,QL2,105.53,9.26,0.54,39
 3,QLPH032016,QL3,105.41,9.23,0.57,33
