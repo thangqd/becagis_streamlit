@@ -24,7 +24,9 @@ st.sidebar.info(
 airports =  'https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/airports.csv'
 df_airports = pd.read_csv(airports)
 
-airlines =  'https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/airlines.csv'
+# airlines =  'https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/airlines.csv'
+airlines = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/uk_commute.csv"
+
 df_airlines = pd.read_csv(airlines)
 
 m = KeplerGl(height=600)

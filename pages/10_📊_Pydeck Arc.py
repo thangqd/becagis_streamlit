@@ -20,7 +20,7 @@ st.sidebar.info(
 )
 
 # DATA_URL = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/airlines_vn.csv"
-AIRLINES_URL = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/airlines.csv"
+AIRLINES_URL = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/uk_commute.csv"
 
 airlines_df = pd.read_csv(AIRLINES_URL)
 # st.write (df)
@@ -32,8 +32,10 @@ air_lines = pdk.Layer(
     "ArcLayer",
     data=airlines_df,
     get_width=2,
-    get_source_position=["src_lon", "src_lat"],
-    get_target_position=["dest_lon", "dest_lat"],
+    # get_source_position=["src_lon", "src_lat"],
+    # get_target_position=["dest_lon", "dest_lat"],
+    get_source_position=["residence_lng", "residence_lat"],
+    get_target_position=["workplace_lng", "workplace_lat"],
     get_tilt=15,
     get_source_color=GREEN_RGB,
     get_target_color=RED_RGB,
