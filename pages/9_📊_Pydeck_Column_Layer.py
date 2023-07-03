@@ -27,23 +27,22 @@ df = pd.read_csv(DATA_URL)
 # view.pitch = 45
 # view.bearing = 0
 
-view_state = pdk.ViewState(latitude=10.045180, longitude=105.78841, bearing=0, pitch=50, zoom=10)
-
+view_state = pdk.ViewState(latitude=36.06408069950445, longitude=-119.26794393426914, bearing=0, pitch=50, zoom=10)
 
 column_layer = pdk.Layer(
     "ColumnLayer",
     data=df,
     get_position=["lon", "lat"],
-    get_elevation="wqi",
+    get_elevation="y",
     elevation_scale=100,
     radius=50,
-    get_fill_color=["wqi * 5", "wqi", "wqi * 2", 140],
+    get_fill_color=["y * 5", "y", "y * 2", 140],
     pickable=True,
     auto_highlight=True,
 )
 
 tooltip = {
-    "html": "Water Quality Index: <b>{wqi}</b> ",
+    "html": "Earquake Magnitude: <b>{wqi}</b> ",
     "style": {"background": "grey", "color": "white", "font-family": '"Helvetica Neue", Arial', "z-index": "10000"},
 }
 
