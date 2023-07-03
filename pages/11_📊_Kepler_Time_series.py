@@ -21,13 +21,13 @@ st.sidebar.info(
 )
 
 
-wqi_timeseries =  'https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/wqi_timeseries.csv'
+wqi_timeseries =  'https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/cali_earthquakes.csv'
 df_wqi = pd.read_csv(wqi_timeseries)
 
 
 m = KeplerGl(height=600)
 m.add_data(
-    data=df_wqi, name="airlines"
+    data=df_wqi, name="Cali Earthquakes"
 )  
 
 keplergl_static(m, center_map=True)
