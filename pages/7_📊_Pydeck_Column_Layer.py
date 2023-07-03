@@ -18,6 +18,7 @@ st.sidebar.info(
     [GitHub](https://github.com/thangqd) | [Twitter](https://twitter.com/quachdongthang) | [LinkedIn](https://www.linkedin.com/in/thangqd)
     """
 )
+st.title("Pydeck Column Layer")
 
 
 DATA_URL = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/cali_earthquakes.csv"

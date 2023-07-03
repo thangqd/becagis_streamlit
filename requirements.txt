@@ -10,7 +10,6 @@ palettable
 streamlit
 streamlit_extras
 streamlit-elements
-prophet
 streamlit_image_select
 prettymapp
 owslib
