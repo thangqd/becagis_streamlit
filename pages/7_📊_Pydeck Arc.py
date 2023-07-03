@@ -25,7 +25,6 @@ st.title("Pydeck Arc")
 AIRLINES_URL = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/airlines.csv"
 
 airlines_df = pd.read_csv(AIRLINES_URL)
-st.write(airlines_df)
 # st.write (df)
 WHITE_RGB = [255, 255, 255, 40]
 GREEN_RGB = [0, 255, 0, 40]
@@ -34,7 +33,7 @@ RED_RGB = [240, 100, 0, 40]
 air_lines = pdk.Layer(
     "ArcLayer",
     data=airlines_df,
-    get_width=0/2,
+    get_width=0.2,
     get_source_position=["src_lon", "src_lat"],
     get_target_position=["dest_lon", "dest_lat"],
     # get_source_position=["residence_lng", "residence_lat"],
