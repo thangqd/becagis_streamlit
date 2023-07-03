@@ -20,7 +20,7 @@ st.sidebar.info(
 )
 
 
-st.title("Change layer opacity")
+st.title("Geemap")
 
 col1, _, col2, _ = st.columns([1, 0.3, 2, 2])
 

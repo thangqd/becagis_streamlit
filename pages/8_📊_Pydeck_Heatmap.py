@@ -18,6 +18,7 @@ st.sidebar.info(
     [GitHub](https://github.com/thangqd) | [Twitter](https://twitter.com/quachdongthang) | [LinkedIn](https://www.linkedin.com/in/thangqd)
     """
 )
+st.title("Pydeck Heatmap")
 
 
 input = "./data/csv/watersupply_mekong.geojson"

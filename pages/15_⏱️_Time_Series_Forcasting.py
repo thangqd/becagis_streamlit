@@ -36,6 +36,7 @@ st.sidebar.info(
     [GitHub](https://github.com/thangqd) | [Twitter](https://twitter.com/quachdongthang) | [LinkedIn](https://www.linkedin.com/in/thangqd)
     """
 )
+st.title("Time Series Forcasting - Prophet")
 
 
 import os

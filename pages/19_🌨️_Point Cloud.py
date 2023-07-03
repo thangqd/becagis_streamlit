@@ -20,6 +20,7 @@ st.sidebar.info(
     [GitHub](https://github.com/thangqd) | [Twitter](https://twitter.com/quachdongthang) | [LinkedIn](https://www.linkedin.com/in/thangqd)
     """
 )
+st.title("Display PointCloud Data")
 
 DATA_URL = "https://raw.githubusercontent.com/ajduberstein/geo_datasets/master/small_waterfall.csv"
 df = pd.read_csv(DATA_URL)

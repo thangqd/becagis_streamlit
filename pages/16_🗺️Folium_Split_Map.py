@@ -20,7 +20,7 @@ st.sidebar.info(
 )
 
 
-st.title("Split Map")
+st.title("Folium Split Map")
 
 with st.expander("See source code"):
     with st.echo():

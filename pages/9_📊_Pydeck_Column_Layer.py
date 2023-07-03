@@ -20,29 +20,29 @@ st.sidebar.info(
 )
 
 
-DATA_URL = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/wqi.csv"
+DATA_URL = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/cali_earthquakes.csv"
 df = pd.read_csv(DATA_URL)
 
 # view = pdk.data_utils.compute_view(df[["longitude", "latitude"]])
 # view.pitch = 45
 # view.bearing = 0
 
-view_state = pdk.ViewState(latitude=36.06408069950445, longitude=-119.26794393426914, bearing=0, pitch=50, zoom=10)
+view_state = pdk.ViewState(latitude=36.06408069950445, longitude=-119.26794393426914, bearing=0, pitch=50, zoom=8)
 
 column_layer = pdk.Layer(
     "ColumnLayer",
     data=df,
     get_position=["lon", "lat"],
     get_elevation="y",
-    elevation_scale=100,
+    elevation_scale=1000,
     radius=50,
-    get_fill_color=["y * 5", "y", "y * 2", 140],
+    get_fill_color=["y * 200", "y", "y * 2", 140],
     pickable=True,
     auto_highlight=True,
 )
 
 tooltip = {
-    "html": "Earquake Magnitude: <b>{wqi}</b> ",
+    "html": "Earquake Magnitude: <b>{y}</b> ",
     "style": {"background": "grey", "color": "white", "font-family": '"Helvetica Neue", Arial', "z-index": "10000"},
 }
 

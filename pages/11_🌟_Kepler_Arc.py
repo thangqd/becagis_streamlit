@@ -19,6 +19,7 @@ st.sidebar.info(
     [GitHub](https://github.com/thangqd) | [Twitter](https://twitter.com/quachdongthang) | [LinkedIn](https://www.linkedin.com/in/thangqd)
     """
 )
+st.title("Kepler Arc")
 
 
 airports =  'https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/airports.csv'
