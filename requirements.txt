@@ -15,4 +15,3 @@ streamlit_image_select
 prettymapp
 owslib
 segment-geospatial
-geonamescache

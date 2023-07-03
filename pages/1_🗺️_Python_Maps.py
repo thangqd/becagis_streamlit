@@ -1,7 +1,7 @@
 import streamlit as st
-from itertools import cycle
 import streamlit.components.v1 as components
-
+from PIL import Image
+import os
 
 st.set_page_config(layout="wide")
 
@@ -20,12 +20,6 @@ st.sidebar.info(
     """
 )
 
-from PIL import Image
-import os
-import streamlit as st
-# from streamlit_elements import elements, mui, html, sync
-
-
 # HtmlFile = open("./data/image_slideshow.html", 'r', encoding='utf-8')
 # source_code = HtmlFile.read() 
 # components.html(source_code,height = 800)
@@ -34,7 +28,7 @@ st.write( """
     Cre: [PythonMaps](https://github.com/symmy596/PythonMaps) | [NASA](https://earthobservatory.nasa.gov/features/NightLights)
     """)
 
-path = "./data/pythonmaps/"
+path = "./data/images/pythonmaps/"
 list = os.listdir(path)
 col1, col2 = st.columns(2)
 

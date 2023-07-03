@@ -20,7 +20,7 @@ st.sidebar.info(
 )
 
 
-DATA_URL = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/wqi.csv"
+DATA_URL = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/wqi.csv"
 df = pd.read_csv(DATA_URL)
 
 # view = pdk.data_utils.compute_view(df[["longitude", "latitude"]])

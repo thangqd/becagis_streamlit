@@ -23,7 +23,7 @@ st.sidebar.info(
 )
 col1, col2 = st.columns([1,30])
 with col1:
-    st.image("./data/gadm.png", width = 30)
+    st.image("./data/images/gadm.png", width = 30)
 with col2:
     st.write("Download admistrative boundaries for all countries and territories | Reference: [GADM](https://gadm.org/)")
 

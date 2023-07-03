@@ -1,10 +1,7 @@
 import streamlit as st
-# from prettymapp.osm import get_osm_geometries
-# from prettymapp.plotting import Plot
 from prettymapp.settings import STYLES
 import copy
 import json
-import sys,os
 from streamlit_image_select import image_select
 # sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'lib'))
 # from utils import (
@@ -20,11 +17,9 @@ import unicodedata
 import re
 from typing import Any
 import io
-
 from matplotlib.pyplot import figure
 import streamlit as st
 from geopandas import GeoDataFrame
-
 from prettymapp.plotting import Plot
 from prettymapp.osm import get_osm_geometries
 from prettymapp.settings import STYLES
@@ -138,7 +133,7 @@ st.write(
     "BecaGIS Prettymapp is inspired by [prettymapp](https://github.com/chrieke/prettymapp)"
 )
 
-with open("./data/prettymapp/examples.json", "r",encoding="utf-8") as f:
+with open("./data/images/prettymapp/examples.json", "r",encoding="utf-8") as f:
     EXAMPLES = json.load(f)
 
 if not st.session_state:
@@ -149,7 +144,7 @@ if not st.session_state:
     st.session_state["previous_style"] = "Peach"
     st.session_state["previous_example_index"] = 0
 
-example_image_pattern = "./data/prettymapp/{}_small.png"
+example_image_pattern = "./data/images/prettymapp/{}_small.png"
 example_image_fp = [
     example_image_pattern.format(name.lower()) for name in list(EXAMPLES.keys())[:5]
 ]

@@ -1,6 +1,4 @@
 import streamlit as st
-# import leafmap.foliumap as leafmap
-# import leafmap.leafmap as leafmap
 import leafmap.foliumap as leafmap
 import leafmap as lm
 import io

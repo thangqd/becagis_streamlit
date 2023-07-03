@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import pydeck as pdk
+
 st.set_page_config(layout="wide")
 
 st.sidebar.info(
@@ -20,7 +21,7 @@ st.sidebar.info(
 )
 
 # DATA_URL = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/airlines_vn.csv"
-AIRLINES_URL = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/uk_commute.csv"
+AIRLINES_URL = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/uk_commute.csv"
 
 airlines_df = pd.read_csv(AIRLINES_URL)
 # st.write (df)
@@ -50,7 +51,7 @@ TOOLTIP_TEXT = {"html": "{src} to {dest} "}
 # r = pdk.Deck(arc_layer, initial_view_state=view_state)
 
 ARIPORTS_URL = (
-    "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/airports.csv"  
+    "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/airports.csv"  
 )
 
 air_ports = pdk.Layer(
@@ -61,21 +62,6 @@ air_ports = pdk.Layer(
     get_radius=2000,          # Radius is given in meters
     get_fill_color=[180, 0, 200, 140],  # Set an RGBA value for fill
     pickable=True)
-
-# pdk.settings.custom_libraries = [
-#     {
-#         "libraryName": "MyTileLayerLibrary",
-#         "resourceUri": "https://cdn.jsdelivr.net/gh/agressin/pydeck_myTileLayer@master/dist/bundle.js",
-#     }
-# ]
-
-# DATA_URL = 'https://c.tile.openstreetmap.org/{z}/{x}/{y}.png'
-# custom_layers = pdk.Layer(
-#     "MyTileLayer",
-#     DATA_URL
-# )
-# r = pdk.Deck(custom_layers, initial_view_state=view_state,map_provider=None)
-# st.components.v1.html(r.to_html(as_string=True), width=800, height=600)
 
 st.pydeck_chart(pdk.Deck(
     layers=[air_lines,air_ports],

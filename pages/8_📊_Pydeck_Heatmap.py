@@ -20,8 +20,8 @@ st.sidebar.info(
 )
 
 
-input = "./data/watersupply_mekong.geojson"
-GeoJSON_URL = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/vn_provinces.geojson"
+input = "./data/csv/watersupply_mekong.geojson"
+GeoJSON_URL = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/vn_provinces.geojson"
 
 
 
@@ -39,14 +39,14 @@ geojson = pdk.Layer(
 )
 
 SCATTERPLOT_URL = (
-    "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/airports.csv"  
+    "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/airports.csv"  
 )
 
 HEXAGON_URL = (
-    "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/watersupply_mekong.csv"  
+    "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/watersupply_mekong.csv"  
 )
 HEATMAP_URL = (
-    "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/airports.csv"  
+    "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/airports.csv"  
     
 )
 

@@ -20,8 +20,6 @@ st.sidebar.info(
     """
 )
 
-
-
 def save_uploaded_file(file_content, file_name):
     """
     Save the uploaded file to a temporary directory
@@ -63,7 +61,7 @@ def app():
 
         url = st.text_input(
             "Enter a URL to a vector dataset",
-            "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/submarine_cable.geojson",
+            "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/submarine_cable.geojson",
         )
 
         data = st.file_uploader(
