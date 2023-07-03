@@ -20,7 +20,7 @@ st.sidebar.info(
 )
 
 # DATA_URL = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/airlines_vn.csv"
-AIRLINES_URL = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/airlines_vn_oneway.csv"
+AIRLINES_URL = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/airlines_vn.csv"
 
 airlines_df = pd.read_csv(AIRLINES_URL)
 # st.write (df)

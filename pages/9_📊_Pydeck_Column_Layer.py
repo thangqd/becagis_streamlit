@@ -33,7 +33,7 @@ view_state = pdk.ViewState(latitude=10.045180, longitude=105.78841, bearing=0, p
 column_layer = pdk.Layer(
     "ColumnLayer",
     data=df,
-    get_position=["longitude", "latitude"],
+    get_position=["lon", "lat"],
     get_elevation="wqi",
     elevation_scale=100,
     radius=50,
