@@ -34,7 +34,7 @@ RED_RGB = [240, 100, 0, 40]
 air_lines = pdk.Layer(
     "ArcLayer",
     data=airlines_df,
-    get_width=2,
+    get_width=0/2,
     get_source_position=["src_lon", "src_lat"],
     get_target_position=["dest_lon", "dest_lat"],
     # get_source_position=["residence_lng", "residence_lat"],
