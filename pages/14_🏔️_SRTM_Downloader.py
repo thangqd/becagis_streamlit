@@ -7,9 +7,6 @@ from streamlit_folium import st_folium
 import folium
 from folium import FeatureGroup
 from folium.plugins import MarkerCluster
-from jinja2 import Template
-from branca.element import MacroElement
-
 import geopandas as gpd
 import pandas as pd
 
@@ -107,20 +104,16 @@ response = urllib.request.urlopen(url)
 
 m = folium.Map(tiles='Stamen Toner')
 df = pd.read_csv("https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/cities.csv")
-fc= FeatureGroup(name="Airports",overlay=True)
-cf_cluster = MarkerCluster(name="Airports").add_to(m)
+fc= FeatureGroup(name="Cities",overlay=True)
+cf_cluster = MarkerCluster(name="Cities").add_to(m)
 for i,row in df.iterrows():
     lat = df.at[i, 'lat']  #latitude
-    lng = df.at[i, 'lon']  #longitude
+    lon = df.at[i, 'lon']  #longitude
     city_name = df.at[i, 'city_name']
     cntry_name = df.at[i,'cntry_name']   
 
     popup = df.at[i,'city_name'] +'<br>' +  str(df.at[i, 'cntry_name']) + '<br>' + '<a href="https://www.google.com/maps?layer=c&cbll=' + str(df.at[i, 'lat']) + ',' + str(df.at[i, 'lon']) + '" target="blank">GOOGLE STREET VIEW</a>'
-    cf_marker = folium.Marker(location=[lat,lng], popup=popup, icon = folium.Icon(color='green', icon='glyphicon-calendar'))
+    cf_marker = folium.Marker(location=[lat,lon], popup=popup, icon = folium.Icon(color='green', icon='glyphicon-calendar'))
     cf_cluster.add_child(cf_marker)
 
 st_folium(m, width=800,returned_objects=[])
-
-
-
-

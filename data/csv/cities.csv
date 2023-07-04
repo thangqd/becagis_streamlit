@@ -1,4 +1,5 @@
-﻿lon,lat,fid,objectid,city_name,gmi_admin,admin_name,fips_cntry,cntry_name,status,pop,pop_rank,pop_class,port_id,label_flag,pop_source-56.0930036752727,-15.6150000711535,1,1,Cuiaba,BRA-MGR,Mato Grosso,BR,Brazil,Provincial capital,540814,3,"500,000 to 999,999",0,0,UN_Data_2010_2020
+﻿lon,lat,fid,objectid,city_name,gmi_admin,admin_name,fips_cntry,cntry_name,status,pop,pop_rank,pop_class,port_id,label_flag,pop_source
+-56.0930036752727,-15.6150000711535,1,1,Cuiaba,BRA-MGR,Mato Grosso,BR,Brazil,Provincial capital,540814,3,"500,000 to 999,999",0,0,UN_Data_2010_2020
 -47.8977476573594,-15.7921109430588,2,2,Brasilia,BRA-DFD,Distrito Federal,BR,Brazil,National and provincial capital,2481272,2,"1,000,000 to 4,999,999",0,0,UN_Data_2010_2020
 -49.2550016031605,-16.7270039245648,3,3,Goiania,BRA-GOI,Goias,BR,Brazil,Provincial capital,1297154,2,"1,000,000 to 4,999,999",0,0,UN_Data_2010_2020
 -54.6159956592778,-20.4509970534418,4,4,Campo Grande,BRA-MGD,Mato Grosso do Sul,BR,Brazil,Provincial capital,776242,3,"500,000 to 999,999",0,0,UN_Data_2010_2020
