@@ -10,6 +10,8 @@ from folium.plugins import MarkerCluster
 import geopandas as gpd
 import pandas as pd
 from folium import plugins
+import json
+import requests
 
 
 
@@ -127,34 +129,30 @@ def highlight_function(feature):
         'dashArray': '5, 5'
     }
 
+srtm_bbox = json.loads(requests.get(srtm_bbox_url).text)
+# print(js_data)
 
-popup = folium.GeoJsonPopup(
-    fields=["dem", "image"],
-    aliases=["DEM", "image"],
-    localize=True,
-    labels=True,
-    # style="background-color: yellow;",
-)
+m = folium.Map(location=[53.2193835, 6.5665018], zoom_start=2)
 
+featuregroup = folium.map.FeatureGroup(name='SRTM BBox').add_to(m)
 
-srtm_bbox = folium.GeoJson(srtm_bbox_gdp, style_function = style_function, highlight_function=highlight_function, popup=popup)
-srtm_bbox.add_to(m)
+for feature in srtm_bbox['features']:
+    fea = folium.GeoJson(feature['geometry'],style_function = style_function, highlight_function=highlight_function)
+    fea.add_child(folium.Popup(['<a href="' + feature['properties']['dem'] + '" target="blank">DEM: </a>',
+                              '<a href=' + feature['properties']['image'] + '" target="blank">JPG: </a>'] ))
+    featuregroup.add_child(fea)
 
-# layer = folium.FeatureGroup(name='SRTM')
-
-# for index, row in srtm_bbox_gdp.iterrows():
-#     c = folium.GeoJson(
-#         row['geojson'],
-#         name=('{}{}'.format(row['dataFile'], row['dataFile'])),
-#         overlay=True,
-#         style_function=style_function,
-#         highlight_function=highlight_function
-#     )
-#     folium.Popup('{}\n{}'.format(row['dataFile'], row['dataFile'])).add_to(c)
-#     c.add_to(layer)
-
-# layer.add_to(m)
 # folium.LayerControl().add_to(m)
+# popup = folium.GeoJsonPopup(
+#     fields=["dem", "image"],
+#     aliases=['DEM', 'JPG'],
+#     localize=True,
+#     labels=True,
+#     # style="background-color: yellow;",
+# )
 
+# folium.GeoJson(srtm_bbox_gdp, style_function = style_function, highlight_function=highlight_function, popup=popup).add_to(m)
+# srtm_bbox = folium.GeoJson(srtm_bbox_gdp, style_function = style_function, highlight_function=highlight_function, popup=popup)
+# srtm_bbox.add_to(m)
 
 st_folium(m, width=800,returned_objects=[])

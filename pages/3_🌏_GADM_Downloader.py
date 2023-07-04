@@ -1,7 +1,6 @@
 import streamlit as st
 import geopandas as gpd
 import leafmap.kepler as leafmap
-import webbrowser
 
 # st.set_page_config(
 #     page_title="prettymapp", page_icon="🖼️", initial_sidebar_state="collapsed"
