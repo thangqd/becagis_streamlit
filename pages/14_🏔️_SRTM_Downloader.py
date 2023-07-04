@@ -106,11 +106,6 @@ response = urllib.request.urlopen(url)
 # # m.add_gdf(gdf, layer_name='SRTM BBox')
 # m.add_geojson(srtm_grid, layer_name='SRTM BBox')
 
-srtm_bbox_url = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/srtm_bbox.geojson"
-srtm_bbox_gdp = gpd.read_file(srtm_bbox_url)
-
-m = folium.Map(tiles="stamenterrain", location = [10.78418915150491, 106.70361262696979], zoom_start = 3)
-
 def style_function(feature):
     return {
         'fillColor': '#ffaf00',
@@ -129,30 +124,29 @@ def highlight_function(feature):
         'dashArray': '5, 5'
     }
 
+srtm_bbox_url = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/srtm_bbox.geojson"
+srtm_bbox_gdp = gpd.read_file(srtm_bbox_url)
 srtm_bbox = json.loads(requests.get(srtm_bbox_url).text)
-# print(js_data)
+m = folium.Map(tiles="stamenterrain", location = [10.78418915150491, 106.70361262696979], zoom_start = 3)
 
-m = folium.Map(location=[53.2193835, 6.5665018], zoom_start=2)
+# featuregroup = folium.map.FeatureGroup(name='SRTM BBox').add_to(m)
+# i =0
+# for feature in srtm_bbox['features']:
+#     while i < 10:
+#         fea = folium.GeoJson(feature['geometry'],style_function = style_function, highlight_function=highlight_function)
+#         fea.add_child(folium.Popup(['<a href="' + feature['properties']['dem'] + '" target="blank">DEM: </a>'+ '<br>' + '<a href=' + feature['properties']['image'] + '" target="blank">JPG: </a>'] ))
+#         featuregroup.add_child(fea)
+#     i+=1
 
-featuregroup = folium.map.FeatureGroup(name='SRTM BBox').add_to(m)
+popup = folium.GeoJsonPopup(
+    fields=["dem", "image"],
+    aliases=['DEM', 'JPG'],
+    localize=True,
+    labels=True,
+    # style="background-color: yellow;",
+)
 
-for feature in srtm_bbox['features']:
-    fea = folium.GeoJson(feature['geometry'],style_function = style_function, highlight_function=highlight_function)
-    fea.add_child(folium.Popup(['<a href="' + feature['properties']['dem'] + '" target="blank">DEM: </a>',
-                              '<a href=' + feature['properties']['image'] + '" target="blank">JPG: </a>'] ))
-    featuregroup.add_child(fea)
-
-# folium.LayerControl().add_to(m)
-# popup = folium.GeoJsonPopup(
-#     fields=["dem", "image"],
-#     aliases=['DEM', 'JPG'],
-#     localize=True,
-#     labels=True,
-#     # style="background-color: yellow;",
-# )
-
-# folium.GeoJson(srtm_bbox_gdp, style_function = style_function, highlight_function=highlight_function, popup=popup).add_to(m)
-# srtm_bbox = folium.GeoJson(srtm_bbox_gdp, style_function = style_function, highlight_function=highlight_function, popup=popup)
-# srtm_bbox.add_to(m)
+srtm_bbox = folium.GeoJson(srtm_bbox_gdp, style_function = style_function, highlight_function=highlight_function, popup=popup)
+srtm_bbox.add_to(m)
 
 st_folium(m, width=800,returned_objects=[])
