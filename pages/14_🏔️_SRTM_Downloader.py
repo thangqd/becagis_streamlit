@@ -106,13 +106,13 @@ m = folium.Map(tiles='Stamen Toner')
 df = pd.read_csv("https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/cities.csv")
 fc= FeatureGroup(name="Cities",overlay=True)
 cf_cluster = MarkerCluster(name="Cities").add_to(m)
+
 for i,row in df.iterrows():
     lat = df.at[i, 'lat']  #latitude
     lon = df.at[i, 'lon']  #longitude
     city_name = df.at[i, 'city_name']
-    cntry_name = df.at[i,'cntry_name']   
-
-    popup = df.at[i,'city_name'] +'<br>' +  str(df.at[i, 'cntry_name']) + '<br>' + '<a href="https://www.google.com/maps?layer=c&cbll=' + str(df.at[i, 'lat']) + ',' + str(df.at[i, 'lon']) + '" target="blank">GOOGLE STREET VIEW</a>'
+    cntry_name = df.at[i,'cntry_name'] 
+    popup = city_name +'<br>' +  cntry_name + '<br>' + '<a href="https://www.google.com/maps?layer=c&cbll=' + str(df.at[i, 'lat']) + ',' + str(df.at[i, 'lon']) + '" target="blank">GOOGLE STREET VIEW</a>'
     cf_marker = folium.Marker(location=[lat,lon], popup=popup, icon = folium.Icon(color='green', icon='glyphicon-calendar'))
     cf_cluster.add_child(cf_marker)
 
