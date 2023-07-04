@@ -26,24 +26,28 @@ st.sidebar.info(
 
 # Reference: https://dwtkns.com/srtm30m/
 
-st.title("Open Google Street View")
+st.title("Google Street View")
 col1, col2 = st.columns([1,30])
 with col1:
     st.image("./data/images/streetview.png",width = 30)
 with col2:
     st.write("Open Google Street View")
 
-m = folium.Map(tiles='Stamen Toner')
-df = pd.read_csv("https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/cali_earthquakes.csv")
-fc= FeatureGroup(name="Cities",overlay=True)
-cf_cluster = MarkerCluster(name="Cities").add_to(m)
+us_cities = pd.read_csv("https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/us_cities.csv")
+# us_cities = us_cities.dropna().reset_index()
+Minot_city_long = us_cities[us_cities["city"] == "Minot"].lon.values[0]
+Minot_city_lat = us_cities[us_cities["city"] == "Minot"].lat.values[0]
+m = folium.Map(tiles='Stamen Toner', location=[Minot_city_lat, Minot_city_long], zoom_start=3)
 
-for i,row in df.iterrows():
-    lat = df.at[i, 'lat']  #latitude
-    lon = df.at[i, 'lon']  #longitude
-    popup = str(df.at[i,'depth']) +'<br>' + str(df.at[i, 'y']) + '<br>' + '<a href="https://www.google.com/maps?layer=c&cbll=' + str(df.at[i, 'lat']) + ',' + str(df.at[i, 'lon']) + '" target="blank">GOOGLE STREET VIEW</a>'
-    cf_marker = folium.Marker(location=[lat,lon], popup=popup, icon = folium.Icon(color='green', icon='glyphicon-calendar'))
-    cf_cluster.add_child(cf_marker)
+# fc= FeatureGroup(name="US Cities",overlay=True)
+cities_cluster = MarkerCluster(name="US Cities").add_to(m)
+
+for i,row in us_cities.iterrows():
+    lat = us_cities.at[i, 'lat']  #latitude
+    lon = us_cities.at[i, 'lon']  #longitude
+    popup = us_cities.at[i,'city'] +'<br>' + us_cities.at[i,'state'] +'<br>' + str(us_cities.at[i, 'pop']) + '<br>' + '<a href="https://www.google.com/maps?layer=c&cbll=' + str(us_cities.at[i, 'lat']) + ',' + str(us_cities.at[i, 'lon']) + '" target="blank">GOOGLE STREET VIEW</a>'
+    cities_marker = folium.Marker(location=[lat,lon], popup=popup, icon = folium.Icon(color='yellow', icon='glyphicon-facetime-video'))
+    cities_cluster.add_child(cities_marker)
 
 # st_folium(m, width=800,returned_objects=[])
-st_folium(m, width=800)
+st_folium(m, height=500,width=800,returned_objects=[])

@@ -9,6 +9,8 @@ from folium import FeatureGroup
 from folium.plugins import MarkerCluster
 import geopandas as gpd
 import pandas as pd
+from folium import plugins
+
 
 
 
@@ -102,8 +104,51 @@ response = urllib.request.urlopen(url)
 # # m.add_gdf(gdf, layer_name='SRTM BBox')
 # m.add_geojson(srtm_grid, layer_name='SRTM BBox')
 
-m = folium.Map(tiles='Stamen Toner')
-srtm_bbox = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/srtm_bbox.geojson"
-folium.GeoJson(srtm_bbox).add_to(m)
+srtm_bbox_url = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/srtm_bbox.geojson"
+srtm_bbox_gdp = gpd.read_file(srtm_bbox_url)
 
-st_folium(m, width=1200,returned_objects=[])
+m = folium.Map(tiles="stamenterrain", location = [10.78418915150491, 106.70361262696979], zoom_start = 3)
+
+def style_function(feature):
+    return {
+        'fillColor': '#ffaf00',
+        'fillOpacity': 0.3,
+        'color': 'blue',
+        'weight': 0.2,
+        'dashArray': '5, 5'
+    }
+
+def highlight_function(feature):
+    return {
+        'fillColor': '#ffaf00',
+        'fillOpacity': 0.5,
+        'color': 'magenta',
+        'weight': 3,
+        'dashArray': '5, 5'
+    }
+
+popup = folium.GeoJsonPopup(
+        fields=['dataFile'],
+        aliases=['He he: ']
+    )
+srtm_bbox = folium.GeoJson(srtm_bbox_gdp, style_function = style_function, highlight_function=highlight_function, popup=popup)
+srtm_bbox.add_to(m)
+
+# layer = folium.FeatureGroup(name='SRTM')
+
+# for index, row in srtm_bbox_gdp.iterrows():
+#     c = folium.GeoJson(
+#         row['geojson'],
+#         name=('{}{}'.format(row['dataFile'], row['dataFile'])),
+#         overlay=True,
+#         style_function=style_function,
+#         highlight_function=highlight_function
+#     )
+#     folium.Popup('{}\n{}'.format(row['dataFile'], row['dataFile'])).add_to(c)
+#     c.add_to(layer)
+
+# layer.add_to(m)
+# folium.LayerControl().add_to(m)
+
+
+st_folium(m, width=800,returned_objects=[])
