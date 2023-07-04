@@ -13,3 +13,4 @@ streamlit-elements
 streamlit_image_select
 prettymapp
 owslib
+streamlit_folium
