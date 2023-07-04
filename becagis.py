@@ -39,6 +39,6 @@ st.markdown(
     BecaGIS Streamlit is inspired by [streamlit-geospatial](https://github.com/giswqs/streamlit-geospatial).
     """
 )
-from streamlit_extras.buy_me_a_coffee import button
+# from streamlit_extras.buy_me_a_coffee import button
 
-button(username="thangqd", floating=False, width=221)
+# button(username="thangqd", floating=False, width=221)
