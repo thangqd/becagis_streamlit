@@ -32,9 +32,9 @@ st.sidebar.info(
 # Reference: https://dwtkns.com/srtm30m/
 
 st.title("Download SRTM Data")
-col1, col2 = st.columns([1,15])
+col1, col2 = st.columns([1,30])
 with col1:
-    st.image("./data/images/nasa.png")
+    st.image("./data/images/nasa.png", width = 30)
 with col2:
     st.write("Download 30-meter resolution elevation data (DEM) from the [Shuttle Radar Topography Mission](https://www2.jpl.nasa.gov/srtm/) | Reference: [Derek Watkins](https://dwtkns.com/srtm30m/)")
 
@@ -103,15 +103,7 @@ response = urllib.request.urlopen(url)
 # m.add_geojson(srtm_grid, layer_name='SRTM BBox')
 
 m = folium.Map(tiles='Stamen Toner')
-df = pd.read_csv("https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/cities.csv")
-fc= FeatureGroup(name="Cities",overlay=True)
-cf_cluster = MarkerCluster(name="Cities").add_to(m)
+srtm_bbox = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/srtm_bbox.geojson"
+folium.GeoJson(srtm_bbox).add_to(m)
 
-for i,row in df.iterrows():
-    lat = df.at[i, 'lat']  #latitude
-    lon = df.at[i, 'lon']  #longitude
-    popup = df.at[i,'city_name'] +'<br>' + str(df.at[i, 'cntry_name']) + '<br>' + '<a href="https://www.google.com/maps?layer=c&cbll=' + str(df.at[i, 'lat']) + ',' + str(df.at[i, 'lon']) + '" target="blank">GOOGLE STREET VIEW</a>'
-    cf_marker = folium.Marker(location=[lat,lon], popup=popup, icon = folium.Icon(color='green', icon='glyphicon-calendar'))
-    cf_cluster.add_child(cf_marker)
-
-st_folium(m, width=800,returned_objects=[])
+st_folium(m, width=1200,returned_objects=[])
