@@ -46,7 +46,7 @@ for i,row in us_cities.iterrows():
     lat = us_cities.at[i, 'lat']  #latitude
     lon = us_cities.at[i, 'lon']  #longitude
     popup = us_cities.at[i,'city'] +'<br>' + us_cities.at[i,'state'] +'<br>' + str(us_cities.at[i, 'pop']) + '<br>' + '<a href="https://www.google.com/maps?layer=c&cbll=' + str(us_cities.at[i, 'lat']) + ',' + str(us_cities.at[i, 'lon']) + '" target="blank">GOOGLE STREET VIEW</a>'
-    cities_marker = folium.Marker(location=[lat,lon], popup=popup, icon = folium.Icon(color='yellow', icon='glyphicon-facetime-video'))
+    cities_marker = folium.Marker(location=[lat,lon], popup=popup, icon = folium.Icon(color='orange', icon='glyphicon-facetime-video'))
     cities_cluster.add_child(cities_marker)
 
 # st_folium(m, width=800,returned_objects=[])
