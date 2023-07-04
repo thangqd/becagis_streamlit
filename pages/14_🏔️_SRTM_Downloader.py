@@ -127,10 +127,16 @@ def highlight_function(feature):
         'dashArray': '5, 5'
     }
 
+
 popup = folium.GeoJsonPopup(
-        fields=['dataFile'],
-        aliases=['He he: ']
-    )
+    fields=["dem", "image"],
+    aliases=["DEM", "image"],
+    localize=True,
+    labels=True,
+    # style="background-color: yellow;",
+)
+
+
 srtm_bbox = folium.GeoJson(srtm_bbox_gdp, style_function = style_function, highlight_function=highlight_function, popup=popup)
 srtm_bbox.add_to(m)
 
