@@ -16,10 +16,11 @@ st.sidebar.info(
 st.sidebar.title("Contact")
 st.sidebar.info(
     """
-    Thang Quach: [BecaGIS Homepage](https://becagis.vn/?lang=en) | [GitHub Pages](https://thangqd.github.io)
-    [GitHub](https://github.com/thangqd) | [LinkedIn](https://www.linkedin.com/in/thangqd)
+    Thang Quach: [BecaGIS Homepage](https://becagis.vn/?lang=en) | [My Homepage](https://thangqd.github.io) | [GitHub](https://github.com/thangqd) | [LinkedIn](https://www.linkedin.com/in/thangqd)
     """
 )
+
+
 
 st.write( """
     Cre: [AI-Talks](https://github.com/dKosarevsky/AI-Talks) 
