@@ -15,10 +15,9 @@ st.sidebar.title("Contact")
 st.sidebar.info(
     """
     Thang Quach: [BecaGIS Homepage](https://becagis.vn/?lang=en) | [GitHub Pages](https://thangqd.github.io)
-    [GitHub](https://github.com/thangqd) | [Twitter](https://twitter.com/quachdongthang) | [LinkedIn](https://www.linkedin.com/in/thangqd)
+    [GitHub](https://github.com/thangqd) | [LinkedIn](https://www.linkedin.com/in/thangqd)
     """
 )
-
 st.title("Cesium 3D Map")
 html = "./data/html/saigon_buildings.html"
 # html = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/html/saigon_buildings.html"
