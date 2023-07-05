@@ -2,7 +2,7 @@ import streamlit as st
 from streamlit_folium import st_folium
 import folium
 from folium.plugins import MiniMap,Geocoder
-from pluscodes import PlusCode, Area, Point
+# from pluscodes import PlusCode, Area, Point
 
 
 st.set_page_config(layout="wide")
@@ -43,11 +43,11 @@ map = st_folium(m, width=800)
 point = None
 if map.get("last_clicked"):
     point = get_pos(map["last_clicked"]["lat"], map["last_clicked"]["lng"])
-    googleplex = PlusCode(point)
+    # googleplex = PlusCode(point)
 
 if point is not None:
     st.write(point) # Writes to the app
-    st.write(googleplex.code)
+    # st.write(googleplex.code)
     print(point) # Writes to terminal
-    print(googleplex.code) # Writes to terminal
+    # print(googleplex.code) # Writes to terminal
 
