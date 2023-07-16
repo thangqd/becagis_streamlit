@@ -22,43 +22,35 @@ st.title("Pydeck Polygon")
 DATA_URL = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/vn_districts.geojson"
 view_state = pdk.ViewState(
     # latitude=10.045180, longitude=105.78841, zoom=6, max_zoom=20, pitch=40.5
-    latitude=10.045180, longitude= 105.78841, zoom=4, max_zoom=20, pitch=20
+    latitude=15.873434435958258, longitude= 107.84285586747781, zoom=4, max_zoom=20, pitch=20
 )
-LAND_COVER = [[102.1445779791383615,7.3914373443906403], [103.1445779791383615,8.3914373443906403], [117.8173375809334829,23.3926927473665600, [117.8173375809334829,23.3926927473665600]]]
-
-polygon = pdk.Layer(
-    'PolygonLayer',
-    LAND_COVER,
-    stroked=False,
-    # processes the data as a flat longitude-latitude pair
-    get_polygon='-',
-    get_fill_color=[0, 0, 0, 20]
-)
-
 
 geojson = pdk.Layer(
     'GeoJsonLayer',
     DATA_URL,
     opacity=0.8,
-    stroked=True,
+    stroked=False,
     filled=True,
     extruded=True,
     wireframe=True,
     get_elevation='properties.pop_den',
-    get_fill_color='[255, 255, properties.pop_den / 255]',
+    get_fill_color='[properties.pop_den,255, 125]',
     get_line_color=[255, 255, 255],
+    elevation_scale=2,
+    auto_highlight=True,
     pickable=True
 )
 
 tooltip = {
     "html": "District: <b>{name}</b> </br> Population Density: <b>{pop_den}</b> ",
-    "style": {"background": "grey", "color": "white", "font-family": '"Helvetica Neue", Arial', "z-index": "10000"},
+    # "text": "Population Density: {pop_den}"
+     "style": {"background": "grey", "color": "white", "font-family": '"Helvetica Neue", Arial', "z-index": "10000"},
 }
 
 
 
 r = pdk.Deck(
-    layers=[polygon,geojson],
+    layers=[geojson],
     initial_view_state=view_state,
     tooltip=tooltip,
     map_provider="mapbox",
