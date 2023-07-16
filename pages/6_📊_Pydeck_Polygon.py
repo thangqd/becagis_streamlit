@@ -33,8 +33,8 @@ geojson = pdk.Layer(
     filled=True,
     extruded=True,
     wireframe=True,
-    get_elevation='properties.pop_den',
-    get_fill_color='[properties.pop_den,255, 125]',
+    get_elevation='properties.pop_dens',
+    get_fill_color='[properties.pop_dens,255, 125]',
     get_line_color=[255, 255, 255],
     elevation_scale=2,
     auto_highlight=True,
@@ -42,7 +42,7 @@ geojson = pdk.Layer(
 )
 
 tooltip = {
-    "html": "District: <b>{name}</b> </br> Population Density: <b>{pop_den}</b> ",
+    "html": "District: <b>{name}</b> </br> Population Density: <b>{pop_dens}</b> ",
     # "text": "Population Density: {pop_den}"
      "style": {"background": "grey", "color": "white", "font-family": '"Helvetica Neue", Arial', "z-index": "10000"},
 }
