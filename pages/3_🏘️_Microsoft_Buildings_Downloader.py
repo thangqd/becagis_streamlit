@@ -19,9 +19,22 @@ st.sidebar.info(
 
 st.title("Dowload Microsoft Building Footprints")
 
+@st.cache_data
+def read_data():
+    path = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/ms_buildings.csv"
+    return   pd.read_csv(path)
 
-path = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/ms_buildings.csv"
-df =    pd.read_csv(path)
+df = read_data()
+
+
 countries = df['Location'].drop_duplicates()
-country = st.sidebar.selectbox('Select a country:', countries)
-st.write(df)
+country = st.selectbox('', countries )
+df_filter = df[df['Location'] == country]  # filter
+
+def make_clickable(url, text):
+    return f'<a target="_blank" href="{url}">{text}</a>'
+
+df_filter['Url'] = df_filter['Url'].apply(make_clickable, args = ('Download',))
+st.write(df.to_html(escape = False), unsafe_allow_html = True)
+
+# st.write(df_filter)
