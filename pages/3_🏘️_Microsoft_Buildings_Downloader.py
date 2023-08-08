@@ -18,6 +18,13 @@ st.sidebar.info(
 )
 
 st.title("Dowload Microsoft Building Footprints")
+col1, col2 = st.columns([1,30])
+with col1:
+    st.image("./data/images/ms_buildings.png", width = 30)
+with col2:
+    st.write("Download [Microsoft Building Footprints](https://github.com/microsoft/GlobalMLBuildingFootprints)")
+
+
 
 @st.cache_data
 def read_data():
@@ -35,6 +42,6 @@ def make_clickable(url, text):
     return f'<a target="_blank" href="{url}">{text}</a>'
 
 df_filter['Url'] = df_filter['Url'].apply(make_clickable, args = ('Download',))
-st.write(df.to_html(escape = False), unsafe_allow_html = True)
+st.write(df_filter.to_html(escape = False), unsafe_allow_html = True)
 
 # st.write(df_filter)
