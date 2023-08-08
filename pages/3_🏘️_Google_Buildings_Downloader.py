@@ -64,12 +64,12 @@ def highlight_function(feature):
 google_buildings_url = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/google_buildings.geojson"
 google_buildings_gdp = gpd.read_file(google_buildings_url)
 google_buildings = json.loads(requests.get(google_buildings_url).text)
-m = folium.Map(tiles="stamenterrain", location = [10.78418915150491, 106.70361262696979], zoom_start = 3)
+m = folium.Map(tiles="stamenterrain", location = [-28, 14], zoom_start = 2)
 
 
 popup = folium.GeoJsonPopup(
-    fields=["tile_id", "tile_link", "size_mb"],
-    aliases=['Tile ID: ', 'Tile URL: ', 'Size(MB): '],
+    fields=["tile_id", "size_mb","tile_link"],
+    aliases=['Tile ID: ', 'Size(MB): ','Tile URL: '],
     localize=True,
     labels=True,
     style=(

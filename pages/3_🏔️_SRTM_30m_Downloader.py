@@ -34,10 +34,10 @@ st.sidebar.info(
 
 # Reference: https://dwtkns.com/srtm30m/
 
-st.title("Download SRTM Data")
+st.title("Download 30m SRTM Data")
 col1, col2 = st.columns([1,30])
 with col1:
-    st.image("./data/images/nasa.png", width = 30)
+    st.image("./data/images/nasa.png", width = 40)
 with col2:
     st.write("Download 30-meter resolution elevation data (DEM) from the [Shuttle Radar Topography Mission](https://www2.jpl.nasa.gov/srtm/) | Reference: [Derek Watkins](https://dwtkns.com/srtm30m/)")
 st.write( """
@@ -69,7 +69,9 @@ def highlight_function(feature):
 srtm_bbox_url = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/srtm_bbox.geojson"
 srtm_bbox_gdp = gpd.read_file(srtm_bbox_url)
 srtm_bbox = json.loads(requests.get(srtm_bbox_url).text)
-m = folium.Map(tiles="stamenterrain", location = [10.78418915150491, 106.70361262696979], zoom_start = 3)
+# m = folium.Map(tiles="stamenterrain", location = [10.78418915150491, 106.70361262696979], zoom_start = 3)
+m = folium.Map(tiles="stamenterrain", location = [-28, 14], zoom_start =2)
+ 
 
 # featuregroup = folium.map.FeatureGroup(name='SRTM BBox').add_to(m)
 # i =0

@@ -34,13 +34,24 @@ st.sidebar.info(
 
 # Reference: https://dwtkns.com/srtm30m/
 
-st.title("Download SRTM Data")
+st.title("Download 90m SRTM Data")
 col1, col2 = st.columns([1,30])
 with col1:
-    st.image("./data/images/nasa.png", width = 30)
+    st.image("./data/images/cgiar.png", width = 30)
 with col2:
     st.write("Download 90-meter resolution elevation data (DEM) from [CGIAR-CSI)](https://srtm.csi.cgiar.org/)")
+    tile_size = st.selectbox(
+            "Select a tile size", [ "30 x 30 degree", "5 x 5 degree",], index=0
+        )
 
+    if tile_size == "30 x 30 degree":
+        srtm_url = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/srtm_30.geojson"
+    elif tile_size == "5 x 5 degree":
+        srtm_url = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/srtm_5.geojson"
+
+srtm_gdp = gpd.read_file(srtm_url)
+srtm = json.loads(requests.get(srtm_url).text)
+m = folium.Map(tiles="stamenterrain", location = [-28, 14], zoom_start =2)
 
  
 def style_function(feature):
@@ -61,19 +72,8 @@ def highlight_function(feature):
         'dashArray': '5, 5'
     }
 
-srtm_30_url = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/srtm_30.geojson"
-srtm_30_gdp = gpd.read_file(srtm_30_url)
-srtm_30 = json.loads(requests.get(srtm_30_url).text)
-m = folium.Map(tiles="stamenterrain", location = [10.78418915150491, 106.70361262696979], zoom_start = 3)
+ 
 
-# featuregroup = folium.map.FeatureGroup(name='SRTM BBox').add_to(m)
-# i =0
-# for feature in srtm_bbox['features']:
-#     while i < 10:
-#         fea = folium.GeoJson(feature['geometry'],style_function = style_function, highlight_function=highlight_function)
-#         fea.add_child(folium.Popup(['<a href="' + feature['properties']['dem'] + '" target="blank">DEM: </a>'+ '<br>' + '<a href=' + feature['properties']['image'] + '" target="blank">JPG: </a>'] ))
-#         featuregroup.add_child(fea)
-#     i+=1
 
 popup = folium.GeoJsonPopup(
     fields=["dem_link"],
@@ -85,7 +85,7 @@ popup = folium.GeoJsonPopup(
     ),
 )
 
-srtm_bbox = folium.GeoJson(srtm_bbox_gdp, style_function = style_function, highlight_function=highlight_function, popup=popup)
+srtm_bbox = folium.GeoJson(srtm_gdp, style_function = style_function, highlight_function=highlight_function, popup=popup)
 srtm_bbox.add_to(m)
 
 st_folium(m, width=800,returned_objects=[])
