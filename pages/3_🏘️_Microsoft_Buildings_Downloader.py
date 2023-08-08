@@ -17,22 +17,11 @@ st.sidebar.info(
     """
 )
 
-st.title("Global Building Footprints")
+st.title("Dowload Microsoft Building Footprints")
 
 
-@st.cache
-def get_data():
-    path = r'cars.csv'
-    return pd.read_csv(path)
-    df = get_data()
-
-makes = df['make'].drop_duplicates()
-years = df['year']
-models = df['model']
-engines = df['engine']
-components = df['components']
-make_choice = st.sidebar.selectbox('Select your vehicle:', makes)
-year_choice = st.sidebar.selectbox('', years)
-model_choice = st.sidebar.selectbox('', models)
-engine_choice = st.sidebar.selectbox('', engines)
-st.write('Results:', components)
+path = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/ms_buildings.csv"
+df =    pd.read_csv(path)
+countries = df['Location'].drop_duplicates()
+country = st.sidebar.selectbox('Select a country:', countries)
+st.write(df)
