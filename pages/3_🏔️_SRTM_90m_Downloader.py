@@ -61,9 +61,9 @@ def highlight_function(feature):
         'dashArray': '5, 5'
     }
 
-srtm_bbox_url = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/srtm_bbox.geojson"
-srtm_bbox_gdp = gpd.read_file(srtm_bbox_url)
-srtm_bbox = json.loads(requests.get(srtm_bbox_url).text)
+srtm_30_url = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/srtm_30.geojson"
+srtm_30_gdp = gpd.read_file(srtm_30_url)
+srtm_30 = json.loads(requests.get(srtm_30_url).text)
 m = folium.Map(tiles="stamenterrain", location = [10.78418915150491, 106.70361262696979], zoom_start = 3)
 
 # featuregroup = folium.map.FeatureGroup(name='SRTM BBox').add_to(m)
@@ -76,8 +76,8 @@ m = folium.Map(tiles="stamenterrain", location = [10.78418915150491, 106.7036126
 #     i+=1
 
 popup = folium.GeoJsonPopup(
-    fields=["dem_link", "image_link"],
-    aliases=['Download DEM: ', 'Preview Image: '],
+    fields=["dem_link"],
+    aliases=['Download DEM: '],
     localize=True,
     labels=True,
     style=(
