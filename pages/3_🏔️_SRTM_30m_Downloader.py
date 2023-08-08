@@ -82,7 +82,7 @@ m = folium.Map(tiles="stamenterrain", location = [10.78418915150491, 106.7036126
 
 popup = folium.GeoJsonPopup(
     fields=["dem_link", "image_link"],
-    aliases=['DEM: ', 'JPG: '],
+    aliases=['Download DEM: ', 'Preview Image: '],
     localize=True,
     labels=True,
     style=(
