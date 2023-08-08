@@ -68,7 +68,7 @@ m = folium.Map(tiles="stamenterrain", location = [10.78418915150491, 106.7036126
 
 
 popup = folium.GeoJsonPopup(
-    fields=["tile_id", "tile_url", "size_mb"],
+    fields=["tile_id", "tile_link", "size_mb"],
     aliases=['Tile ID: ', 'Tile URL: ', 'Size (MB)'],
     localize=True,
     labels=True,
