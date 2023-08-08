@@ -15,3 +15,4 @@ streamlit-image-select
 palettable
 prettymapp
 owslib
+mercantile

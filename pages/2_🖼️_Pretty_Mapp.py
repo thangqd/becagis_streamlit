@@ -23,6 +23,9 @@ from geopandas import GeoDataFrame
 from prettymapp.plotting import Plot
 from prettymapp.osm import get_osm_geometries
 from prettymapp.settings import STYLES
+from streamlit_folium import st_folium
+from folium import plugins
+
 
 
 # @st.experimental_memo(show_spinner=False)

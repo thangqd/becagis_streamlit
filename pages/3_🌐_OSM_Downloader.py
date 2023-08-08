@@ -1,8 +1,9 @@
 import streamlit as st
 import leafmap.foliumap as leafmap
+import folium
 import leafmap as lm
 import io
-
+from folium import plugins
 st.set_page_config(layout="wide")
 
 st.sidebar.info(
@@ -22,7 +23,17 @@ st.sidebar.info(
 
 st.title(" Download OSM Data")
 
-m = leafmap.Map(tiles='Stamen Toner',toolbar_control=True, layers_control=True)
+m = leafmap.Map(tiles='Stamen Toner',toolbar_control=False, layers_control=False)
+# draw = plugins.Draw(export=True,draw_options={'polyline': False,
+#                           'circlemarker': False,
+#                           'polygon': False,
+#                         #   'rectangle': False,
+#                           'circle': False,
+#                           'marker': False},
+#                            edit_options={'poly': {'allowIntersection': False}})
+# draw.add_to(m)
+
+
 # gdf = leafmap.osm_gdf_from_place("New York City", tags={"amenity": "bar"})
 # m.add_gdf(gdf, layer_name='New York City')
 # m.add_osm_from_geocode("New York City", layer_name='NYC')
@@ -42,6 +53,11 @@ gdf = lm.osm_gdf_from_point(
     tags={"landuse": ["retail", "commercial"], "building": True},
     dist=2000
 )
+
+m.add_marker([10.784077934654013, 106.70343973062722], popup=None, tooltip=None, icon=folium.Icon(color='red'), draggable=False)
+
+
+
 m.add_gdf(gdf, layer_name='HCMC')
 
 # m.osm_gdf_from_point(
@@ -74,5 +90,3 @@ st.write(f"{gdf.shape[0]} geometries")
 # )
 st.write(gdf)
 # gdf.to_file('dataframe.geojson', driver='GeoJSON')  
-
-
