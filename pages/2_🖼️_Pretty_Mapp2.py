@@ -29,6 +29,7 @@ from folium import plugins
 import shapely
 
 
+
 # @st.experimental_memo(show_spinner=False)
 @st.cache_data
 def st_get_osm_geometries(aoi):
@@ -131,6 +132,8 @@ st.sidebar.info(
     Thang Quach: [BecaGIS Homepage](https://becagis.vn/?lang=en) | [My Homepage](https://thangqd.github.io) | [GitHub](https://github.com/thangqd) | [LinkedIn](https://www.linkedin.com/in/thangqd)
     """
 )
+
+st.title("BecaGIS Prettymapp")
 
 
 st.write(

@@ -20,6 +20,8 @@ st.sidebar.info(
     Thang Quach: [BecaGIS Homepage](https://becagis.vn/?lang=en) | [My Homepage](https://thangqd.github.io) | [GitHub](https://github.com/thangqd) | [LinkedIn](https://www.linkedin.com/in/thangqd)
     """
 )
+st.title("Download Admistrative Boundaries from GADM")
+
 col1, col2 = st.columns([1,30])
 with col1:
     st.image("./data/images/gadm.png", width = 30)

@@ -22,6 +22,7 @@ st.sidebar.info(
 # HtmlFile = open("./data/image_slideshow.html", 'r', encoding='utf-8')
 # source_code = HtmlFile.read() 
 # components.html(source_code,height = 800)
+st.title("PythonMaps")
 
 st.write( """
     Cre: [PythonMaps](https://github.com/symmy596/PythonMaps) | [NASA](https://earthobservatory.nasa.gov/features/NightLights)

@@ -43,10 +43,10 @@ df_filter = df[df['Location'] == country]  # filter
 
 def make_clickable(url, text):
     link = f'<a target="_blank" href="{url}">{text}</a>'
-    df = pd.read_json(url, lines=True)
-    df['geometry'] = df['geometry'].apply(shape)
-    gdf = gpd.GeoDataFrame(df, crs=4326)
-    gdf.to_file(f"ms_buildings.geojson", driver="GeoJSON")
+    # df = pd.read_json(url, lines=True)
+    # df['geometry'] = df['geometry'].apply(shape)
+    # gdf = gpd.GeoDataFrame(df, crs=4326)
+    # gdf.to_file(f"ms_buildings.geojson", driver="GeoJSON")
     return link
 
 df_filter['Url'] = df_filter['Url'].apply(make_clickable, args = ('Download',))

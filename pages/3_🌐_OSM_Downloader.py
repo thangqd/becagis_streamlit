@@ -56,7 +56,6 @@ def download_geojson(gdf):
         )
 
 
-
 col1, col2 = st.columns(2)
 with col1:
     m = folium.Map(tiles="stamenterrain", location = [10.77588,106.70388], zoom_start =15)

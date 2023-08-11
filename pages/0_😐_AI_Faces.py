@@ -21,6 +21,7 @@ st.sidebar.info(
 )
 
 
+st.title("AI Faces")
 
 st.write( """
     Cre: [AI-Talks](https://github.com/dKosarevsky/AI-Talks) 
