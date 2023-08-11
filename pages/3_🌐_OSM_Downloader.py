@@ -31,7 +31,7 @@ st.sidebar.info(
 )
 
 st.title("Download OSM Data")
-st.write('Please draw an area on the map to download OSM Data')
+st.write('Please draw an area (< 30km2) on the map to download OSM Data')
 
 def save_geojson_with_bytesio(dataframe):
     #Function to return bytesIO of the geojson
@@ -126,7 +126,7 @@ if lastest_drawing is not None:
                 )
         else: 
             with col2:
-                st.warning('The polygon area is '+ str(projected_area) +' km2, exceeds 10 km2 area. Please draw a new one', icon="⚠️")
+                st.warning('The polygon area is '+ str(projected_area) +' km2, exceeds 30 km2 area. Please draw a new one', icon="⚠️")
         
     if gdf is not None:
         with col2:
