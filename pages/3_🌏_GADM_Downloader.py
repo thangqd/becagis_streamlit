@@ -50,7 +50,7 @@ def gadm_download(country_code, country_lod):
     
     gdf = gpd.read_file(download_url)   
     lon, lat = leafmap.gdf_centroid(gdf)
-    m = leafmap.Map(center=(lat, lon), draw_export=True)
+    m = leafmap.Map(center=(lat, lon), draw_export=True, zoom =3)
     m.add_gdf(gdf, layer_name='Administrative Border')
     m.to_streamlit()         
 

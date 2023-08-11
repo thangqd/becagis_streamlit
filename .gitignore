@@ -134,3 +134,6 @@ data/madison.las
 madison.las
 *.qmd
 data/csv/ms_buildings.csv_ogr_tmp.csv
+cache/03db0c872aaec93689121c875d261f8e7d5a883b.json
+cache/0752909dd492e97d7614c00479fed7e141397d90.json
+*.json
