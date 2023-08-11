@@ -2,15 +2,8 @@ import streamlit as st
 from prettymapp.settings import STYLES
 import copy
 import json
-from streamlit_image_select import image_select
-# sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'lib'))
-# from utils import (
-#     st_get_osm_geometries,
-#     st_plot_all,
-#     get_colors_from_style,
-#     gdf_to_bytesio_geojson,
-# )
 from prettymapp.geo import GeoCodingError, get_aoi
+from streamlit_image_select import image_select
 import base64
 from io import StringIO, BytesIO
 import unicodedata
@@ -23,10 +16,10 @@ from geopandas import GeoDataFrame
 from prettymapp.plotting import Plot
 from prettymapp.osm import get_osm_geometries
 from prettymapp.settings import STYLES
+import folium
 from streamlit_folium import st_folium
 from folium import plugins
-
-
+import shapely
 
 # @st.experimental_memo(show_spinner=False)
 @st.cache_data
@@ -130,6 +123,7 @@ st.sidebar.info(
     Thang Quach: [BecaGIS Homepage](https://becagis.vn/?lang=en) | [My Homepage](https://thangqd.github.io) | [GitHub](https://github.com/thangqd) | [LinkedIn](https://www.linkedin.com/in/thangqd)
     """
 )
+
 st.title("BecaGIS Prettymapp")
 
 
@@ -166,12 +160,60 @@ if index_selected != st.session_state["previous_example_index"]:
 
 st.write("")
 form = st.form(key="form_settings")
-col1, col2, col3 = form.columns([3, 1, 1])
-
-address = col1.text_input(
+col1, col2, col3 = form.columns([3, 1, 1]) 
+lat_input = 10.77588,
+long_input = 106.70388,
+add_cord = st.radio(
+    "Address or Coordinate?",
+    ('Address', 'Coordinate', 'Choose from map'))
+if add_cord == 'Address':
+    address = col1.text_input(
     "Location address",
     key="address",
 )
+elif add_cord == 'Coordinate':
+    lat_input = col1.number_input(
+    "Lat",
+    value = 10.77588,
+    min_value=-90.00000, 
+    max_value=90.00000,
+    step=0.001,
+    format = "%f",
+    # key="lat_input",
+)
+    long_input = col1.number_input(
+    "Long",
+    value = 106.70388,
+    min_value=-180.00000, 
+    max_value=180.00000,
+    step=0.001,
+    format = "%f",
+    # key="long_input",
+)
+
+elif add_cord == 'Choose from map':
+    m = folium.Map(tiles="stamenterrain", location = [10.77588,106.70388], zoom_start =14)
+    draw = plugins.Draw(export=True,draw_options={
+                            'polyline': False,
+                            'circlemarker': False,
+                            'polygon': False,
+                            'rectangle': False,
+                            'circle': False,
+                            'marker': True},
+                            edit_options=None)
+    draw.add_to(m)
+    output = st_folium(m, width=400, height=400)
+    lat = 10.77588
+    long = 106.70388
+
+    lastest_drawing =output.get('last_active_drawing')
+    if lastest_drawing is not None:  
+        if lastest_drawing['geometry']['type'] == 'Point':
+            lastest_point = shapely.geometry.asShape(lastest_drawing['geometry'])
+            lat = lastest_point.y
+            long = lastest_point.x            
+            st.write('Coordinates: (',lat, ',', long, ')' )             
+
 radius = col2.slider(
     "Radius",
     100,
@@ -281,8 +323,16 @@ form.form_submit_button(label="Submit")
 result_container = st.empty()
 with st.spinner("Creating map... (may take up to a minute)"):
     rectangular = shape != "circle"
+    aoi = None
     try:
-        aoi = get_aoi(address=address, radius=radius, rectangular=rectangular)
+        # aoi = get_aoi(address=address, radius=radius, rectangular=rectangular)
+        if add_cord == 'Address':
+            aoi = get_aoi(address=address, radius=radius, rectangular=rectangular)
+        elif add_cord == 'Coordinate':
+            aoi = get_aoi(coordinates=(lat_input, long_input), radius=radius, rectangular=rectangular)    
+        elif add_cord == 'Choose from map':
+            aoi = get_aoi(coordinates=(lat, long), radius=radius, rectangular=rectangular)   
+
     except GeoCodingError as e:
         st.error(f"ERROR: {str(e)}")
         st.stop()
@@ -291,7 +341,8 @@ with st.spinner("Creating map... (may take up to a minute)"):
         "aoi_bounds": aoi.bounds,
         "draw_settings": draw_settings,
         "name_on": name_on,
-        "name": address if custom_title == "" else custom_title,
+        # "name": '' if custom_title == "" else custom_title,
+        "name": '',
         "font_size": font_size,
         "font_color": font_color,
         "text_x": text_x,
@@ -331,11 +382,11 @@ with ex2.expander("Export geometries as GeoJSON"):
     st.download_button(
         label="Download",
         data=gdf_to_bytesio_geojson(df),
-        file_name=f"prettymapp_{address[:10]}.geojson",
+        file_name=f"becagis_prettymapp.geojson",
         mime="application/geo+json",
     )
 
-config = {"address": address, **config}
-with ex2.expander("Export map configuration"):
-    st.write(config)
+# config = {"address": address, **config}
+# with ex2.expander("Export map configuration"):
+#     st.write(config)
 st.session_state["previous_style"] = style
