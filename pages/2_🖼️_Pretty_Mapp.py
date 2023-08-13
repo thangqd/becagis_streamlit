@@ -20,6 +20,7 @@ import folium
 from streamlit_folium import st_folium
 from folium import plugins
 import shapely
+import pandas as pd
 
 # @st.experimental_memo(show_spinner=False)
 @st.cache_data
@@ -172,6 +173,10 @@ if add_cord == 'Address':
     key="address",
 )
 elif add_cord == 'Coordinate':
+    df = pd.read_csv('https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/world_cities.csv')
+    city_name = df['CITY_NAME'].tolist()
+    cities = col1.selectbox(
+    'Choose a city',city_name)
     lat_input = col1.number_input(
     "Lat",
     value = 10.77588,
