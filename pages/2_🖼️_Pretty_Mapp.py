@@ -103,7 +103,13 @@ def slugify(value: Any, allow_unicode: bool = False):
 def gdf_to_bytesio_geojson(geodataframe):
     geojson_object = io.BytesIO()
     geodataframe.to_file(geojson_object, driver="GeoJSON")
+    return geojson_object  
+ 
+def update_latlong(geodataframe):
+    geojson_object = io.BytesIO()
+    geodataframe.to_file(geojson_object, driver="GeoJSON")
     return geojson_object
+
 
 
 # st.set_page_config(
@@ -174,12 +180,14 @@ if add_cord == 'Address':
 )
 elif add_cord == 'Coordinate':
     df = pd.read_csv('https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/world_cities.csv')
-    city_name = df['CITY_NAME'].tolist().sort()
-    cities = col1.selectbox(
-    'Choose a city',city_name)
+    cities = df['CITY_NAME'].tolist()
+    selected_city = col1.selectbox(
+    'Choose a city',cities)
+    df2=df.loc[df['CITY_NAME'] == selected_city, ['lat','long']]
+
     lat_input = col1.number_input(
     "Lat",
-    value = 10.77588,
+    value =float(df2['lat']),
     min_value=-90.00000, 
     max_value=90.00000,
     step=0.001,
@@ -188,7 +196,7 @@ elif add_cord == 'Coordinate':
 )
     long_input = col1.number_input(
     "Long",
-    value = 106.70388,
+    value = float(df2['long']),
     min_value=-180.00000, 
     max_value=180.00000,
     step=0.001,
