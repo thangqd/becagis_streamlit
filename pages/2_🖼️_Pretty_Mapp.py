@@ -165,8 +165,8 @@ col1, col2, col3 = form.columns([3, 1, 1])
 lat_input = 10.77588,
 long_input = 106.70388,
 add_cord = st.radio(
-    "Address or Coordinate?",
-    ('Address', 'Coordinate', 'Choose from map'))
+    "Coordinate or Address?",
+    ('Address', 'Coordinate','Choose from map'))
 if add_cord == 'Address':
     address = col1.text_input(
     "Location address",
@@ -174,7 +174,7 @@ if add_cord == 'Address':
 )
 elif add_cord == 'Coordinate':
     df = pd.read_csv('https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/world_cities.csv')
-    city_name = df['CITY_NAME'].tolist()
+    city_name = df['CITY_NAME'].tolist().sort()
     cities = col1.selectbox(
     'Choose a city',city_name)
     lat_input = col1.number_input(
