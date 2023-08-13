@@ -2,7 +2,7 @@
     
     "Portland": {
         "address": "Portland",
-        "custom_title": "Portland",
+        "custom_title": "",
         "radius": 1500,
         "style": "Peach",
         "shape": "circle",
@@ -22,7 +22,7 @@
 
     "HCMC": {
         "address": "Ben Thanh Ward, District 1, Hồ Chí Minh City, Vietnam",
-        "custom_title": "HCMC",
+        "custom_title": "",
         "radius": 1500,
         "style": "Peach",
         "shape": "circle",
@@ -41,7 +41,7 @@
     },
     "BinhDuong": {
         "address": "Công viên trung tâm Thành Phố Mới Bình Dương, Hoa Phu Ward, Thu Dau Mot City, Bình Dương Province, Vietnam",
-        "custom_title": "Binh Duong",
+        "custom_title": "",
         "radius": 1500,
         "style": "Auburn",
         "shape": "rectangle",
@@ -60,7 +60,7 @@
     },
     "Hue": {
         "address": "Hue City, Thừa Thiên Huế Province, 54000, Vietnam",
-        "custom_title": "Hue",
+        "custom_title": "",
         "radius": 2000,
         "style": "Flannel",
         "shape": "circle",
@@ -79,7 +79,7 @@
     },
     "Hanoi": {
         "address": "Hoan Kiem District, Hà Nội, Vietnam",
-        "custom_title": "Hanoi",
+        "custom_title": "",
         "radius": 1500,
         "style": "Citrus",
         "shape": "rectangle",
