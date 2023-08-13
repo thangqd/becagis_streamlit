@@ -180,12 +180,14 @@ if add_cord == 'Address':
 )
 elif add_cord == 'Coordinate':
     df = pd.read_csv('https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/world_cities.csv')
-    cities = df['CITY_NAME'].tolist()
+    df.sort_values("CITY_NAME")
+    cities = df.sort_values(by="CITY_NAME").CITY_NAME
     selected_city = col1.selectbox(
     'Choose a city',cities)
-    df2=df.loc[df['CITY_NAME'] == selected_city, ['lat','long']]
+    df2=df.loc[df['CITY_NAME'] == selected_city, ['lat','long']].iloc[0]
+    col1_1,col1_2 = col1.columns(2)
 
-    lat_input = col1.number_input(
+    lat_input = col1_1.number_input(
     "Lat",
     value =float(df2['lat']),
     min_value=-90.00000, 
@@ -194,7 +196,7 @@ elif add_cord == 'Coordinate':
     format = "%f",
     # key="lat_input",
 )
-    long_input = col1.number_input(
+    long_input = col1_2.number_input(
     "Long",
     value = float(df2['long']),
     min_value=-180.00000, 
@@ -381,10 +383,15 @@ with st.spinner("Creating map... (may take up to a minute)"):
 #     data = svg_string
 # elif img_format == "png":
 #     import io
-
 #     data = io.BytesIO()
 #     fig.savefig(data, pad_inches=0, bbox_inches="tight", transparent=True)
 # st.download_button(label="Download image", data=data, file_name=f"{fname}.{img_format}")
+
+import io
+data = io.BytesIO()
+fig.savefig(data, pad_inches=0, bbox_inches="tight", transparent=True)
+st.download_button(label="Download image", data=data, file_name=f"prettymapp.png")
+
 
 st.markdown("</br>", unsafe_allow_html=True)
 st.markdown("</br>", unsafe_allow_html=True)
@@ -398,8 +405,10 @@ with ex2.expander("Export geometries as GeoJSON"):
         file_name=f"becagis_prettymapp.geojson",
         mime="application/geo+json",
     )
-
-# config = {"address": address, **config}
-# with ex2.expander("Export map configuration"):
-#     st.write(config)
+try:
+    config = {"address": address, **config}
+except:
+    pass
+with ex2.expander("Export map configuration"):
+    st.write(config)
 st.session_state["previous_style"] = style
