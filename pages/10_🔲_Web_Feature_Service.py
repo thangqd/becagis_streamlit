@@ -133,7 +133,7 @@ def wfs_button(server, url):
             #                     mime='text/csv',
             #                 )
 
-st.button('Load WFS Layers', on_click=wfs_button(selected_wfs, selected_url.strip()))
+st.button('Load WFS Layers', on_click=wfs_button(selected_wfs, selected_url))
 
 if st.session_state.clicked:
     # The message and nested widget will remain on the page
