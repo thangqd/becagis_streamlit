@@ -48,12 +48,12 @@ if 'clicked' not in st.session_state:
 
 def wfs_button(url):
     st.session_state.clicked = True
-    uri = df_filter.url +'/wfs?request=GetCapabilities'
-    wfs = requests.get(uri, stream=True, allow_redirects=True, verify = False)
-    st.write(wfs)
+   
 
 st.button('Load WFS Layers', on_click=wfs_button(selected_url))
 
 if st.session_state.clicked:
     # The message and nested widget will remain on the page
-    pass
+    uri = df_filter.url +'/wfs?request=GetCapabilities'
+    wfs = requests.get(uri, stream=True, allow_redirects=True, verify = False)
+    st.write(wfs)
