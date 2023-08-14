@@ -31,10 +31,11 @@ def get_layers(url):
     return options
 
 
-st.title("Download Open Data from WFS Server(Web Feature Service)")
+st.title("Web Feature Service (WFS)")
 st.markdown(
 """
-Download Open Data from WFS Server(Web Feature Service)
+This app is a demonstration of loading Web Feature Service (WFS) layers. Simply enter the URL of the WFS service 
+in the text box below and press Enter to retrieve the layers.
 """
 )
 Any = object()
@@ -115,13 +116,14 @@ def wfs_button(server, url):
         if len(layer_name)>0: 
             with col2:           
                 layer_selected = st.selectbox('Choose a WFS Layer',layer_name)
-            uri_geojson = url + "/wfs?request=GetFeature&format_options=CHARSET:UTF-8&typename="+ str(layer_selected) + '&outputFormat=json'
+            uri_geojson = url + "/wfs?request=GetFeature&format_options=CHARSET:UTF-8&typename="+ str(layer_selected).strip() + '&outputFormat=json'
             # geojson = urllib.request.urlretrieve(uri_geojson,slugify(layer_selected))
             m = leafmap.Map(tiles='stamenterrain',toolbar_control=False, layers_control=True)
             wms_url = url + '/ows'
             m.add_wms_layer(
                 wms_url, layers=layer_selected, name=slugify(layer_selected), attribution="", transparent=True
             )
+            # m.fit_bounds(m.get_bounds(), padding=(30, 30))
             m.to_streamlit(height=600)
             st.write('GeoJSON link: ', uri_geojson)
             # st.download_button(

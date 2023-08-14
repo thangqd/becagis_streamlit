@@ -1,11 +1,12 @@
 import streamlit as st
 import pandas as pd
-import requests
-import os
-import re
 import unicodedata
 import leafmap.foliumap as leafmap
-import urllib
+from urllib.request import urlopen  
+import json
+import folium
+from streamlit_folium import st_folium
+
 
 
 st.set_page_config(layout="wide")
@@ -62,76 +63,61 @@ def slugify(value: Any, allow_unicode: bool = False):
 
 
 col1, col2 = st.columns(2)
-df = pd.read_csv('https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/wfs.csv')
+df = pd.read_csv('https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/ogc.csv')
 wfs_servers = df.server
 with col1:
-    selected_wfs = st.selectbox('Choose a WFS Server',wfs_servers)
+    selected_wfs = st.selectbox('Choose an OGC API Features Server',wfs_servers)
 df_filter=df.loc[df['server'] == selected_wfs, ['server','url']].iloc[0]
 with col2:
-    selected_url = st.text_input('WFS URL', df_filter.url)
+    selected_url = st.text_input('OGC API Features URL', df_filter.url)
 
 if 'clicked' not in st.session_state:
     st.session_state.clicked = False
 
 def wfs_button(server, url):
     st.session_state.clicked = True
-    uri = url +'/wfs?request=GetCapabilities'
-    wfs = requests.get(uri, stream=True, allow_redirects=True, verify = False)
-    filename = slugify(server)+ ".xml"
-    if  (wfs.status_code == 200):               
-        f = open(filename, 'wb')                           
-        for chunk in wfs.iter_content(chunk_size = 1024):
-            if not chunk:
-                break
-            f.write(chunk)                                                            
-        f.close()
+    url_collections = url +'/collections/?f=json'
+    try:
+        landingpage_response = urlopen(url)
+        if (landingpage_response is not None):        
+                server_json = json.loads(landingpage_response.read()) 
+                server_title = server_json['title']
+                server_abstract = server_json['description']
+                if len(server_title)>0:
+                    with col1:
+                        st.write('Server Title: ', server_title)
+                if len (server_abstract)>0:
+                    with col1:
+                        st.write('Server Abstract: ', server_abstract.replace('&#13;','')[:300])          
+    except: pass
+    collections_response = urlopen(url_collections)
+    if collections_response is not None:
+        # storing the JSON response from url in data     
+            data_json = json.loads(collections_response.read())  
+            collections = data_json['collections'] 
+            # st.write(collections)
+            list = []
+            if len(collections) > 0:   
+                i = 0
+                for i in range (len(collections)):
+                    try:
+                        list.append( collections[i]['id'])
+                    except:
+                        list.append( collections[i]['name'])                     
+                    
+            with col2:
+                layer_selected = st.selectbox('Choose an OGC API Features Layer',list)   
+    uri_geojson = url + "/collections/"+ str(layer_selected).strip() + '/items?f=json'
     
-    if wfs is not None:              
-        getcapabilities = open(filename, 'r', encoding='UTF-8') 
-        data = getcapabilities.read()
-        # st.write(data)
-        getcapabilities.close()
-        os.remove(filename)
-        server_title_regex = r'<ows:Title>(.+?)</ows:Title>|<ows:Title/>'
-        
-        server_abstract_regex = r'<ows:Abstract>(.+?)</ows:Abstract>|<ows:Abstract/>'
-        
-        server_title = re.findall(server_title_regex,data,re.DOTALL)
-        server_abstract = re.findall(server_abstract_regex,data,re.DOTALL)
+    m = folium.Map(tiles="stamenterrain", zoom_start = 2)
+    geojson_layer = folium.GeoJson(uri_geojson)
+    geojson_layer.add_to(m)
+    m.fit_bounds(m.get_bounds(), padding=(30, 30))
+    st_folium(m, width=1200,returned_objects=[])
+    st.write('GeoJSON link: ', uri_geojson)
 
-        layer_name_regex = r'<Name>(.+?)</Name>'
-        layer_title_regex = r'<Title>(.+?)</Title>|<Title/>'
 
-        layer_name = re.findall(layer_name_regex,data,re.DOTALL)
-        layer_title = re.findall(layer_title_regex,data,re.DOTALL)
-
-        if len(server_title)>0:
-            with col1:
-                st.write('Server Title: ', server_title[0])
-
-        if len (server_abstract)>0:
-            with col1:
-                st.write('Server Abstract: ', server_abstract[0].replace('&#13;',''))
-        if len(layer_name)>0: 
-            with col2:           
-                layer_selected = st.selectbox('Choose a WFS Layer',layer_name)
-            uri_geojson = url + "/wfs?request=GetFeature&format_options=CHARSET:UTF-8&typename="+ str(layer_selected) + '&outputFormat=json'
-            # geojson = urllib.request.urlretrieve(uri_geojson,slugify(layer_selected))
-            m = leafmap.Map(tiles='stamenterrain',toolbar_control=False, layers_control=True)
-            wms_url = url + '/ows'
-            m.add_wms_layer(
-                wms_url, layers=layer_selected, name=slugify(layer_selected), attribution="", transparent=True
-            )
-            m.to_streamlit(height=600)
-            st.write('GeoJSON link: ', uri_geojson)
-            # st.download_button(
-            #                     label="Download WFS Layer as GeoJSON",
-            #                     data=geojson,
-            #                     file_name=slugify(layer_selected)+'.geojson',
-            #                     mime='text/csv',
-            #                 )
-
-st.button('Load WFS Layers', on_click=wfs_button(selected_wfs, selected_url))
+st.button('Load OGC API Feature Layers', on_click=wfs_button(selected_wfs, selected_url))
 
 if st.session_state.clicked:
     # The message and nested widget will remain on the page
