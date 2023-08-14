@@ -1,6 +1,7 @@
 import streamlit as st
 import leafmap.foliumap as leafmap
 import pandas as pd
+import requests
 
 st.set_page_config(layout="wide")
 
@@ -32,8 +33,27 @@ This app is a demonstration of loading Web Feature Service (WFS) layers. Simply 
 in the text box below and press Enter to retrieve the layers.
 """
 )
-
+col1, col2 = st.columns(2)
 df = pd.read_csv('https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/wfs.csv')
-wfs = df.url
-selected_wfs = st.selectbox('Choose a WFS Server',wfs)
-# df2=df.loc[df['CITY_NAME'] == selected_city, ['lat','long']].iloc[0]
+wfs_servers = df.server
+with col1:
+    selected_wfs = st.selectbox('Choose a WFS Server',wfs_servers)
+df_filter=df.loc[df['server'] == selected_wfs, ['server','url']].iloc[0]
+with col2:
+    selected_url = st.text_input('WFS URL', df_filter.url)
+
+
+if 'clicked' not in st.session_state:
+    st.session_state.clicked = False
+
+def wfs_button(url):
+    st.session_state.clicked = True
+    uri = df_filter.url +'/wfs?request=GetCapabilities'
+    wfs = requests.get(uri, stream=True, allow_redirects=True, verify = False)
+    st.write(wfs)
+
+st.button('Load WFS Layers', on_click=wfs_button(selected_url))
+
+if st.session_state.clicked:
+    # The message and nested widget will remain on the page
+    pass
