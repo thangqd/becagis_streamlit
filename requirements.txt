@@ -1,8 +1,5 @@
-folium==0.13.0
-geemap[extra]
-ee
+folium
 geopandas
-osmnx
 leafmap
 keplergl
 streamlit
@@ -12,7 +9,4 @@ streamlit
 streamlit-extras
 streamlit-elements
 streamlit-image-select
-palettable
 prettymapp
-owslib
-mercantile
