@@ -38,9 +38,9 @@ layers = None
 
 with row1_col2:
 
-    becagis_opendata = "https://geoportal.becagis.vn/geoserver/ows"
+    becagis_opendata = "https://opendata.becagis.vn/geoserver/ows"
     url = st.text_input(
-        "Enter a WMS URL:", value="https://geoportal.becagis.vn/geoserver/ows"
+        "Enter a WMS URL:", value="https://opendata.becagis.vn/geoserver/ows"
     )
     empty = st.empty()
 
@@ -48,7 +48,7 @@ with row1_col2:
         options = get_layers(url)
         default = None
         if url == becagis_opendata:
-            default = "geonode:BDNC_tuyencap_polyline"
+            default = "geonode:world_submarine_cables"
         layers = empty.multiselect(
             "Select WMS layers to add to the map:", options, default=default
         )

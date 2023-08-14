@@ -1,6 +1,6 @@
-import ast
 import streamlit as st
 import leafmap.foliumap as leafmap
+import pandas as pd
 
 st.set_page_config(layout="wide")
 
@@ -33,52 +33,7 @@ in the text box below and press Enter to retrieve the layers.
 """
 )
 
-row1_col1, row1_col2 = st.columns([3, 1.3])
-width = 800
-height = 600
-layers = None
-
-with row1_col2:
-    becagis_opendata = "https://geoportal.becagis.vn/geoserver/ows"
-    url = st.text_input(
-        "Enter a WMS URL:", value="https://geoportal.becagis.vn/geoserver/ows"
-    )
-    empty = st.empty()
-
-    if url:
-        options = get_layers(url)
-
-        default = None
-        if url == becagis_opendata:
-            default = "geonode:BDNC_tuyencap_polyline"
-        layers = empty.multiselect(
-            "Select WMS layers to add to the map:", options, default=default
-        )
-        add_legend = st.checkbox("Add a legend to the map", value=True)
-        if default == "Global Submarine Cables":
-            legend = str(leafmap.builtin_legends["Global Submarine Cables"])
-        else:
-            legend = ""
-        if add_legend:
-            legend_text = st.text_area(
-                "Enter a legend as a dictionary {label: color}",
-                value=legend,
-                height=200,
-            )
-
-    with row1_col1:
-        # m = leafmap.Map(center=(10.045180, 105.78841), zoom=2)
-        m = leafmap.Map(tiles='Stamen Toner',toolbar_control=False, layers_control=True)
-
-        if layers is not None:
-            for layer in layers:
-                m.add_wms_layer(
-                    url, layers=layer, name=layer, attribution=" ", transparent=True
-                )
-        # if add_legend and legend_text:
-        #     legend_dict = ast.literal_eval(legend_text)
-        #     m.add_legend(legend_dict=legend_dict)
-
-        m.to_streamlit(height=height)
-
-
+df = pd.read_csv('https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/wfs.csv')
+wfs = df.url
+selected_wfs = st.selectbox('Choose a WFS Server',wfs)
+# df2=df.loc[df['CITY_NAME'] == selected_city, ['lat','long']].iloc[0]
