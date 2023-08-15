@@ -4,7 +4,6 @@ st.set_page_config(layout="wide")
 
 st.sidebar.info(
     """
-    - Web: [BecaGIS Streamlit](https://streamlit.becagis.vn)
     - GitHub: [BecaGIS Streamlit](https://github.com/thangqd/becagis_streamlit) 
     """
 )
