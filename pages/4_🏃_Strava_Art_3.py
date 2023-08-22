@@ -21,8 +21,8 @@ st.sidebar.info(
 st.title("Kepler Time Series")
 
 
-wqi_timeseries =  'https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/lenny_maughan.geojson'
-df_wqi = pd.read_json(wqi_timeseries)
+wqi_timeseries =  'https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/tiger.csv'
+df_wqi = pd.read_csv(wqi_timeseries)
 df_wqi["ds"] =  pd.to_datetime(df_wqi["date"]) # convert Date field to     
 df_wqi["ds"] = df_wqi['date'].dt.strftime('%Y-%m-%d %H:%M:%S')
 
