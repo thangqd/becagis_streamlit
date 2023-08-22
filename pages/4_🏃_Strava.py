@@ -27,7 +27,7 @@ col1, col2 = st.columns([1,30])
 with col1:
     st.image("./data/images/strava.png", width = 30)
 with col2:
-    st.write("[Lenny Maughan's Strava Route GADM](https://www.strava.com/athletes/7019519)")
+    st.write("[Lenny Maughan's Strava Route](https://www.strava.com/athletes/7019519)")
 
 
 
@@ -37,16 +37,19 @@ points = df[["lat", "lon"]]
 center_lat = points["lat"].mean()
 center_lon = points["lon"].mean()
 
-myMap = folium.Map(location=[center_lat,center_lon], tiles="stamenterrain", width = 600, zoom_start=12)
-folium.PolyLine(points, color="red", weight=2.5, opacity=1).add_to(myMap)
+myMap = folium.Map(location=[center_lat,center_lon], tiles="stamenterrain", width = 1200, height = 600, zoom_start=12)
+# folium.PolyLine(points, color="red", weight=2.5, opacity=1).add_to(myMap)
 
-# ant_path = AntPath(
-#     locations=points,
-#     dash_array=[1, 10],
-#     delay=1000,
-#     color='#7590ba',
-#     pulse_color='#3f6fba'
-# ).add_to(myMap)
+ant_path = AntPath(
+    locations=points,
+    dash_array=[1, 10],
+    delay=1000,
+    color='#7590ba',
+    pulse_color='#3f6fba',
+    radius = 100,
+    paused=True
+).add_to(myMap)
 
 
 folium_static(myMap)
+# st_folium(myMap)
