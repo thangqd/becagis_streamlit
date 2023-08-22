@@ -32,7 +32,7 @@ with col2:
 
 
 tiger  = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/tiger.csv"
-tiger_polyline  = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/tiger.geojson"
+tiger_polyline  = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/tiger_polyline.geojson"
 
 tiger_style = lambda x: {
   'color' :  'red',

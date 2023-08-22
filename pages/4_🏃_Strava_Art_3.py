@@ -24,16 +24,17 @@ st.title("Strava Art")
 tiger_timeseries =  'https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/tiger.csv'
 df_tiger = pd.read_csv(tiger_timeseries)
 trip =  'https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/trip.geojson'
+df_trip =  pd.read_json(trip)
 
 m = KeplerGl(height=600)
-m.add_data(
-    data=df_tiger, name="Time Series Data"
-)  
+
 
 m.add_data(
-    data=trip, name="Trip"
+    data=df_trip, name="Trip"
 )  
 
-
+# m.add_data(
+#     data=df_tiger, name="Time Series Data"
+# )  
 
 keplergl_static(m, center_map=True)
