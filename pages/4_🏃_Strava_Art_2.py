@@ -31,22 +31,17 @@ with col2:
 
 
 
-tiger  = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/tiger.csv"
-tiger_polyline  = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/tiger.geojson"
+lenny_maughan  = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/lenny_maughan.geojson"
 
-tiger_style = lambda x: {
+lenny_maughan_style = lambda x: {
   'color' :  'red',
   'opacity' : 1,
   'weight' : 2,
 }
 
 
-df = pd.read_csv(tiger)
-points = df[["lat", "lon"]]
-center_lat = points["lat"].mean()
-center_lon = points["lon"].mean()
 
-myMap = folium.Map(location=[center_lat,center_lon], tiles="stamenterrain", width = 1200, height = 600, zoom_start=12)
+myMap = folium.Map(location=[37.76067887817949, -122.44104772133697], tiles="stamenterrain", width = 1200, height = 600, zoom_start=12)
 Fullscreen(                                                         
         position                = "topright",                                   
         title                   = "Open full-screen map",                       
@@ -55,46 +50,7 @@ Fullscreen(
     ).add_to(myMap) 
 
 
-TimestampedGeoJson({
-    'type': 'FeatureCollection',
-    'features': [
-        {
-            'type': 'Feature',
-            'geometry': {
-                'type': 'LineString',
-                'coordinates': [[-46.687754, -23.579782]],
-            },
-            'properties': {
-                'icon': 'marker',
-                'iconstyle': {
-                    'iconSize': [20, 20],
-                    'iconUrl':
-                        'https://img.icons8.com/ios-filled/50/000000/online-store.png'
-                },
-                'id': 'house',
-                'popup': 1,
-                'times': [1633046400000.0]
-            }
-        }, {
-            'type': 'Feature',
-            'geometry': {
-                'type': 'LineString',
-                'coordinates': [[-46.887754, -23.579782]],
-            },
-            'properties': {
-                'icon': 'marker',
-                'iconstyle': {
-                    'iconSize': [20, 20],
-                    'iconUrl':
-                        'https://img.icons8.com/ios-filled/50/000000/online-store.png'
-                },
-                'id': 'house',
-                'popup': 1,
-                'times': [1635046400000.0]
-            }
-        }
-    ]
-}).add_to(myMap)
+TimestampedGeoJson(lenny_maughan).add_to(myMap)
 
 
 folium_static(myMap)
