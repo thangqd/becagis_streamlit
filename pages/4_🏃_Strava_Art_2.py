@@ -30,7 +30,6 @@ with col2:
     st.write("[Lenny Maughan's Strava Art](https://www.strava.com/athletes/7019519)")
 
 
-
 lenny_maughan  = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/lenny_maughan.geojson"
 
 lenny_maughan_style = lambda x: {
@@ -38,10 +37,9 @@ lenny_maughan_style = lambda x: {
   'opacity' : 1,
   'weight' : 2,
 }
-
-
-
-myMap = folium.Map(location=[37.76067887817949, -122.44104772133697], tiles="stamenterrain", width = 1200, height = 600, zoom_start=12)
+center_lat = -2.548828 #37.76067887817949
+center_lon = 51.467697 #-122.44104772133697
+myMap = folium.Map(location=[center_lat,center_lon], tiles="stamenterrain", width = 1200, height = 600, zoom_start=1)
 Fullscreen(                                                         
         position                = "topright",                                   
         title                   = "Open full-screen map",                       
@@ -50,7 +48,39 @@ Fullscreen(
     ).add_to(myMap) 
 
 
-TimestampedGeoJson(lenny_maughan).add_to(myMap)
+polygon = {
+    'type': 'Feature',
+    'geometry': {
+        'type': 'MultiPolygon',
+       'coordinates': [((
+             (-2.548828, 51.467697),
+             (-0.087891, 51.536086),
+             (-1.516113, 53.800651),
+             (-6.240234, 53.383328),
+        ),)],
+    },
+    'properties': {
+        'style': {
+            'color': 'blue',
+        },
+        'times': ['2015-07-22T00:00:00', '2015-08-22T00:00:00', '2015-09-22T00:00:00']
+    }
+}
 
 
-folium_static(myMap)
+TimestampedGeoJson(
+    {'type': 'FeatureCollection', 'features': [polygon]},
+    period='P1M',
+    duration='P1M',
+    auto_play=False,
+    loop=False,
+    loop_button=True,
+    # date_options='DD/MM/YYYY',
+    date_options='YYYY/MM/DD'
+).add_to(myMap)
+
+
+# folium.GeoJson(lenny_maughan, style_function=lenny_maughan_style, name="Lenny Maughan's Strava Art").add_to(myMap)
+
+# folium_static(myMap)
+st_folium(myMap)
