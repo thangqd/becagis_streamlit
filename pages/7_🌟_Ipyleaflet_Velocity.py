@@ -5,23 +5,15 @@ import os
 import streamlit.components.v1 as components
 
 center = [44.33956524809713, -130.60546875000003]
-zoom = 1
+zoom = 3
 m = Map(
     center=center,
     zoom=zoom,
     interpolation="nearest",
-    basemap=basemaps.CartoDB.DarkMatter,
+    # basemap=basemaps.CartoDB.DarkMatter,
+    # basemap=basemap_to_tiles(basemaps.NASAGIBS.ModisTerraTrueColorCR, "2017-04-08"),
+    basemap=basemaps.NASAGIBS.ViirsEarthAtNight2012
 )
-
-m = Map(
-    center=center,
-    zoom=zoom,
-    interpolation="nearest",
-    basemap=basemap_to_tiles(basemaps.NASAGIBS.ModisTerraTrueColorCR, "2017-04-08"),
-)
-
-
-import os
 
 if not os.path.exists("wind-global.nc"):
     url = "https://github.com/benbovy/xvelmap/raw/master/notebooks/wind-global.nc"
@@ -54,5 +46,5 @@ m.save('./data/html/velocity.html', title='Velocity Map')
 with open("./data/html/velocity.html", 'r', encoding='utf-8') as f: 
     html_data = f.read()
 
-components.html(html_data,height = 500)
+components.html(html_data,height = 600, width = 800)
 

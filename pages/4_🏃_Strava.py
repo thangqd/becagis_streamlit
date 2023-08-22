@@ -32,13 +32,27 @@ with col2:
 
 
 tiger  = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/tiger.csv"
+tiger_polyline  = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/tiger.geojson"
+
+tiger_style = lambda x: {
+  'color' :  'red',
+  'opacity' : 1,
+  'weight' : 2,
+}
+
+
 df = pd.read_csv(tiger)
 points = df[["lat", "lon"]]
 center_lat = points["lat"].mean()
 center_lon = points["lon"].mean()
 
-myMap = folium.Map(location=[center_lat,center_lon], tiles="stamenterrain", width = 1200, height = 600, zoom_start=12)
+dualmap= folium.plugins.DualMap(tiles="cartodb dark_matter", location = [center_lat,center_lon], zoom_start = 12)
+# map = st_folium(dualmap)
+
+# myMap = folium.Map(location=[center_lat,center_lon], tiles="stamenterrain", width = 1200, height = 600, zoom_start=12)
 # folium.PolyLine(points, color="red", weight=2.5, opacity=1).add_to(myMap)
+folium.GeoJson(tiger_polyline, style_function=tiger_style, name='Tiger Track').add_to(dualmap.m1)
+
 
 ant_path = AntPath(
     locations=points,
@@ -47,9 +61,10 @@ ant_path = AntPath(
     color='#7590ba',
     pulse_color='#3f6fba',
     radius = 100,
-    paused=True
-).add_to(myMap)
+    # paused=True
+).add_to(dualmap.m2)
 
 
-folium_static(myMap)
+# folium_static(myMap)
 # st_folium(myMap)
+folium_static(dualmap)
