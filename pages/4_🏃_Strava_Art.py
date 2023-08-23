@@ -101,15 +101,15 @@ Fullscreen(
     ).add_to(dualmap) 
 
 
-ant_path = AntPath(
-    locations=points,
-    dash_array=[1, 10],
-    delay=1000,
-    color='#7590ba',
-    pulse_color='#3f6fba',
-    radius = 100,
-    # paused=True
-).add_to(dualmap.m2)
+# ant_path = AntPath(
+#     locations=points,
+#     dash_array=[1, 10],
+#     delay=1000,
+#     color='#7590ba',
+#     pulse_color='#3f6fba',
+#     radius = 100,
+#     # paused=True
+# ).add_to(dualmap.m2)
 
 
 # folium_static(myMap)
