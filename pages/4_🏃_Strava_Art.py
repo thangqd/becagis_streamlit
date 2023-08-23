@@ -5,6 +5,10 @@ from folium.plugins import AntPath, Fullscreen
 import streamlit as st
 import json
 from streamlit_image_select import image_select
+from keplergl import KeplerGl
+from streamlit_keplergl import keplergl_static
+
+
 
 st.set_page_config(layout="wide")
 
@@ -72,33 +76,33 @@ st.write("")
 form = st.form(key="form_settings")
 
 
-strava_point  = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/" + name_selected +  "_point.csv"
-strava_polyline  = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/"+ name_selected + "_polyline.geojson"
+# strava_point  = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/" + name_selected +  "_point.csv"
+# strava_polyline  = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/"+ name_selected + "_polyline.geojson"
 
-tiger_style = lambda x: {
-  'color' :  'red',
-  'opacity' : 1,
-  'weight' : 2,
-}
-
-
-df = pd.read_csv(strava_point)
-points = df[["lat", "lon"]]
-center_lat = points["lat"].mean()
-center_lon = points["lon"].mean()
-
-dualmap= folium.plugins.DualMap(tiles="cartodb dark_matter", location = [center_lat,center_lon], zoom_start = 12)
+# tiger_style = lambda x: {
+#   'color' :  'red',
+#   'opacity' : 1,
+#   'weight' : 2,
+# }
 
 
-# folium.PolyLine(points, color="red", weight=2.5, opacity=1).add_to(myMap)
-folium.GeoJson(strava_polyline, style_function=tiger_style, name='Track').add_to(dualmap.m1)
+# df = pd.read_csv(strava_point)
+# points = df[["lat", "lon"]]
+# center_lat = points["lat"].mean()
+# center_lon = points["lon"].mean()
 
-Fullscreen(                                                         
-        position                = "topright",                                   
-        title                   = "Open full-screen map",                       
-        title_cancel            = "Close full-screen map",                      
-        force_separate_button   = True,                                         
-    ).add_to(dualmap) 
+# dualmap= folium.plugins.DualMap(tiles="cartodb dark_matter", location = [center_lat,center_lon], zoom_start = 12)
+
+
+# # folium.PolyLine(points, color="red", weight=2.5, opacity=1).add_to(myMap)
+# folium.GeoJson(strava_polyline, style_function=tiger_style, name='Track').add_to(dualmap.m1)
+
+# Fullscreen(                                                         
+#         position                = "topright",                                   
+#         title                   = "Open full-screen map",                       
+#         title_cancel            = "Close full-screen map",                      
+#         force_separate_button   = True,                                         
+#     ).add_to(dualmap) 
 
 
 # ant_path = AntPath(
@@ -115,4 +119,90 @@ Fullscreen(
 # folium_static(myMap)
 # st_folium(myMap)
 
-folium_static(dualmap)
+# folium_static(dualmap)
+
+strava_timeseries  = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/" + name_selected +  "_point.csv"
+
+df_strava = pd.read_csv(strava_timeseries)
+
+m = KeplerGl(height=600)
+
+
+m.add_data(
+    data=df_strava, name="Time Series Data"
+)  
+
+keplergl_static(m, center_map=True)
+
+############################################################
+# lenny_maughan  = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/lenny_maughan.geojson"
+
+# lenny_maughan_style = lambda x: {
+#   'color' :  'red',
+#   'opacity' : 1,
+#   'weight' : 2,
+# }
+# center_lat = -2.548828 #37.76067887817949
+# center_lon = 51.467697 #-122.44104772133697
+# myMap = folium.Map(location=[center_lat,center_lon], tiles="stamenterrain", width = 1200, height = 600, zoom_start=1)
+# Fullscreen(                                                         
+#         position                = "topright",                                   
+#         title                   = "Open full-screen map",                       
+#         title_cancel            = "Close full-screen map",                      
+#         force_separate_button   = True,                                         
+#     ).add_to(myMap) 
+
+
+# polygon = {
+#     'type': 'Feature',
+#     'geometry': {
+#         'type': 'MultiPolygon',
+#        'coordinates': [((
+#              (-2.548828, 51.467697),
+#              (-0.087891, 51.536086),
+#              (-1.516113, 53.800651),
+#              (-6.240234, 53.383328),
+#         ),)],
+#     },
+#     'properties': {
+#         'style': {
+#             'color': 'blue',
+#         },
+#         'times': ['2015-07-22T00:00:00', '2015-08-22T00:00:00', '2015-09-22T00:00:00']
+#     }
+# }
+
+
+# TimestampedGeoJson(
+#     {'type': 'FeatureCollection', 'features': [polygon]},
+#     period='P1M',
+#     duration='P1M',
+#     auto_play=False,
+#     loop=False,
+#     loop_button=True,
+#     # date_options='DD/MM/YYYY',
+#     date_options='YYYY/MM/DD'
+# ).add_to(myMap)
+
+
+# # folium.GeoJson(lenny_maughan, style_function=lenny_maughan_style, name="Lenny Maughan's Strava Art").add_to(myMap)
+
+# # folium_static(myMap)
+# st_folium(myMap)
+
+############################################################
+# trip =  'https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/trip.geojson'
+# df_trip =  pd.read_json(trip)
+
+# m = KeplerGl(height=600)
+
+
+# m.add_data(
+#     data=df_trip, name="Trip"
+# )  
+
+# # m.add_data(
+# #     data=df_tiger, name="Time Series Data"
+# # )  
+
+# keplergl_static(m, center_map=True)
