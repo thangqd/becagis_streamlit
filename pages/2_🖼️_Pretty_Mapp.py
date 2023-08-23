@@ -143,11 +143,14 @@ with open("./data/images/prettymapp/examples.json", "r",encoding="utf-8") as f:
 
 if not st.session_state:
     st.session_state.update(EXAMPLES["Portland"])
+
     lc_class_colors = get_colors_from_style("Peach")
     st.session_state.lc_classes = list(lc_class_colors.keys())  # type: ignore
     st.session_state.update(lc_class_colors)
     st.session_state["previous_style"] = "Peach"
     st.session_state["previous_example_index"] = 0
+
+
 
 example_image_pattern = "./data/images/prettymapp/{}_small.png"
 example_image_fp = [
@@ -160,6 +163,7 @@ index_selected = image_select(
     index=0,
     return_value="index",
 )
+
 if index_selected != st.session_state["previous_example_index"]:
     name_selected = list(EXAMPLES.keys())[index_selected]
     st.session_state.update(EXAMPLES[name_selected].copy())

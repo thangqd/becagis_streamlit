@@ -3,6 +3,8 @@ import folium
 from streamlit_folium import st_folium, folium_static
 from folium.plugins import AntPath, Fullscreen
 import streamlit as st
+import json
+from streamlit_image_select import image_select
 
 st.set_page_config(layout="wide")
 
@@ -29,6 +31,47 @@ with col1:
 with col2:
     st.write("[Lenny Maughan's Strava Art](https://www.strava.com/athletes/7019519)")
 
+with open("./data/images/strava/strava.json", "r",encoding="utf-8") as f:
+    STRAVA = json.load(f)
+
+# if "previous_strava_index" not in st.session_state:
+#     st.session_state.update(STRAVA["Tiger"])
+#     st.session_state["previous_strava_index"] = 0
+
+strava_image_pattern = "./data/images/strava/{}_small.png"
+strava_image_fp = [
+    strava_image_pattern.format(name.lower()) for name in list(STRAVA.keys())[:7]
+]
+
+index_selected = image_select(
+    label = "Choose a route",
+    images=strava_image_fp,
+    captions=list(STRAVA.keys())[:7],
+    use_container_width=False,
+    return_value="index",
+)
+name_selected = list(STRAVA.keys())[index_selected]
+
+st.write(name_selected)
+
+try:
+    img2 = image_select(
+        label="",
+        images=[],
+        return_value="index",
+        use_container_width = False
+    )
+except: st.write('')
+# if index_selected != st.session_state["previous_strava_index"]:
+#     name_selected = list(STRAVA.keys())[index_selected]
+#     st.write(name_selected)
+#     st.session_state.update(STRAVA[name_selected].copy())
+#     st.session_state["previous_strava_index"] = index_selected
+
+
+
+st.write("")
+form = st.form(key="form_settings")
 
 
 tiger  = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/tiger.csv"
@@ -48,12 +91,10 @@ center_lon = points["lon"].mean()
 
 dualmap= folium.plugins.DualMap(tiles="cartodb dark_matter", location = [center_lat,center_lon], zoom_start = 12)
 
-# dualmap= folium.plugins.DualMap(tiles="cartodb dark_matter", zoom_start = 12)
-# map = st_folium(dualmap)
 
-# myMap = folium.Map(location=[center_lat,center_lon], tiles="stamenterrain", width = 1200, height = 600, zoom_start=12)
 # folium.PolyLine(points, color="red", weight=2.5, opacity=1).add_to(myMap)
 folium.GeoJson(tiger_polyline, style_function=tiger_style, name='Tiger Track').add_to(dualmap.m1)
+
 Fullscreen(                                                         
         position                = "topright",                                   
         title                   = "Open full-screen map",                       
