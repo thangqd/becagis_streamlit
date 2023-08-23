@@ -50,9 +50,7 @@ index_selected = image_select(
     use_container_width=False,
     return_value="index",
 )
-name_selected = list(STRAVA.keys())[index_selected]
-
-st.write(name_selected)
+name_selected = list(STRAVA.keys())[index_selected].lower()
 
 try:
     img2 = image_select(
@@ -74,8 +72,8 @@ st.write("")
 form = st.form(key="form_settings")
 
 
-tiger  = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/tiger.csv"
-tiger_polyline  = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/tiger_polyline.geojson"
+strava_point  = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/" + name_selected +  "_point.csv"
+strava_polyline  = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/"+ name_selected + "_polyline.geojson"
 
 tiger_style = lambda x: {
   'color' :  'red',
@@ -84,7 +82,7 @@ tiger_style = lambda x: {
 }
 
 
-df = pd.read_csv(tiger)
+df = pd.read_csv(strava_point)
 points = df[["lat", "lon"]]
 center_lat = points["lat"].mean()
 center_lon = points["lon"].mean()
@@ -93,7 +91,7 @@ dualmap= folium.plugins.DualMap(tiles="cartodb dark_matter", location = [center_
 
 
 # folium.PolyLine(points, color="red", weight=2.5, opacity=1).add_to(myMap)
-folium.GeoJson(tiger_polyline, style_function=tiger_style, name='Tiger Track').add_to(dualmap.m1)
+folium.GeoJson(strava_polyline, style_function=tiger_style, name='Track').add_to(dualmap.m1)
 
 Fullscreen(                                                         
         position                = "topright",                                   
