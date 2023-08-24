@@ -41,16 +41,9 @@ view_state = pdk.ViewState(target=target, controller=True, rotation_x=15, rotati
 view = pdk.View(type="OrbitView", controller=True)
 r = pdk.Deck(point_cloud_layer, initial_view_state=view_state, views=[view])
 # st.pydeck_chart(r)
-r.to_html("point_cloud_layer.html", css_background_color="#000000")
+r.to_html("./data/html/point_cloud_layer.html", css_background_color="#000000")
 
-with open("point_cloud_layer.html", 'r', encoding='utf-8') as f: 
+with open("./data/html/point_cloud_layer.html", 'r', encoding='utf-8') as f: 
     html_data = f.read()
 
 components.html(html_data,height = 500)
-
-# components.iframe("point_cloud_layer.html")
-# with st.expander("See source code"):
-#     with st.echo():
-#         laz = './data/pentagon.laz'   
-# leafmap.view_lidar(laz, cmap='terrain', backend='pyvista')
-
