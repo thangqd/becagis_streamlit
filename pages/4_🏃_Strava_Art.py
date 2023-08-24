@@ -43,7 +43,7 @@ with open("./data/images/strava/strava.json", "r",encoding="utf-8") as f:
 #     st.session_state.update(STRAVA["Tiger"])
 #     st.session_state["previous_strava_index"] = 0
 
-strava_image_pattern = "./data/images/strava/{}_small.png"
+strava_image_pattern = "./data/images/strava/{}.png"
 strava_image_fp = [
     strava_image_pattern.format(name.lower()) for name in list(STRAVA.keys())[:7]
 ]
