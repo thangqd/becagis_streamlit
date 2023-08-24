@@ -38,20 +38,20 @@ with col2:
 
 with open("./data/images/strava/strava.json", "r",encoding="utf-8") as f:
     STRAVA = json.load(f)
-
+total_picture = len(STRAVA)
 # if "previous_strava_index" not in st.session_state:
 #     st.session_state.update(STRAVA["Tiger"])
 #     st.session_state["previous_strava_index"] = 0
 
 strava_image_pattern = "./data/images/strava/{}.png"
 strava_image_fp = [
-    strava_image_pattern.format(name.lower()) for name in list(STRAVA.keys())[:7]
+    strava_image_pattern.format(name.lower()) for name in list(STRAVA.keys())[:total_picture]
 ]
 
 index_selected = image_select(
     label = "Choose a route",
     images=strava_image_fp,
-    captions=list(STRAVA.keys())[:7],
+    captions=list(STRAVA.keys())[:total_picture],
     use_container_width=False,
     return_value="index",
 )
