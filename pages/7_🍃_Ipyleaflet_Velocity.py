@@ -26,13 +26,13 @@ m.add_control(SearchControl(
 ))
 
 
-if not os.path.exists("wind-global.nc"):
+if not os.path.exists("./data/csv/wind-global.nc"):
     url = "https://github.com/benbovy/xvelmap/raw/master/notebooks/wind-global.nc"
     import requests
 
     r = requests.get(url)
     wind_data = r.content
-    with open("wind-global.nc", "wb") as f:
+    with open("./data/csv/wind-global.nc", "wb") as f:
         f.write(wind_data)
 
 ds = xr.open_dataset("wind-global.nc")
