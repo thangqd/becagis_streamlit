@@ -76,8 +76,8 @@ st.write("")
 form = st.form(key="form_settings")
 
 
-# strava_point  = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/" + name_selected +  "_point.csv"
-# strava_polyline  = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/"+ name_selected + "_polyline.geojson"
+# strava_point  = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/strava/" + name_selected +  "_point.csv"
+# strava_polyline  = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/strava/"+ name_selected + "_polyline.geojson"
 
 # tiger_style = lambda x: {
 #   'color' :  'red',
@@ -121,7 +121,7 @@ form = st.form(key="form_settings")
 
 # folium_static(dualmap)
 
-strava_timeseries  = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/" + name_selected +  "_point.csv"
+strava_timeseries  = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/strava/" + name_selected +  "_point.csv"
 
 df_strava = pd.read_csv(strava_timeseries)
 
@@ -135,7 +135,7 @@ m.add_data(
 keplergl_static(m, center_map=True)
 
 ############################################################
-# lenny_maughan  = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/lenny_maughan.geojson"
+# lenny_maughan  = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/strava/lenny_maughan.geojson"
 
 # lenny_maughan_style = lambda x: {
 #   'color' :  'red',
@@ -191,7 +191,7 @@ keplergl_static(m, center_map=True)
 # st_folium(myMap)
 
 ############################################################
-# trip =  'https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/trip.geojson'
+# trip =  'https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/strava/trip.geojson'
 # df_trip =  pd.read_json(trip)
 
 # m = KeplerGl(height=600)
