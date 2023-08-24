@@ -1,4 +1,5 @@
 import pandas as pd
+import geopandas as gpd
 import folium
 from streamlit_folium import st_folium, folium_static
 from folium.plugins import AntPath, Fullscreen
@@ -70,10 +71,21 @@ except: st.write('')
 #     st.session_state.update(STRAVA[name_selected].copy())
 #     st.session_state["previous_strava_index"] = index_selected
 
+m = KeplerGl(height=600)
 
+strava_timeseries  = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/strava/" + name_selected +  "_point.csv"
+df_timeseries = pd.read_csv(strava_timeseries)
 
-st.write("")
-form = st.form(key="form_settings")
+# m.add_data(
+#     data=df_timeseries, name="Track points"
+# )  
+
+strava_polyline  = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/strava/" + name_selected +  "_polyline.geojson"
+df_polyline = gpd.read_file(strava_polyline)
+
+m.add_data(data=df_polyline, name='Tracks')
+
+keplergl_static(m, center_map=True)
 
 
 # strava_point  = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/strava/" + name_selected +  "_point.csv"
@@ -121,18 +133,6 @@ form = st.form(key="form_settings")
 
 # folium_static(dualmap)
 
-strava_timeseries  = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/strava/" + name_selected +  "_point.csv"
-
-df_strava = pd.read_csv(strava_timeseries)
-
-m = KeplerGl(height=600)
-
-
-m.add_data(
-    data=df_strava, name="Time Series Data"
-)  
-
-keplergl_static(m, center_map=True)
 
 ############################################################
 # lenny_maughan  = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/strava/lenny_maughan.geojson"
