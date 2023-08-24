@@ -25,17 +25,16 @@ m.add_control(SearchControl(
   marker=marker
 ))
 
-velocity_file = "./data/csv/wind-global.nc"
-if not os.path.exists(velocity_file):
+if not os.path.exists("wind-global.nc"):
     url = "https://github.com/benbovy/xvelmap/raw/master/notebooks/wind-global.nc"
     import requests
 
     r = requests.get(url)
     wind_data = r.content
-    with open(velocity_file, "wb") as f:
+    with open("wind-global.nc", "wb") as f:
         f.write(wind_data)
 
-ds = xr.open_dataset(velocity_file)
+ds = xr.open_dataset("wind-global.nc")
 
 display_options = {
     "velocityType": "Global Wind",
