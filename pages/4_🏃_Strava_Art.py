@@ -76,14 +76,15 @@ m = KeplerGl(height=600)
 strava_timeseries  = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/strava/" + name_selected +  "_point.csv"
 df_timeseries = pd.read_csv(strava_timeseries)
 
-# m.add_data(
-#     data=df_timeseries, name="Track points"
-# )  
+m.add_data(
+    data=df_timeseries, name="Track points"
+)  
 
-strava_polyline  = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/strava/" + name_selected +  "_polyline.geojson"
-df_polyline = gpd.read_file(strava_polyline)
-
-m.add_data(data=df_polyline, name='Tracks')
+# strava_polyline  = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/strava/" + name_selected +  "_polyline.geojson"
+# with open("./data/strava/" + name_selected +  "_polyline.geojson", 'r') as f:
+#     df_polyline = f.read()
+# st.write(df_polyline)
+# m.add_data(data=df_polyline, name='Tracks')
 
 keplergl_static(m, center_map=True)
 
