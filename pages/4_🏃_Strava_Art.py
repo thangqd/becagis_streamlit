@@ -33,7 +33,7 @@ col1, col2 = st.columns([1,30])
 with col1:
     st.image("./data/images/strava.png", width = 30)
 with col2:
-    st.write("[Lenny Maughan's Strava Art](https://www.strava.com/athletes/7019519)")
+    st.write("[Lenny Maughan's Strava Art Collection](https://www.strava.com/athletes/7019519)")
 
 with open("./data/images/strava/strava.json", "r",encoding="utf-8") as f:
     STRAVA = json.load(f)
