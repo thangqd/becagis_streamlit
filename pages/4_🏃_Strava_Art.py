@@ -49,7 +49,7 @@ strava_image_fp = [
 ]
 
 index_selected = image_select(
-    label = "Choose a route",
+    label = "Choose a masterpiece",
     images=strava_image_fp,
     captions=list(STRAVA.keys())[:total_picture],
     use_container_width=False,
