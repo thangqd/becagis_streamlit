@@ -3,8 +3,8 @@
 "name": "trip",
 "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::4979" } },
 "features": [
-{ "type": "Feature", "properties": { "start_time": "2019-11-20T03:34:11", "end_time": "2020-01-20T21:27:18", "device": "0003d26364c9b759fef556ff1c4afee49167bfee" }, "geometry": { "type": "LineString", "coordinates": [ [ 121.424569, 31.18097, 0.0, 1574192051 ], [ 121.428072, 31.182055, 0.0, 1574192151 ], [ 121.429914, 31.183437, 0.0, 1574192251 ], [ 121.431118, 31.185476, 0.0, 1574192291 ] ] } },
-{ "type": "Feature", "properties": { "start_time": "2019-11-20T03:34:11", "end_time": "2020-01-20T21:27:18", "device": "A" }, "geometry": { "type": "LineString", "coordinates": [ [ 121.431118, 31.185476, 0.0, 1574192051 ], [ 121.422647, 31.180502, 0.0, 1574192151 ], [ 121.424102, 31.176609, 0.0, 1574192251 ], [ 121.430354, 31.177977, 0.0, 1574192291 ] ] } },
-{ "type": "Feature", "properties": { "start_time": "2019-11-20T03:34:11", "end_time": "2020-01-20T21:27:18", "device": "B" }, "geometry": { "type": "LineString", "coordinates": [ [ 121.431118, 31.185476, 0.0, 1574192151 ], [ 121.422647, 31.180502, 0.0, 1574192251 ], [ 121.424102, 31.176609, 0.0, 1574192351 ], [ 121.430354, 31.177977, 0.0, 1574192591 ] ] } }
+{ "type": "Feature", "properties": { "start_time": "11/20/2019 03:34:11 (SE Asia Standard Time)", "end_time": "1/20/2020 21:27:18 (SE Asia Standard Time)", "device": "0003d26364c9b759fef556ff1c4afee49167bfee" }, "geometry": { "type": "LineString", "coordinates": [ [ 121.424569, 31.18097, 0.0 ], [ 121.428072, 31.182055, 0.0 ], [ 121.429914, 31.183437, 0.0 ], [ 121.431118, 31.185476, 0.0 ] ] } },
+{ "type": "Feature", "properties": { "start_time": "11/20/2019 03:34:11 (SE Asia Standard Time)", "end_time": "1/20/2020 21:27:18 (SE Asia Standard Time)", "device": "A" }, "geometry": { "type": "LineString", "coordinates": [ [ 121.431118, 31.185476, 0.0 ], [ 121.422647, 31.180502, 0.0 ], [ 121.424102, 31.176609, 0.0 ], [ 121.430354, 31.177977, 0.0 ] ] } },
+{ "type": "Feature", "properties": { "start_time": "11/20/2019 03:34:11 (SE Asia Standard Time)", "end_time": "1/20/2020 21:27:18 (SE Asia Standard Time)", "device": "B" }, "geometry": { "type": "LineString", "coordinates": [ [ 121.431118, 31.185476, 0.0 ], [ 121.422647, 31.180502, 0.0 ], [ 121.424102, 31.176609, 0.0 ], [ 121.430354, 31.177977, 0.0 ] ] } }
 ]
 }
