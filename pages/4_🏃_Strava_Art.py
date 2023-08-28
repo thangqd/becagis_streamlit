@@ -38,9 +38,11 @@ with col2:
     st.write("[Lenny Maughan's Strava Art Collection](https://www.strava.com/athletes/7019519)")
 
 lenny_maughan =  './data/strava/bear_line.geojson'
-data =  pd.read_json(lenny_maughan)
-# with open(lenny_maughan) as f:
-#     data = json.load(f)
+# lenny_maughan =  'https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/strava/bear_line.geojson'
+# data=  pd.read_json(lenny_maughan)
+with open(lenny_maughan) as f:
+    data = json.load(f)
+# st.write(data)
 
 # data= json_normalize(data)
 
@@ -50,7 +52,7 @@ m.add_data(
     data=data, name="Lenny Maughan's Strava Art Collection"
 )  
 
-# keplergl_static(m, center_map=True)
+keplergl_static(m, center_map=True)
 
 
 # with open("./data/images/strava/strava.json", "r",encoding="utf-8") as f:
