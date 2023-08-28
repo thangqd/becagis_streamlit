@@ -8,6 +8,9 @@ import json
 from streamlit_image_select import image_select
 from keplergl import KeplerGl
 from streamlit_keplergl import keplergl_static
+from pandas.io.json import json_normalize
+import json
+
 
 
 
@@ -34,12 +37,17 @@ with col1:
 with col2:
     st.write("[Lenny Maughan's Strava Art Collection](https://www.strava.com/athletes/7019519)")
 
-lenny_maughan =  'https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/strava/trip.geojson'
-df_lenny_maughan =  pd.read_json(lenny_maughan)
+lenny_maughan =  './data/strava/lenny_maughan.geojson'
+# df_lenny_maughan =  pd.read_json(lenny_maughan,lines=True)
+with open(lenny_maughan) as f:
+    data = json.load(f)
+
+# data= json_normalize(data)
+
 m = KeplerGl(height=600)
 
 m.add_data(
-    data=df_lenny_maughan, name="Lenny Maughan's Strava Art Collection"
+    data=data, name="Lenny Maughan's Strava Art Collection"
 )  
 
 keplergl_static(m, center_map=True)
