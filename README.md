@@ -2,7 +2,7 @@
     <img src="data/images/becagis.png" alt="Logo">
   <h3 align="center">BecaGIS</h3>
   <p align="center">
-    <b><i>BecaGIS Streamlit Sandbox</i><b>
+    <b><i>BecaGIS Streamlit - Geospatial Apps made Easy</i><b>
     <br />
   </p>
 </p>
