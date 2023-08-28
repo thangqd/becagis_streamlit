@@ -34,15 +34,9 @@ with col1:
 with col2:
     st.write("[Lenny Maughan's Strava Art Collection](https://www.strava.com/athletes/7019519)")
 
-lenny_maughan =  'https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/strava/bear_line.geojson'
+lenny_maughan =  'https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/strava/trip.geojson'
 df_lenny_maughan =  pd.read_json(lenny_maughan)
-
 m = KeplerGl(height=600)
-
-
-m.add_data(
-    data=df_lenny_maughan, name="Trip"
-)  
 
 m.add_data(
     data=df_lenny_maughan, name="Lenny Maughan's Strava Art Collection"
