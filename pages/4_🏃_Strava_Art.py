@@ -37,75 +37,75 @@ with col1:
 with col2:
     st.write("[Lenny Maughan's Strava Art Collection](https://www.strava.com/athletes/7019519)")
 
-lenny_maughan =  './data/strava/bear_line.geojson'
-# lenny_maughan =  'https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/strava/bear_line.geojson'
-# data=  pd.read_json(lenny_maughan)
-with open(lenny_maughan) as f:
-    data = json.load(f)
-# st.write(data)
+# lenny_maughan =  './data/strava/bear_line.geojson'
+# # lenny_maughan =  'https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/strava/bear_line2.geojson'
+# # data=  pd.read_json(lenny_maughan)
+# with open(lenny_maughan) as f:
+#     data = json.load(f)
+# # st.write(data)
 
-# data= json_normalize(data)
-
-m = KeplerGl(height=600)
-
-m.add_data(
-    data=data, name="Lenny Maughan's Strava Art Collection"
-)  
-
-keplergl_static(m, center_map=True)
-
-
-# with open("./data/images/strava/strava.json", "r",encoding="utf-8") as f:
-#     STRAVA = json.load(f)
-# total_picture = len(STRAVA)
-# # if "previous_strava_index" not in st.session_state:
-# #     st.session_state.update(STRAVA["Tiger"])
-# #     st.session_state["previous_strava_index"] = 0
-
-# strava_image_pattern = "./data/images/strava/{}.png"
-# strava_image_fp = [
-#     strava_image_pattern.format(name.lower()) for name in list(STRAVA.keys())[:total_picture]
-# ]
-
-# index_selected = image_select(
-#     label = "Choose a masterpiece",
-#     images=strava_image_fp,
-#     captions=list(STRAVA.keys())[:total_picture],
-#     use_container_width=False,
-#     return_value="index",
-# )
-# name_selected = list(STRAVA.keys())[index_selected].lower()
-
-# try:
-#     img2 = image_select(
-#         label="",
-#         images=[],
-#         return_value="index",
-#         use_container_width = False
-#     )
-# except: st.write('')
-# # if index_selected != st.session_state["previous_strava_index"]:
-# #     name_selected = list(STRAVA.keys())[index_selected]
-# #     st.write(name_selected)
-# #     st.session_state.update(STRAVA[name_selected].copy())
-# #     st.session_state["previous_strava_index"] = index_selected
+# # data= json_normalize(data)
 
 # m = KeplerGl(height=600)
 
-# strava_timeseries  = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/strava/" + name_selected +  "_point.csv"
-# df_timeseries = pd.read_csv(strava_timeseries)
-
 # m.add_data(
-#     data=df_timeseries, name="Track points"
+#     data=data, name="Lenny Maughan's Strava Art Collection"
 # )  
 
-# strava_polyline  = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/strava/" + name_selected +  "_polyline.geojson"
-# with open("./data/strava/" + name_selected +  "_polyline.geojson", 'r') as f:
-#     df_polyline = f.read()
-# st.write(df_polyline)
-# m.add_data(data=df_polyline, name='Tracks')
-
 # keplergl_static(m, center_map=True)
+
+
+with open("./data/images/strava/strava.json", "r",encoding="utf-8") as f:
+    STRAVA = json.load(f)
+total_picture = len(STRAVA)
+# if "previous_strava_index" not in st.session_state:
+#     st.session_state.update(STRAVA["Tiger"])
+#     st.session_state["previous_strava_index"] = 0
+
+strava_image_pattern = "./data/images/strava/{}.png"
+strava_image_fp = [
+    strava_image_pattern.format(name.lower()) for name in list(STRAVA.keys())[:total_picture]
+]
+
+index_selected = image_select(
+    label = "Choose a masterpiece",
+    images=strava_image_fp,
+    captions=list(STRAVA.keys())[:total_picture],
+    use_container_width=False,
+    return_value="index",
+)
+name_selected = list(STRAVA.keys())[index_selected].lower()
+
+try:
+    img2 = image_select(
+        label="",
+        images=[],
+        return_value="index",
+        use_container_width = False
+    )
+except: st.write('')
+# if index_selected != st.session_state["previous_strava_index"]:
+#     name_selected = list(STRAVA.keys())[index_selected]
+#     st.write(name_selected)
+#     st.session_state.update(STRAVA[name_selected].copy())
+#     st.session_state["previous_strava_index"] = index_selected
+
+m = KeplerGl(height=600)
+
+strava_timeseries  = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/strava/" + name_selected +  "_point.csv"
+df_timeseries = pd.read_csv(strava_timeseries)
+
+m.add_data(
+    data=df_timeseries, name="Track points"
+)  
+
+strava_polyline  = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/strava/" + name_selected +  "_polyline.geojson"
+with open("./data/strava/" + name_selected +  "_polyline.geojson", 'r') as f:
+    df_polyline = f.read()
+# st.write(df_polyline)
+m.add_data(data=df_polyline, name='Tracks')
+
+keplergl_static(m, center_map=True)
 
 
 # strava_point  = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/strava/" + name_selected +  "_point.csv"
