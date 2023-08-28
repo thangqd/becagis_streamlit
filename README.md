@@ -1,11 +1,6 @@
-<p align="center">
-    <img src="data/images/becagis.png" alt="Logo">
-  <h3 align="center">BecaGIS</h3>
-  <p align="center">
-    <b><i>BecaGIS Streamlit - Geospatial Apps made Easy</i><b>
-    <br />
-  </p>
-</p>
+
+<h1 style="text-align: center;">BecaGIS Streamlit - Geospatial Apps made Easy</h1>
+
 A BecaGIS Streamlit geospatial application inspired by [streamlit-geospatial](https://github.com/giswqs/streamlit-geospatial). It can be deployed to [Streamlit Cloud](https://streamlit.io/cloud), [Heroku](https://heroku.com/), or [MyBinder](https://mybinder.org/).
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/thangqd/becagis_streamlit/HEAD)
