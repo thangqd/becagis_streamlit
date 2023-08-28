@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="data/images/becagis.png" width="100" height="100" alt="Logo">
+    <img src="data/images/becagis.png" width="100" alt="Logo">
   <h3 align="center">BecaGIS</h3>
   <p align="center">
     <b><i>BecaGIS Streamlit Sandbox</i><b>
