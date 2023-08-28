@@ -1,12 +1,5 @@
 <p align="center">
-<<<<<<< HEAD
-(https://github.com/thangqd/becagis_streamlit/assets/1776420/0ea09fb5-e670-4b74-b627-f7e71a0d71e3)
-  </p>
-
-<p align="center">
-=======
-    <img src="data/images/becagis.png" width="100" alt="Logo">
->>>>>>> 499f8b2c0da3ca1b062e938ee711243aef96b05d
+    <img src="data/images/becagis.png" alt="Logo">
   <h3 align="center">BecaGIS</h3>
   <p align="center">
     <b><i>BecaGIS Streamlit Sandbox</i><b>
