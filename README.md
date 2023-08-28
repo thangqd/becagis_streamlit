@@ -1,7 +1,8 @@
 
 
 <p align="center">
-![LOGO GIS 180](https://github.com/thangqd/becagis_streamlit/assets/1776420/8aead0eb-c9d8-4f0c-935e-457a88a0ad94)
+  ![LOGO GIS 180](https://github.com/thangqd/becagis_streamlit/assets/1776420/b66a7dc5-f56e-4c5c-a432-7bd53e461e96)
+
   <h3 align="center">BecaGIS</h3>
   <p align="center">
     <b><i>BecaGIS Streamlit Sandbox</i><b>
