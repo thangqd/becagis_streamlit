@@ -82,9 +82,9 @@
             {
                "config":{
                   "color":[
-                     16,
-                     129,
-                     136
+                     255,
+                     0,
+                     0
                   ],
                   "columns":{
                      "lat0":"pickup_latitude",
