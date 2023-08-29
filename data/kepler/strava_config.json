@@ -46,7 +46,7 @@
                        ]
                    },
                    "visualChannels": {
-                       "colorField": {"name": "trip_id", "type": "string"},
+                       "colorField": {"name": "trip_id", "type": "integer"},
                        "colorScale": "quantile",
                        "sizeField": null,
                        "sizeScale": "linear"
