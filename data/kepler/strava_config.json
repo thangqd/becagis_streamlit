@@ -12,7 +12,7 @@
                        "label": "trip_data",
                        "color": [218, 0, 0],
                        "highlightColor": [252, 242, 26, 255],
-                       "columns": {"geojson": "_geojson"},
+                       "columns": {"geojson": "features"},
                        "isVisible": true,
                        "visConfig": {
                            "opacity": 0.8,
@@ -46,7 +46,7 @@
                        ]
                    },
                    "visualChannels": {
-                       "colorField": {"name": "trip_id", "type": "integer"},
+                       "colorField": {"name": "trip_id", "type": "string"},
                        "colorScale": "quantile",
                        "sizeField": null,
                        "sizeScale": "linear"
@@ -71,7 +71,7 @@
            "animationConfig": {"speed": 0.5}
        },
        "mapState": {
-           "bearing": 0,
+           "bearing": -15.25,
            "dragRotate": false,
            "latitude": 49.555586010427305,
            "longitude": 6.153559360201813,

@@ -37,17 +37,6 @@ with col1:
 with col2:
     st.write("[Lenny Maughan's Strava Art Collection](https://www.strava.com/athletes/7019519)")
 
-geo_json = pd.read_json('https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/strava/lenny_maughan.geojson')
-config_file = "./data/kepler/strava_config.json"
-with open(config_file, "r",encoding="utf-8") as f:
-    config = json.load(f)
-
-
-maughan_map = KeplerGl(data={"trip_data": geo_json}, config = config, height=600)
-# my_map = KeplerGl(data= geo_json, height=600)
-keplergl_static(maughan_map,  center_map=True)
-
-
 with open("./data/images/strava/strava.json", "r",encoding="utf-8") as f:
     STRAVA = json.load(f)
 total_picture = len(STRAVA)
@@ -92,10 +81,10 @@ m.add_data(
     data=df_timeseries, name="Track points"
 )  
 
-strava_polyline  = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/strava/" + name_selected +  "_polyline.geojson"
-with open("./data/strava/" + name_selected +  "_polyline.geojson", 'r') as f:
-    df_polyline = f.read()
-# st.write(df_polyline)
-m.add_data(data=df_polyline, name='Tracks')
+# strava_polyline  = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/strava/" + name_selected +  "_polyline.geojson"
+# with open("./data/strava/" + name_selected +  "_polyline.geojson", 'r') as f:
+#     df_polyline = f.read()
+# # st.write(df_polyline)
+# m.add_data(data=df_polyline, name='Tracks')
 
 keplergl_static(m, center_map=True)
