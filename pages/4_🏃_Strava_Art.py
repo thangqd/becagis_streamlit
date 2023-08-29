@@ -11,6 +11,7 @@ from streamlit_keplergl import keplergl_static
 from pandas.io.json import json_normalize
 import json
 from folium import plugins
+import json
 
 
 st.set_page_config(layout="wide")
@@ -43,12 +44,16 @@ with open(config_file, "r",encoding="utf-8") as f:
 geo_json = dict(type="FeatureCollection", features=[])
 geo_json["features"]
 
-for trip in df.strip_id.unique():
-    feature = dict(type="Feature", geometry=None, properties=dict(VendorID=str(trip)))
-    feature["geometry"] = dict(type="LineString", coordinates=df.loc[df.VendorID==trip, ["lon", "lat", "ele", "time"]].to_records(index=False).tolist())
+for trip in df.trip_id.unique():
+    feature = dict(type="Feature", geometry=None, properties=dict(trip_id=str(trip)))
+    feature["geometry"] = dict(type="LineString", coordinates=df.loc[df.trip_id==trip, ["lon", "lat", "ele", "time"]].to_records(index=False).tolist())
     geo_json["features"].append(feature)
 
 geo_json["features"].append(feature)
+
+with open('aaa.json', 'w') as f:
+    json.dump(geo_json, f)
+
 
 maughan_map = KeplerGl(data={"trip_data": geo_json}, config = config, height=600)
 # my_map = KeplerGl(data= geo_json, height=600)

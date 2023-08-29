@@ -27,48 +27,48 @@
                                    "#4daf4a",
                                    "#984ea3",
                                    "#ff7f00",
-                                   "#ffff33",
-                               ],
+                                   "#ffff33"
+                               ]
                            },
                            "trailLength": 10000000,
-                           "sizeRange": [0, 100],
+                           "sizeRange": [0, 100]
                        },
                        "hidden": false,
                        "textLabel": [
                            {
-                               "field": None,
+                               "field": null,
                                "color": [255, 255, 255],
                                "size": 18,
                                "offset": [0, 0],
                                "anchor": "start",
-                               "alignment": "center",
+                               "alignment": "center"
                            }
-                       ],
+                       ]
                    },
                    "visualChannels": {
-                       "colorField": {"name": "VendorID", "type": "integer"},
+                       "colorField": {"name": "trip_id", "type": "integer"},
                        "colorScale": "quantile",
-                       "sizeField": None,
-                       "sizeScale": "linear",
-                   },
+                       "sizeField": null,
+                       "sizeScale": "linear"
+                   }
                }
            ],
            "interactionConfig": {
                "tooltip": {
                    "fieldsToShow": {
-                       "trip_data": [{"name": "VendorID", "format": None}]
+                       "trip_data": [{"name": "trip_id", "format": null}]
                    },
                    "compareMode": false,
                    "compareType": "absolute",
-                   "enabled": true,
+                   "enabled": true
                },
                "brush": {"size": 0.5, "enabled": false},
                "geocoder": {"enabled": false},
-               "coordinate": {"enabled": false},
+               "coordinate": {"enabled": false}
            },
            "layerBlending": "normal",
            "splitMaps": [],
-           "animationConfig": {"speed": 0.5},
+           "animationConfig": {"speed": 0.5}
        },
        "mapState": {
            "bearing": 0,
@@ -77,7 +77,7 @@
            "longitude": 6.153559360201813,
            "pitch": 0,
            "zoom": 10,
-           "isSplit": false,
+           "isSplit": false
        },
        "mapStyle": {
            "styleType": "dark",
@@ -89,14 +89,14 @@
                "building": true,
                "water": true,
                "land": true,
-               "3d building": false,
+               "3d building": false
            },
            "threeDBuildingColor": [
                9.665468314072013,
                17.18305478057247,
-               31.1442867897876,
+               31.1442867897876
            ],
-           "mapStyles": {},
-       },
-   },
+           "mapStyles": {}
+       }
+   }
 }
