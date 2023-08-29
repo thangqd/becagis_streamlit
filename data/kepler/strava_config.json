@@ -12,7 +12,8 @@
                        "label": "trip_data",
                        "color": [218, 0, 0],
                        "highlightColor": [252, 242, 26, 255],
-                       "columns": {"geojson": "features"},
+                    //    "columns": {"geojson": "features"},
+                       "columns": {"geojson": "_geojson"},    
                        "isVisible": true,
                        "visConfig": {
                            "opacity": 0.8,
