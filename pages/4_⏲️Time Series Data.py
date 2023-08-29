@@ -55,8 +55,8 @@ config = {
                                     "#ffff33",
                                 ],
                             },
-                            "trailLength": 100000,
-                            "sizeRange": [0, 1000],
+                            "trailLength": 10000000,
+                            "sizeRange": [0, 100],
                         },
                         "hidden": False,
                         "textLabel": [
@@ -93,7 +93,7 @@ config = {
             },
             "layerBlending": "normal",
             "splitMaps": [],
-            "animationConfig": {"currentTime": 1616174376576.6997, "speed": 1},
+            "animationConfig": {"speed": 0.5},
         },
         "mapState": {
             "bearing": 0,
@@ -127,18 +127,23 @@ config = {
 }
 
 
-df = pd.read_csv('https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/strava/lenny_maughan.csv')
-geo_json = dict(type="FeatureCollection", features=[])
-geo_json["features"]
-for trip in df.name.unique():
-    feature = dict(type="Feature", geometry=None, properties=dict(trip_id=str(trip)))
-    feature["geometry"] = dict(type="LineString", coordinates=df.loc[df.name==trip, ["lon", "lat", "ele", "time"]].to_records(index=False).tolist())
-    geo_json["features"].append(feature)
+# df = pd.read_csv('https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/strava/lenny_maughan.csv')
 
-geo_json["features"].append(feature)
+# geo_json = dict(type="FeatureCollection", features=[])
+# geo_json["features"]
+# for trip in df.trip_id.unique():
+#     feature = dict(type="Feature", geometry=None, properties=dict(trip_id=str(trip)))
+#     feature["geometry"] = dict(type="LineString", coordinates=df.loc[df.trip_id==trip, ["lon", "lat", "ele", "time"]].to_records(index=False).tolist())
+#     geo_json["features"].append(feature)
+
+# geo_json["features"].append(feature)
 # st.write(geo_json)
 
-my_map = KeplerGl(data={"trip_data": geo_json}, config = config, height=600)
-# my_map = KeplerGl(data= geo_json, height=600)
-keplergl_static(my_map,  center_map=True)
+# # with open("aaa.geojson", "w") as outfile:
+# #     outfile.write(geo_json)
+
+
+# my_map = KeplerGl(data={"trip_data": geo_json}, config = config, height=600)
+# # my_map = KeplerGl(data= geo_json, height=600)
+# keplergl_static(my_map,  center_map=True)
 
