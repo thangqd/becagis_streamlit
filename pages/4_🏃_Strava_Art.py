@@ -37,7 +37,7 @@ with col1:
 with col2:
     st.write("[Lenny Maughan's Strava Art Collection](https://www.strava.com/athletes/7019519)")
 
-geo_json = pd.read_json('https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/strava/lenny_maughan.csv')
+geo_json = pd.read_json('https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/strava/lenny_maughan.geojson')
 config_file = "./data/kepler/strava_config.json"
 with open(config_file, "r",encoding="utf-8") as f:
     config = json.load(f)
