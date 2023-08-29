@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 from keplergl import KeplerGl
 from streamlit_keplergl import keplergl_static
-
+import json
 
 
 st.set_page_config(layout="wide")
@@ -128,22 +128,27 @@ config = {
 
 
 # df = pd.read_csv('https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/strava/lenny_maughan.csv')
+df = pd.read_csv('https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/nyc.csv')
+with open("./data/kepler/config.json", "r",encoding="utf-8") as f:
+    config = json.load(f)
 
-# geo_json = dict(type="FeatureCollection", features=[])
-# geo_json["features"]
-# for trip in df.trip_id.unique():
-#     feature = dict(type="Feature", geometry=None, properties=dict(trip_id=str(trip)))
-#     feature["geometry"] = dict(type="LineString", coordinates=df.loc[df.trip_id==trip, ["lon", "lat", "ele", "time"]].to_records(index=False).tolist())
-#     geo_json["features"].append(feature)
+df["elevation"] = 0
+geo_json = dict(type="FeatureCollection", features=[])
+geo_json["features"]
 
-# geo_json["features"].append(feature)
-# st.write(geo_json)
+for trip in df.trip_id.unique():
+    feature = dict(type="Feature", geometry=None, properties=dict(trip_id=str(trip)))
+    feature["geometry"] = dict(type="LineString", coordinates=df.loc[df.trip_id==trip, ["pickup_longitude", "pickup_latitude", "elevation", "tpep_pickup_datetime"]].to_records(index=False).tolist())
+    geo_json["features"].append(feature)
 
-# # with open("aaa.geojson", "w") as outfile:
-# #     outfile.write(geo_json)
+geo_json["features"].append(feature)
+st.write(geo_json)
+
+# with open("aaa.geojson", "w") as outfile:
+#     outfile.write(geo_json)
 
 
-# my_map = KeplerGl(data={"trip_data": geo_json}, config = config, height=600)
-# # my_map = KeplerGl(data= geo_json, height=600)
-# keplergl_static(my_map,  center_map=True)
+my_map = KeplerGl(data={"trip_data": geo_json}, config = config, height=600)
+# my_map = KeplerGl(data= geo_json, height=600)
+keplergl_static(my_map,  center_map=True)
 
