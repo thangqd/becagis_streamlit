@@ -12,5 +12,5 @@ for trip in df.trip_id.unique():
 
 geo_json["features"].append(feature)
 
-with open('lenny_maughan.geoson', 'w') as f:
+with open('lenny_maughan.geojson', 'w') as f:
     json.dump(geo_json, f)
