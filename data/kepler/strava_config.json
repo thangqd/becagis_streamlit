@@ -12,8 +12,7 @@
                        "label": "trip_data",
                        "color": [218, 0, 0],
                        "highlightColor": [252, 242, 26, 255],
-                    //    "columns": {"geojson": "features"},
-                       "columns": {"geojson": "_geojson"},    
+                       "columns": {"geojson": "features"},    
                        "isVisible": true,
                        "visConfig": {
                            "opacity": 0.8,
@@ -47,7 +46,7 @@
                        ]
                    },
                    "visualChannels": {
-                       "colorField": {"name": "trip_id", "type": "integer"},
+                       "colorField": {"name": "trip_id", "type": "string"},
                        "colorScale": "quantile",
                        "sizeField": null,
                        "sizeScale": "linear"
