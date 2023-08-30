@@ -68,7 +68,7 @@
            },
            "layerBlending": "normal",
            "splitMaps": [],
-           "animationConfig": {"speed": 0.3}
+           "animationConfig": {"speed": 1}
        },
        "mapState": {
            "bearing": -15.25,
