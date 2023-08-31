@@ -63,8 +63,9 @@ def download_track(json_string, filename):
   
 gpx_file_raw = st.file_uploader("📂 Upload your GPX file", type=["gpx"], accept_multiple_files=False)
 if gpx_file_raw is not None: 
-    gdf_point = gpd.read_file(gpx_file_raw, layer = 'track_points')
+    # gdf_point = gpd.read_file(gpx_file_raw, layer = 'track_points')
     # gdf_track = gpd.read_file(gpx_file_raw, layer = 'tracks')
+    gdf_point = gpd.read_file(gpx_file_raw, layer = 'track_points')
     gdf_point.sort_values('track_seg_point_id', inplace=True)
     gdf_point.reset_index(drop=True, inplace=True)
     gdf_point = gdf_point[['track_seg_point_id', 'ele', 'time', 'geometry']].copy()
