@@ -3,11 +3,7 @@ import pandas as pd
 from keplergl import KeplerGl
 from streamlit_keplergl import keplergl_static
 import json
-import gpxpy
-import seaborn as sns
-import matplotlib.pyplot as plt
 import numpy as np
-import geopy.distance
 import numpy as np
 from datetime import datetime, timedelta
 import geopandas as gpd
