@@ -39,14 +39,13 @@ with open(config_file, "r",encoding="utf-8") as f:
      config = json.load(f)
 
 geo_json = dict(type="FeatureCollection", features=[])
-geo_json["features"]
 
-for trip in df.trip_id.unique():
-    feature = dict(type="Feature", geometry=None, properties=dict(trip_id=str(trip)))
-    feature["geometry"] = dict(type="LineString", coordinates=df.loc[df.trip_id==trip, ["lon", "lat", "ele", "time"]].to_records(index=False).tolist())
+for trip in df.name.unique():
+    feature = dict(type="Feature", geometry=None, properties=dict(name=str(trip)))
+    feature["geometry"] = dict(type="LineString", coordinates=df.loc[df.name==trip, ["lon", "lat", "ele", "time"]].to_records(index=False).tolist())
     geo_json["features"].append(feature)
 
-my_map = KeplerGl(data={"trip_data": geo_json}, config = config, height=600)
+my_map = KeplerGl(data={"Track": geo_json}, config = config, height=600)
 # my_map = KeplerGl(data= geo_json, height=600)
 keplergl_static(my_map,  center_map=True)
 
