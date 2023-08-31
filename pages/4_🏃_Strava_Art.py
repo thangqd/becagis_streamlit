@@ -64,7 +64,7 @@ def download_track(json_string, filename):
 
 strava_image_pattern = "./data/images/strava/{}.png"
 strava_image_fp = [
-    strava_image_pattern.format(name.lower()) for name in list(STRAVA.keys())[:total_picture]
+    strava_image_pattern.format(name) for name in list(STRAVA.keys())[:total_picture]
 ]
 
 index_selected = image_select(
@@ -74,7 +74,7 @@ index_selected = image_select(
     use_container_width=False,
     return_value="index",
 )
-name_selected = list(STRAVA.keys())[index_selected].lower()
+name_selected = list(STRAVA.keys())[index_selected]
 
 try:
     img2 = image_select(
@@ -85,40 +85,16 @@ try:
     )
 except: st.write('')
 
-gpx_file_raw  = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/strava/" + name_selected +  ".gpx"
-
-gdf_point = gpd.read_file(gpx_file_raw, layer = 'track_points')
-gdf_point.sort_values('track_seg_point_id', inplace=True)
-gdf_point.reset_index(drop=True, inplace=True)
-gdf_point = gdf_point[['track_seg_point_id', 'ele', 'time', 'geometry']].copy()
-gdf_point['longitude'] = gdf_point.geometry.apply(lambda p: p.x)
-gdf_point['latitude'] = gdf_point.geometry.apply(lambda p: p.y)
-gdf_point['name'] = name_selected
-if gdf_point["time"].isnull().values.any() :
-    gdf_point["time"] = gdf_point.apply(calculate_time, axis=1)
-
-gdf_point['time']=gdf_point['time'].astype(str)
-
-    
-track = dict(type="FeatureCollection", features=[])
-for track_name in gdf_point.name.unique():
-    feature = dict(type="Feature", geometry=None, properties=dict(name=str(track_name)))
-    feature["geometry"] = dict(type="LineString", coordinates=gdf_point.loc[gdf_point.name==track_name, ["longitude", "latitude", "ele", "time"]].to_records(index=False).tolist())
-    track["features"].append(feature)    
-    
+gpx_file_raw  = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/strava/" + name_selected +  ".geojson"
 config_file = "./data/kepler/gpx_config.json"
 with open(config_file, "r",encoding="utf-8") as f:
     config = json.load(f)
 
-my_map = KeplerGl(data={"Track": track}, config = config, height=600)
-keplergl_static(my_map, center_map=True)
-track_string = json.dumps(track)
-download_track(track_string,gpx_file_raw.name.split('.')[0])
-with st.expander("View Track in GeoJSON"):
-    st.write(track)   
-download_trackpoints(gdf_point,gpx_file_raw.name.split('.')[0])  
-with st.expander("View Track Points"):
-    st.write(gdf_point)
+if gpx_file_raw is not None:
+    gdf_track = gpd.read_file(gpx_file_raw)
+    my_map = KeplerGl(config = config, height=600)
+    my_map.add_data(gdf_track)
+    keplergl_static(my_map, center_map=True)
 
 ########################################################################
 # if index_selected != st.session_state["previous_strava_index"]:
