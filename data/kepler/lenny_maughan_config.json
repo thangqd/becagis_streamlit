@@ -30,7 +30,7 @@
                                    "#ffff33"
                                ]
                            },
-                           "trailLength": 10000000,
+                           "trailLength": 10000,
                            "sizeRange": [0, 100]
                        },
                        "hidden": false,
