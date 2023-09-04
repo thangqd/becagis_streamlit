@@ -37,7 +37,7 @@ with open(config_file, "r",encoding="utf-8") as f:
 # df = pd.DataFrame(data["result"])
 
 
-geolenny_maughan_json = pd.read_json('https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/strava/lenny_maughan2.geojson', lines=True, orient="columns")
+lenny_maughan_json = pd.read_json('https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/strava/lenny_maughan2.geojson')
 # lenny_maughan_json = pd.read_json("./data/strava/lenny_maughan.geojson")
 
 lenny_maughan_map = KeplerGl(data={"Track": lenny_maughan_json}, config = config, height=600)
