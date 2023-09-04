@@ -1,7 +1,86 @@
-{
-    
+{    
+    "Peach": {
+        "address": "",
+        "custom_title": "",
+        "radius": 1500,
+        "style": "Peach",
+        "shape": "circle",
+        "contour_width": 1,
+        "contour_color": "#2F3537",
+        "image": "",
+        "name_on": true,
+        "font_size": 25,
+        "font_color": "#2F3737",
+        "text_x": 19,
+        "text_y": -45,
+        "text_rotation": -24,
+        "bg_shape": "circle",
+        "bg_buffer": 2,
+        "bg_color": "#F2F4CB"
+    },
+
+    "Auburn": {
+        "address": "",
+        "custom_title": "",
+        "radius": 1500,
+        "style": "Auburn",
+        "shape": "rectangle",
+        "contour_width": 0,
+        "contour_color": "#2F3538",
+        "image": "",
+        "name_on": true,
+        "font_size": 30,
+        "font_color": "#2F3738",
+        "text_x": -42,
+        "text_y": -53,
+        "text_rotation": 0,
+        "bg_shape": "rectangle",
+        "bg_buffer": 4,
+        "bg_color": "#F9EFDC"
+    },
+
+    "Flannel": {
+        "address": "",
+        "custom_title": "",
+        "radius": 2000,
+        "style": "Flannel",
+        "shape": "circle",
+        "contour_width": 15,
+        "contour_color": "#FFFFFF",
+        "image": "",
+        "name_on": true,
+        "font_size": 25,
+        "font_color": "#FFFFFF",
+        "text_x": -41,
+        "text_y": 25,
+        "text_rotation": -46,
+        "bg_shape": null,
+        "bg_buffer": 4,
+        "bg_color": "#000000"
+    },
+
+    "Citrus": {
+        "address": "Hoan Kiem District, Hà Nội, Vietnam",
+        "custom_title": "",
+        "radius": 1500,
+        "style": "Citrus",
+        "shape": "rectangle",
+        "contour_width": 0,
+        "contour_color": "#2F3737",
+        "image": "",
+        "name_on": true,
+        "font_size": 27,
+        "font_color": "#2F3737",
+        "text_x": -45,
+        "text_y": -53,
+        "text_rotation": 0,
+        "bg_shape": "rectangle",
+        "bg_buffer": 4,
+        "bg_color": "#EDEFDA"
+    }   ,
+
     "Portland": {
-        "address": "Portland",
+        "address": "",
         "custom_title": "",
         "radius": 1500,
         "style": "Peach",
@@ -19,6 +98,7 @@
         "bg_buffer": 2,
         "bg_color": "#F2F4CB"
     },
+
 
     "HCMC": {
         "address": "Ben Thanh Ward, District 1, Hồ Chí Minh City, Vietnam",

@@ -1,9 +1,6 @@
 import streamlit as st
-from prettymapp.settings import STYLES
 import copy
-import json
-from prettymapp.geo import GeoCodingError, get_aoi
-from streamlit_image_select import image_select
+from prettymapp.geo import  get_aoi
 import base64
 from io import StringIO, BytesIO
 import unicodedata
@@ -18,9 +15,8 @@ from prettymapp.osm import get_osm_geometries
 from prettymapp.settings import STYLES
 import folium
 from streamlit_folium import st_folium
-from folium import plugins
-import shapely
 import pandas as pd
+import json
 
 # @st.experimental_memo(show_spinner=False)
 @st.cache_data
@@ -111,7 +107,6 @@ def update_latlong(geodataframe):
     return geojson_object
 
 
-
 # st.set_page_config(
 #     page_title="prettymapp", page_icon="🖼️", initial_sidebar_state="collapsed"
 # )
@@ -137,13 +132,12 @@ st.title("BecaGIS Prettymapp")
 st.write(
     "BecaGIS Prettymapp is inspired by [prettymapp](https://github.com/chrieke/prettymapp)"
 )
-
-with open("./data/images/prettymapp/examples.json", "r",encoding="utf-8") as f:
+with open("./data/images/prettymapp/examples.json", "r") as f:
     EXAMPLES = json.load(f)
 
-if not st.session_state:
-    st.session_state.update(EXAMPLES["Portland"])
 
+if not st.session_state:
+    st.session_state.update(EXAMPLES["Peach"])
     lc_class_colors = get_colors_from_style("Peach")
     st.session_state.lc_classes = list(lc_class_colors.keys())  # type: ignore
     st.session_state.update(lc_class_colors)
@@ -151,43 +145,21 @@ if not st.session_state:
     st.session_state["previous_example_index"] = 0
 
 
-
-example_image_pattern = "./data/images/prettymapp/{}_small.png"
-example_image_fp = [
-    example_image_pattern.format(name.lower()) for name in list(EXAMPLES.keys())[:5]
-]
-index_selected = image_select(
-    "",
-    images=example_image_fp,
-    captions=list(EXAMPLES.keys())[:5],
-    index=0,
-    return_value="index",
-)
-
-if index_selected != st.session_state["previous_example_index"]:
-    name_selected = list(EXAMPLES.keys())[index_selected]
-    st.session_state.update(EXAMPLES[name_selected].copy())
-    st.session_state["previous_example_index"] = index_selected
-
 st.write("")
 form = st.form(key="form_settings")
 col1, col2, col3 = form.columns([3, 1, 1]) 
 lat_input = 10.77588,
 long_input = 106.70388,
-add_cord = st.radio(
-    "Coordinate or Address?",
-    ('Address', 'Coordinate','Choose from map'))
-if add_cord == 'Address':
-    address = col1.text_input(
-    "Location address",
-    key="address",
-)
-elif add_cord == 'Coordinate':
+with col1: 
+    add_cord = st.radio(
+        "Input coordinate or Choose from Map?",
+        ('Input coordinate', 'Choose from map'))
+if add_cord == 'Input coordinate':
     df = pd.read_csv('https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/world_cities.csv')
     df.sort_values("CITY_NAME")
     cities = df.sort_values(by="CITY_NAME").CITY_NAME
     selected_city = col1.selectbox(
-    'Choose a city',cities)
+    'Choose a city',cities, index = 922)
     df2=df.loc[df['CITY_NAME'] == selected_city, ['lat','long']].iloc[0]
     col1_1,col1_2 = col1.columns(2)
 
@@ -211,31 +183,20 @@ elif add_cord == 'Coordinate':
 )
 
 elif add_cord == 'Choose from map':
-    m = folium.Map(tiles="stamenterrain", location = [10.77588,106.70388], zoom_start =14)
-    draw = plugins.Draw(export=True,draw_options={
-                            'polyline': False,
-                            'circlemarker': False,
-                            'polygon': False,
-                            'rectangle': False,
-                            'circle': False,
-                            'marker': True},
-                            edit_options=None)
-    draw.add_to(m)
-    output = st_folium(m, width=400, height=400)
-    lat = 10.77588
-    long = 106.70388
-
-    lastest_drawing =output.get('last_active_drawing')
-    if lastest_drawing is not None:  
-        if lastest_drawing['geometry']['type'] == 'Point':
-            lastest_point = shapely.geometry.asShape(lastest_drawing['geometry'])
-            lat = lastest_point.y
-            long = lastest_point.x            
-            st.write('Coordinates: (',lat, ',', long, ')' )             
+    with form:
+        m = folium.Map(tiles="stamenterrain", location = [10.77588,106.70388], zoom_start =14)       
+        markers = m.add_child(folium.ClickForMarker())
+        map = st_folium(m, width=400, height=400)
+        lat = 10.77588
+        long = 106.70388
+        if map['last_clicked'] is not None:
+            lat = map['last_clicked']['lat']
+            long = map['last_clicked']['lng']
+            st.write('Coordinates: (',lat, ',', long, ')' )          
 
 radius = col2.slider(
     "Radius",
-    100,
+    1000,
     2000,
     key="radius",
 )
@@ -342,26 +303,17 @@ form.form_submit_button(label="Submit")
 result_container = st.empty()
 with st.spinner("Creating map... (may take up to a minute)"):
     rectangular = shape != "circle"
-    aoi = None
-    try:
-        # aoi = get_aoi(address=address, radius=radius, rectangular=rectangular)
-        if add_cord == 'Address':
-            aoi = get_aoi(address=address, radius=radius, rectangular=rectangular)
-        elif add_cord == 'Coordinate':
-            aoi = get_aoi(coordinates=(lat_input, long_input), radius=radius, rectangular=rectangular)    
-        elif add_cord == 'Choose from map':
-            aoi = get_aoi(coordinates=(lat, long), radius=radius, rectangular=rectangular)   
-
-    except GeoCodingError as e:
-        st.error(f"ERROR: {str(e)}")
-        st.stop()
+    aoi = None    
+    if add_cord == 'Input coordinate':
+        aoi = get_aoi(coordinates=(lat_input, long_input), radius=radius, rectangular=rectangular)    
+    elif add_cord == 'Choose from map':
+        aoi = get_aoi(coordinates=(lat, long), radius=radius, rectangular=rectangular) 
     df = st_get_osm_geometries(aoi=aoi)
     config = {
         "aoi_bounds": aoi.bounds,
         "draw_settings": draw_settings,
         "name_on": name_on,
         "name": '' if custom_title == "" else custom_title,
-        # "name": '',
         "font_size": font_size,
         "font_color": font_color,
         "text_x": text_x,
