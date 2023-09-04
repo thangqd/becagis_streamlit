@@ -46,7 +46,7 @@
                        ]
                    },
                    "visualChannels": {
-                       "colorField": {"name": "name", "type": "string"},
+                       "colorField": {"name": "trip_id", "type": "string"},
                        "colorScale": "quantile",
                        "sizeField": null,
                        "sizeScale": "linear"
@@ -56,7 +56,7 @@
            "interactionConfig": {
                "tooltip": {
                    "fieldsToShow": {
-                       "trip_data": [{"name": "name", "format": "string"}]
+                       "trip_data": [{"name": "trip_id", "format": "string"}]
                    },
                    "compareMode": false,
                    "compareType": "absolute",
