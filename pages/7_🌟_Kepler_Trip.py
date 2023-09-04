@@ -28,7 +28,7 @@ config_file = "./data/kepler/lenny_maughan_config.json"
 with open(config_file, "r",encoding="utf-8") as f:
     config = json.load(f)
 
-geolenny_maughan_json = pd.read_json('https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/strava/lenny_maughan2.geojson')
+geolenny_maughan_json = pd.read_json('https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/strava/lenny_maughan.geojson')
 lenny_maughan_map = KeplerGl(data={"Track": geolenny_maughan_json}, config = config, height=600)
 
 keplergl_static(lenny_maughan_map,  center_map=True)
