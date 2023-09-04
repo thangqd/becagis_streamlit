@@ -50,7 +50,6 @@ keplergl_static(lenny_maughan_map,  center_map=True)
 # keplergl_static(my_map,  center_map=True)
 
 
-
 #############################################
 # df = pd.read_csv('https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/nyc.csv')
 # config_file = "./data/kepler/nyc_config.json"

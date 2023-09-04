@@ -56,7 +56,7 @@
            "interactionConfig": {
                "tooltip": {
                    "fieldsToShow": {
-                       "trip_data": [{"name": "ele", "format": "float"}]
+                       "trip_data": [{"name": "name", "format": "string"}]
                    },
                    "compareMode": false,
                    "compareType": "absolute",
