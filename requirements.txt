@@ -11,3 +11,5 @@ streamlit-elements
 streamlit-image-select
 prettymapp
 gpxpy
+pyproj
+what3words
