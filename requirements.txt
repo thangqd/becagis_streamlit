@@ -13,3 +13,4 @@ prettymapp
 gpxpy
 pyproj
 what3words
+streamlit-aggrid
