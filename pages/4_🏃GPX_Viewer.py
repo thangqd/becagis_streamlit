@@ -26,12 +26,9 @@ st.sidebar.info(
     """
 )
 st.title("GPX Viewer")
-import requests
 import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 import pandas as pd
-from pandas.io.json import json_normalize
-import fiona
 
 def calculate_time(row):
     time = datetime.now() + timedelta(seconds=row["track_seg_point_id"])
