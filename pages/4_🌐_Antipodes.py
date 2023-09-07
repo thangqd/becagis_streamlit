@@ -62,7 +62,7 @@ with col1:
 with col2:
     antipodal_m = folium.Map(tiles="stamenterrain",zoom_start = zoom) 
     if antipode_lat is not None:
-        folium.Marker(location=[antipode_lat, antipode_lng], popup='Latitude: '+ str('{:.4f}'.format(antipode_lat)) + '\nLongitude: ' + str('{:.4f}'.format(antipode_lat))
+        folium.Marker(location=[antipode_lat, antipode_lng], popup='Latitude: '+ str('{:.4f}'.format(antipode_lat)) + '\nLongitude: ' + str('{:.4f}'.format(antipode_lng))
                 ).add_to(antipodal_m)  
       
     antipodal_map = st_folium(antipodal_m,width = 500, height = 400) 

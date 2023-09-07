@@ -8,7 +8,7 @@ from pyproj import CRS, Transformer
 from pyproj.aoi import AreaOfInterest
 from pyproj.database import query_utm_crs_info
 import what3words
-from  becalib import olc, mgrs, geohash, maidenhead
+from  becalib import olc, mgrs, geohash, maidenhead, georef
 from becalib.utm import latLon2Utm
 
 
@@ -39,9 +39,20 @@ def get_pos(lat,lng):
 @st.cache_data
 def get_crs_list(): 
     crs_info_list = pyproj.database.query_crs_info(auth_name=None, pj_types=None) 
-    st.write(len(crs_info_list))
     crs_list = ["EPSG:" + info[1] + ' (' + info[2] + ') 'for info in crs_info_list] 
     return sorted(crs_list) 
+
+@st.cache_data
+def antipodes(lat,lng):
+    antipode_lat = - lat
+    if lng< 0:
+        antipode_lng = lng + 180 
+    else: antipode_lng = lng - 180  
+    return antipode_lat,antipode_lng
+
+
+antipode_lat = None
+antipode_lng = None
 
 col1, col2 = st.columns(2)
 with col1: 
@@ -63,7 +74,10 @@ with col2:
             crs_list = get_crs_list()
             target_CRS_text = st.selectbox('🌐Default target CRS/ Projection', crs_list,index = 10080)
             target_CRS = crs_list.index(target_CRS_text)
-            coordinate_order= st.selectbox('Coordinate order for decimal or and DMS notations', ['Lat,Lon (Y,X) Googlemaps Order', 'Lon,Lat (X,Y) Order'])
+            order_options = ('Lat,Lon (Y,X) Googlemaps Order', 'Lon,Lat (X,Y) Order')
+            coordinate_order_selected= st.selectbox('Coordinate order for decimal or and DMS notations', order_options)
+            coordinate_order = order_options.index(coordinate_order_selected)
+
             st.divider()
             tab_conversion_col1, tab_conversion_col2 = st.columns(2)
             with tab_conversion_col1: 
@@ -74,7 +88,7 @@ with col2:
                         max_value=32,
                         key="epsg_4326_precision",
                     )
-                DMS_ss_seconds_precision = st.number_input(
+                DMS_ss_precision = st.number_input(
                     "DMS.ss seconds precision",
                     min_value=0,
                     value = 0,
@@ -116,7 +130,7 @@ with col2:
                     key="Delimeter_coordinates",
                 )
 
-            with tab_conversion_col2: 
+            with tab_conversion_col2:                
                 other_precision = st.number_input(
                         "Other Decimal degree precision",
                         min_value=0,
@@ -160,7 +174,7 @@ with col2:
                             "target_CRS": target_CRS,
                             "coordinate_order": coordinate_order,
                             "epsg_4326_precision": epsg_4326_precision,
-                            "DMS_ss_seconds_precision": DMS_ss_seconds_precision,
+                            "DMS_ss_precision": DMS_ss_precision,
                             "UTM_precision": UTM_precision,
                             "MGRS_precision": MGRS_precision,
                             "Geohash_precision": Geohash_precision,
@@ -183,22 +197,22 @@ with col2:
 
     if map['last_clicked'] is not None:
         lat, lng = get_pos(map['last_clicked']['lat'],map['last_clicked']['lng'])
-        if conversion_settings['coordinate_order']== 'Lat,Lon (Y,X) Googlemaps Order':
+        if conversion_settings['coordinate_order']== 0:
             wgs84_coordinates = '{:.{prec}f}{}{:.{prec}f}'.format(lat, conversion_settings['DDMMSS_delimeter'], lng, prec=conversion_settings['epsg_4326_precision'])
-        elif conversion_settings['coordinate_order'] == 'Lon,Lat (X,Y) Order':
+        elif conversion_settings['coordinate_order'] == 1:
             wgs84_coordinates = '{:.{prec}f}{}{:.{prec}f}'.format(lng, conversion_settings['DDMMSS_delimeter'], lat, prec=conversion_settings['epsg_4326_precision'])
         st.caption(":red[Clicked point (WGS84 CRS): ]") 
         st.code(wgs84_coordinates)
         
-        DMS = formatDmsString(lat, lng, dms_mode=0, prec=conversion_settings['epsg_4326_precision'], order=conversion_settings['coordinate_order'], delimiter=conversion_settings['DDMMSS_delimeter'], useDmsSpace=conversion_settings['space_DMS_option'], padZeros=conversion_settings['pad_option'], nsewInFront=conversion_settings['NSEW_option'])
+        DMS = formatDmsString(lat, lng, dms_mode=0, prec=conversion_settings['DMS_ss_precision'], order=conversion_settings['coordinate_order'], delimiter=conversion_settings['DDMMSS_delimeter'], useDmsSpace=conversion_settings['space_DMS_option'], padZeros=conversion_settings['pad_option'], nsewInFront=conversion_settings['NSEW_option'])
         st.caption("➝ :blue[D M S.ss: ]") 
         st.code(DMS) 
-        
-        D_M_MM = formatDmsString(lat, lng, dms_mode=2, prec=conversion_settings['epsg_4326_precision'], order=conversion_settings['coordinate_order'], delimiter=conversion_settings['DDMMSS_delimeter'], useDmsSpace=conversion_settings['space_DMS_option'], padZeros=conversion_settings['pad_option'], nsewInFront=conversion_settings['NSEW_option'])
+    
+        D_M_MM = formatDmsString(lat, lng, dms_mode=2, prec=conversion_settings['DM_mm_precision'], order=conversion_settings['coordinate_order'], delimiter=conversion_settings['DDMMSS_delimeter'], useDmsSpace=conversion_settings['space_DMS_option'], padZeros=conversion_settings['pad_option'], nsewInFront=conversion_settings['NSEW_option'])
         st.caption("➝ :blue[D M.mm: ]")
         st.code(D_M_MM)
 
-        DDMMSS = formatDmsString(lat, lng, dms_mode=1, prec=conversion_settings['epsg_4326_precision'], order=conversion_settings['coordinate_order'], delimiter=conversion_settings['DDMMSS_delimeter'], useDmsSpace=conversion_settings['space_DMS_option'], padZeros=conversion_settings['pad_option'], nsewInFront=conversion_settings['NSEW_option'])
+        DDMMSS = formatDmsString(lat, lng, dms_mode=1, prec=conversion_settings['DMS_ss_precision'], order=conversion_settings['coordinate_order'], delimiter=conversion_settings['DDMMSS_delimeter'], useDmsSpace=conversion_settings['space_DMS_option'], padZeros=conversion_settings['pad_option'], nsewInFront=conversion_settings['NSEW_option'])
         st.caption("➝ :blue[DDMMSS: ]") 
         st.code(DDMMSS)
 
@@ -212,16 +226,16 @@ with col2:
             # st.code(crs_target.to_wkt(pretty=True))
             transformer = Transformer.from_crs(crs_4326, crs_target)
             y,x = transformer.transform(lat,lng)
-            if conversion_settings['coordinate_order']== 'Lat,Lon (Y,X) Googlemaps Order':
-                target_crs_coordinates = '{:.{prec}f}{}{:.{prec}f}'.format(lat, conversion_settings['DDMMSS_delimeter'], lng, prec=conversion_settings['other_precision'])
-            elif conversion_settings['coordinate_order'] == 'Lon,Lat (X,Y) Order':
-                target_crs_coordinates = '{:.{prec}f}{}{:.{prec}f}'.format(lng, conversion_settings['DDMMSS_delimeter'], lat, prec=conversion_settings['other_precision'])
+            if conversion_settings['coordinate_order']== 0:
+                target_crs_coordinates = '{:.{prec}f}{}{:.{prec}f}'.format(y, conversion_settings['DDMMSS_delimeter'], x, prec=conversion_settings['other_precision'])
+            elif conversion_settings['coordinate_order'] == 1:
+                target_crs_coordinates = '{:.{prec}f}{}{:.{prec}f}'.format(x, conversion_settings['DDMMSS_delimeter'], y, prec=conversion_settings['other_precision'])
             st.caption("➝ :blue[Coordinates in chosen target CRS:]") 
             st.code(target_crs_coordinates)
             # st.write(target_CRS_selected,': ', y, x)        
         except:
             st.warning('⚠️ No transform available between EPSG:4326 and the chosen target CRS')
-
+        
         UTM = latLon2Utm(lat, lng, conversion_settings['UTM_precision'], conversion_settings['UTM_format'])
         st.caption("➝ :blue[Standard UTM: ]") 
         st.code(UTM)
@@ -256,13 +270,38 @@ with col2:
         except:
             st.warning('⚠️ Maidenhead transformation error!')
         
+        try:
+            georef_code = georef.encode(lat, lng, conversion_settings['GEOREF_precision'])
+            st.caption("➝ :blue[GEOREF: ]")
+            st.code(georef_code)
+        except Exception:
+            st.warning('⚠️ GEOREF transformation error!')
+        
 
+        try:
+            geocoder = what3words.Geocoder("0HQQGEX8")
+            w3w = geocoder.convert_to_3wa(what3words.Coordinates(lat, lng),language = 'vi')
+            st.caption("➝ :blue[What3words: ]")
+            st.code(w3w['words'])
+        except Exception:
+            st.warning('⚠️ What3words transformation error!')     
+     
+        with col1:            
+            antipode_lat,antipode_lng = antipodes(lat,lng)     
+            if conversion_settings['coordinate_order']== 0:
+                antipodal_coordinates = '{:.{prec}f}{}{:.{prec}f}'.format(antipode_lat, conversion_settings['DDMMSS_delimeter'], antipode_lng, prec=conversion_settings['other_precision'])
+            elif conversion_settings['coordinate_order'] == 1:
+                antipodal_coordinates = '{:.{prec}f}{}{:.{prec}f}'.format(antipode_lng, conversion_settings['DDMMSS_delimeter'], antipode_lat, prec=conversion_settings['other_precision'])
+            st.caption("➝ :blue[Antipodal Coordinates:]") 
+            st.code(antipodal_coordinates)
 
-        # geocoder = what3words.Geocoder("0HQQGEX8")
-        # w3w = geocoder.convert_to_3wa(what3words.Coordinates(lat, lng),language = 'vi')
-        # st.write("What3words: ",w3w['words'])
+            antipodal_m = folium.Map(tiles="stamenterrain",zoom_start = 12) 
+            if antipode_lat is not None:
+                folium.Marker(location=[antipode_lat, antipode_lng], popup='Latitude: '+ str('{:.4f}'.format(antipode_lat)) + '\nLongitude: ' + str('{:.4f}'.format(antipode_lng))
+                        ).add_to(antipodal_m)  
 
-
+            antipodal_map = folium_static(antipodal_m, width = 510, height = 450) 
+            
         
     
 
