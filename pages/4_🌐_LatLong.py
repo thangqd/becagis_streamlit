@@ -10,7 +10,6 @@ from pyproj import CRS, Transformer
 from pyproj.aoi import AreaOfInterest
 from pyproj.database import query_utm_crs_info
 import what3words
-import pyperclip
 import sys
 sys.path.append("./becagis_lib")
 
