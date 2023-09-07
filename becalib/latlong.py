@@ -7,6 +7,11 @@ import re
 
 # def tr(string):
 #     return QCoreApplication.translate('@default', string)
+def formatWGS84tring (lat, lon, delimiter=', ', order = 0):
+    if order == 0:  # Y, X or Lat, Lon
+        return str(lat) + delimiter + str(lon)
+    else:  # X, Y or Lon, Lat
+        return str(lon) + delimiter + str(lat)
 
 def formatMgrsString(mgrs, add_spaces=False):
     if add_spaces:
