@@ -2,7 +2,7 @@ import folium
 from folium.plugins import Geocoder
 from streamlit_folium import st_folium,folium_static
 import streamlit as st
-import lib.olc as olc
+from lib import olc
 from lib.latlong import parseDMSString, formatDmsString, formatMgrsString 
 from folium.plugins import Geocoder
 import pyproj
@@ -11,6 +11,8 @@ from pyproj.aoi import AreaOfInterest
 from pyproj.database import query_utm_crs_info
 import what3words
 import pyperclip
+import sys
+sys.path.append("./lib")
 
 
 st.set_page_config(layout="wide")
