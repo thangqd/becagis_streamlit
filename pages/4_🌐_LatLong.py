@@ -2,8 +2,8 @@ import folium
 from folium.plugins import Geocoder
 from streamlit_folium import st_folium,folium_static
 import streamlit as st
-from lib import olc
-from lib.latlong import parseDMSString, formatDmsString, formatMgrsString 
+from  becagis_lib import olc
+from becagis_lib.latlong import parseDMSString, formatDmsString, formatMgrsString 
 from folium.plugins import Geocoder
 import pyproj
 from pyproj import CRS, Transformer
@@ -12,7 +12,7 @@ from pyproj.database import query_utm_crs_info
 import what3words
 import pyperclip
 import sys
-sys.path.append("./lib")
+sys.path.append("./becagis_lib")
 
 
 st.set_page_config(layout="wide")
