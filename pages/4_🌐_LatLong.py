@@ -11,7 +11,7 @@ from pyproj.aoi import AreaOfInterest
 from pyproj.database import query_utm_crs_info
 import what3words
 import sys
-sys.path.append("./becagis_lib")
+# sys.path.append("./becagis_lib")
 
 
 st.set_page_config(layout="wide")
