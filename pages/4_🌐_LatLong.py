@@ -2,7 +2,7 @@ import folium
 from folium.plugins import Geocoder
 from streamlit_folium import st_folium,folium_static
 import streamlit as st
-from lib import olc
+import lib.olc as olc
 from lib.latlong import parseDMSString, formatDmsString, formatMgrsString 
 from folium.plugins import Geocoder
 import pyproj
