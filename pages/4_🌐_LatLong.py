@@ -32,6 +32,7 @@ st.write('LatLong Tools')
 UTM_FORMATS = ['48N 686261 1192650', '686261,1192650,48N','686261mE,1192650mN,48N', '686261mE,1192650mN,48,N']
 COORDINATE_ODERS = ('Lat,Lon (Y,X) Googlemaps Order', 'Lon,Lat (X,Y) Order')
 
+
 @st.cache_data
 def get_pos(lat,lng):
     return lat,lng
@@ -195,8 +196,8 @@ with col2:
                             "space_MGRS_option": space_MGRS_option                           
                             }
             submitted = st.form_submit_button("Submit")
-            # if submitted:
-            #     st.write("conversion_settings", conversion_settings)
+            if submitted:
+                st.caption(":blue[Settings saved sucessfully!]") 
 
     if map['last_clicked'] is not None:
         lat, lng = get_pos(map['last_clicked']['lat'],map['last_clicked']['lng'])
