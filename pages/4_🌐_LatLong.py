@@ -62,7 +62,6 @@ with col1:
     markers = m.add_child(folium.ClickForMarker())
     # folium.Rectangle([(28.6471948,76.9531796), (19.0821978,72.7411)]).add_to(m)
     # Geocoder(default_css = [('Control.Geocoder.css', 'https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/css/Control.Geocoder.css')]).add_to(m)
-
     map = st_folium(m, width = 800, height = 450)
     # map = st_folium(m)
 with col2:
@@ -205,8 +204,18 @@ with col2:
             wgs84_coordinates = '{:.{prec}f}{}{:.{prec}f}'.format(lat, conversion_settings['DDMMSS_delimeter'], lng, prec=conversion_settings['epsg_4326_precision'])
         elif conversion_settings['coordinate_order'] == 1:
             wgs84_coordinates = '{:.{prec}f}{}{:.{prec}f}'.format(lng, conversion_settings['DDMMSS_delimeter'], lat, prec=conversion_settings['epsg_4326_precision'])
-        st.caption(":red[Clicked point (WGS84 CRS): ]") 
-        st.code(wgs84_coordinates)
+        # st.caption(":red[Clicked point (WGS84 CRS): ]") 
+        latlng = st.text_input(":red[Clicked point (WGS84 CRS): ]", wgs84_coordinates)
+        if latlng:
+            lat = float(latlng.split(',')[0].strip())
+            lng = float(latlng.split(',')[1].strip())
+            marker = folium.Marker(location=[lat, lng], popup='Latitude: '+ str('{:.4f}'.format(lat)) + '\nLongitude: ' + str('{:.4f}'.format(lng)), icon=folium.Icon(color='red', icon='globe', prefix='fa'))                                                                                               
+            # Add the marker to the existing map
+            custom_m = folium.Map(tiles="stamenterrain", location = [lat,lng], zoom_start =15)
+            custom_m.add_child(marker)
+            custom_map = folium_static(custom_m, width = 510, height = 450)
+
+
         
         DMS = formatDmsString(lat, lng, dms_mode=0, prec=conversion_settings['DMS_ss_precision'], order=conversion_settings['coordinate_order'], delimiter=conversion_settings['DDMMSS_delimeter'], useDmsSpace=conversion_settings['space_DMS_option'], padZeros=conversion_settings['pad_option'], nsewInFront=conversion_settings['NSEW_option'])
         st.caption("➝ :blue[D M S.ss: ]") 
@@ -299,13 +308,12 @@ with col2:
                 antipodal_coordinates = '{:.{prec}f}{}{:.{prec}f}'.format(antipode_lng, conversion_settings['DDMMSS_delimeter'], antipode_lat, prec=conversion_settings['other_precision'])
             st.caption("➝ :blue[Antipodal Coordinates:]") 
             st.code(antipodal_coordinates)
-
+           
             antipodal_m = folium.Map(tiles="stamenterrain",zoom_start = 12) 
             if antipode_lat is not None:
-                folium.Marker(location=[antipode_lat, antipode_lng], popup='Latitude: '+ str('{:.4f}'.format(antipode_lat)) + '\nLongitude: ' + str('{:.4f}'.format(antipode_lng))
-                        ).add_to(antipodal_m)  
-
-            antipodal_map = folium_static(antipodal_m, width = 510, height = 450) 
+                marker = folium.Marker(location=[antipode_lat, antipode_lng], icon=folium.Icon(color='green', icon='globe', prefix='fa'), popup='Latitude: '+ str('{:.4f}'.format(antipode_lat)) + '\nLongitude: ' + str('{:.4f}'.format(antipode_lng)))
+                antipodal_m.add_child(marker)
+                antipodal_map = folium_static(antipodal_m, width = 510, height = 450) 
             
         
     
