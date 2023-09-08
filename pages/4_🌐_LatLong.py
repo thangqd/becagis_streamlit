@@ -8,8 +8,7 @@ from pyproj import CRS, Transformer
 from pyproj.aoi import AreaOfInterest
 from pyproj.database import query_utm_crs_info
 import what3words
-from  becalib import olc, mgrs, geohash, maidenhead, georef
-from becalib.utm import latLon2Utm
+from  becalib import olc, mgrs, geohash, maidenhead, georef, utm
 
 
 st.set_page_config(layout="wide")
@@ -236,7 +235,7 @@ with col2:
         except:
             st.warning('⚠️ No transform available between EPSG:4326 and the chosen target CRS')
         
-        UTM = latLon2Utm(lat, lng, conversion_settings['UTM_precision'], conversion_settings['UTM_format'])
+        UTM = utm.latLon2Utm(lat, lng, conversion_settings['UTM_precision'], conversion_settings['UTM_format'])
         st.caption("➝ :blue[Standard UTM: ]") 
         st.code(UTM)
 

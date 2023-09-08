@@ -1,12 +1,9 @@
 import math
 import re
-# from qgis.core import QgsCoordinateReferenceSystem
-# from qgis.PyQt.QtCore import QCoreApplication
+import pyproj
 
-# epsg4326 = QgsCoordinateReferenceSystem('EPSG:4326')
+epsg4326 = pyproj.CRS('EPSG:4326')
 
-# def tr(string):
-#     return QCoreApplication.translate('@default', string)
 def formatWGS84tring (lat, lon, delimiter=', ', order = 0):
     if order == 0:  # Y, X or Lat, Lon
         return str(lat) + delimiter + str(lon)

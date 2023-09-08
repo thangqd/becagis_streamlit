@@ -1,8 +1,10 @@
 import re
 import math
 # from qgis.core import QgsPointXY, QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsProject
-# from .util import epsg4326, tr
-from pyproj import Proj
+from .latlong import epsg4326
+import pyproj
+import shapely
+from shapely.ops import transform
 
 class UtmException(Exception):
     pass
@@ -15,10 +17,10 @@ def utmParse(utm_str):
         if len(m) == 4:
             zone = int(m[0])
             if zone < 1 or zone > 60:
-                raise UtmException(tr('Invalid UTM Coordinate'))
+                raise UtmException('Invalid UTM Coordinate')
             hemisphere = m[1]
             if hemisphere != 'N' and hemisphere != 'S':
-                raise UtmException(tr('Invalid UTM Coordinate'))
+                raise UtmException('Invalid UTM Coordinate')
             easting = float(m[2])
             northing = float(m[3])
             return(zone, hemisphere, easting, northing)
@@ -32,22 +34,26 @@ def utmParse(utm_str):
         if len(m) == 4:
             zone = int(m[2])
             if zone < 1 or zone > 60:
-                raise UtmException(tr('Invalid UTM Coordinate'))
+                raise UtmException('Invalid UTM Coordinate')
             hemisphere = m[3]
             if hemisphere != 'N' and hemisphere != 'S':
-                raise UtmException(tr('Invalid UTM Coordinate'))
+                raise UtmException('Invalid UTM Coordinate')
             easting = float(m[0])
             northing = float(m[1])
             return(zone, hemisphere, easting, northing)
     
     raise UtmException('Invalid UTM Coordinate')
 
-# def utm2Point(utm, crs=epsg4326):
-#     zone, hemisphere, easting, northing = utmParse(utm)
-#     utmcrs = QgsCoordinateReferenceSystem(utmGetEpsg(hemisphere, zone))
-#     pt = QgsPointXY(easting, northing)
-#     utmtrans = QgsCoordinateTransform(utmcrs, crs, QgsProject.instance())
-#     return(utmtrans.transform(pt))
+def utm2Point(utm, crs=epsg4326):
+    zone, hemisphere, easting, northing = utmParse(utm)
+    utmcrs = pyproj.CRS(utmGetEpsg(hemisphere, zone))
+    pt = shapely.geometry.shape(easting, northing)
+    utmtrans = pyproj.Transformer.from_crs(epsg4326, utmcrs, always_xy=True).transform
+    return(transform(utmtrans, pt))
+    # utmcrs = QgsCoordinateReferenceSystem(utmGetEpsg(hemisphere, zone))
+    # pt = QgsPointXY(easting, northing)
+    # utmtrans = QgsCoordinateTransform(utmcrs, crs, QgsProject.instance())
+    # return(utmtrans.transform(pt))
 
 def isUtm(utm):
     try:
@@ -92,11 +98,16 @@ def latLon2UtmZone(lat, lon):
 def latLon2UtmParameters(lat, lon):
     zone, hemisphere = latLon2UtmZone(lat, lon)
     epsg = utmGetEpsg(hemisphere, zone)
+    utmcrs = pyproj.CRS(epsg)
+    utmtrans = pyproj.Transformer.from_crs(epsg4326, utmcrs, always_xy=True).transform
+    pt = shapely.geometry.shape(lon, lat)
+    utmpt = transform(utmtrans, pt)
+    return(zone, hemisphere, utmpt.x(), utmpt.y())
     # utmcrs = QgsCoordinateReferenceSystem(epsg)
     # utmtrans = QgsCoordinateTransform(epsg4326, utmcrs, QgsProject.instance())
     # pt = QgsPointXY(lon, lat)
-    utmpt = utmtrans.transform(pt)
-    return(zone, hemisphere, utmpt.x(), utmpt.y())
+    # utmpt = utmtrans.transform(pt)
+    # return(zone, hemisphere, utmpt.x(), utmpt.y())
 
 def latLon2Utm(lat, lon, precision, format=0):
     try:
