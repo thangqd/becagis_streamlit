@@ -29,7 +29,8 @@ st.sidebar.info(
 st.title("LatLong Tools")
 st.write('LatLong Tools')
 
-UTM_format = ['15N 755631 4283168', '755631,4283168,15N','755631mE,4283168mN,15N', '755631mE,4283168mN,15,N']
+UTM_FORMATS = ['48N 686261 1192650', '686261,1192650,48N','686261mE,1192650mN,48N', '686261mE,1192650mN,48,N']
+COORDINATE_ODERS = ('Lat,Lon (Y,X) Googlemaps Order', 'Lon,Lat (X,Y) Order')
 
 @st.cache_data
 def get_pos(lat,lng):
@@ -72,10 +73,10 @@ with col2:
         with st.form("Settings"):
             crs_list = get_crs_list()
             target_CRS_text = st.selectbox('🌐Default target CRS/ Projection', crs_list,index = 10080)
-            target_CRS = crs_list.index(target_CRS_text)
-            order_options = ('Lat,Lon (Y,X) Googlemaps Order', 'Lon,Lat (X,Y) Order')
-            coordinate_order_selected= st.selectbox('Coordinate order for decimal or and DMS notations', order_options)
-            coordinate_order = order_options.index(coordinate_order_selected)
+            target_CRS = crs_list.index(target_CRS_text)        
+
+            coordinate_order_selected= st.selectbox('Coordinate order for decimal or and DMS notations', COORDINATE_ODERS)
+            coordinate_order = COORDINATE_ODERS.index(coordinate_order_selected)
 
             st.divider()
             tab_conversion_col1, tab_conversion_col2 = st.columns(2)
@@ -144,7 +145,10 @@ with col2:
                         max_value=16,
                         key="DM_mm_precision",
                     )        
-                UTM_format = st.selectbox('UTM Format', UTM_format)
+                UTM_format_selected = st.selectbox('UTM Format', UTM_FORMATS)
+                UTM_format = UTM_FORMATS.index(UTM_format_selected)
+
+
                 Plus_code_length = st.number_input(
                     "Google Plus code length",
                     min_value=10,
@@ -235,6 +239,7 @@ with col2:
         except:
             st.warning('⚠️ No transform available between EPSG:4326 and the chosen target CRS')
         
+        # UTM = utm.latLon2Utm(lat, lng, conversion_settings['UTM_precision'], conversion_settings['UTM_format'])
         UTM = utm.latLon2Utm(lat, lng, conversion_settings['UTM_precision'], conversion_settings['UTM_format'])
         st.caption("➝ :blue[Standard UTM: ]") 
         st.code(UTM)

@@ -1,10 +1,11 @@
 import re
 import math
-# from qgis.core import QgsPointXY, QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsProject
 from .latlong import epsg4326
 import pyproj
 import shapely
+from shapely.geometry import Point
 from shapely.ops import transform
+
 
 class UtmException(Exception):
     pass
@@ -47,9 +48,11 @@ def utmParse(utm_str):
 def utm2Point(utm, crs=epsg4326):
     zone, hemisphere, easting, northing = utmParse(utm)
     utmcrs = pyproj.CRS(utmGetEpsg(hemisphere, zone))
-    pt = shapely.geometry.shape(easting, northing)
-    utmtrans = pyproj.Transformer.from_crs(epsg4326, utmcrs, always_xy=True).transform
-    return(transform(utmtrans, pt))
+    pt = Point(easting, northing)
+    # utmtrans = pyproj.Transformer.from_crs(epsg4326, utmcrs, always_xy=True)
+    utmtrans = pyproj.Transformer.from_crs(utmcrs,crs, always_xy=True).transform
+    utm_point = transform(utmtrans, pt)
+    return utm_point
     # utmcrs = QgsCoordinateReferenceSystem(utmGetEpsg(hemisphere, zone))
     # pt = QgsPointXY(easting, northing)
     # utmtrans = QgsCoordinateTransform(utmcrs, crs, QgsProject.instance())
@@ -65,9 +68,9 @@ def isUtm(utm):
 
 def latLon2UtmZone(lat, lon):
     if lon < -180 or lon > 360:
-        raise UtmException(tr('Invalid longitude'))
+        raise UtmException('Invalid longitude')
     if lat > 84.5 or lat < -80.5:
-        raise UtmException(tr('Invalid latitude'))
+        raise UtmException('Invalid latitude')
     if lon < 180:
         zone = int(31 + (lon / 6.0))
     else:
@@ -95,19 +98,19 @@ def latLon2UtmZone(lat, lon):
         hemisphere = 'N'
     return(zone, hemisphere)
 
+# def latLon2UtmParameters(lat, lon):
 def latLon2UtmParameters(lat, lon):
     zone, hemisphere = latLon2UtmZone(lat, lon)
     epsg = utmGetEpsg(hemisphere, zone)
     utmcrs = pyproj.CRS(epsg)
     utmtrans = pyproj.Transformer.from_crs(epsg4326, utmcrs, always_xy=True).transform
-    pt = shapely.geometry.shape(lon, lat)
-    utmpt = transform(utmtrans, pt)
-    return(zone, hemisphere, utmpt.x(), utmpt.y())
-    # utmcrs = QgsCoordinateReferenceSystem(epsg)
+    pt = Point(lon, lat)
+    utmpt = transform(utmtrans, pt)    
     # utmtrans = QgsCoordinateTransform(epsg4326, utmcrs, QgsProject.instance())
     # pt = QgsPointXY(lon, lat)
     # utmpt = utmtrans.transform(pt)
     # return(zone, hemisphere, utmpt.x(), utmpt.y())
+    return(zone, hemisphere, utmpt.x, utmpt.y)
 
 def latLon2Utm(lat, lon, precision, format=0):
     try:
@@ -120,8 +123,8 @@ def latLon2Utm(lat, lon, precision, format=0):
             msg = '{:.{prec}f}mE,{:.{prec}f}mN,{}{}'.format(utmx, utmy, zone, hemisphere, prec=precision)
         else:
             msg = '{:.{prec}f}mE,{:.{prec}f}mN,{},{}'.format(utmx, utmy, zone, hemisphere, prec=precision)
-    except Exception:
-        msg = ''
+    except Exception as e:
+        msg = str(e)
     return(msg)
 
 def utmGetEpsg(hemisphere, zone):
