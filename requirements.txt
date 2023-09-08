@@ -1,6 +1,5 @@
 folium
 geopandas
-shapely
 leafmap
 keplergl
 streamlit

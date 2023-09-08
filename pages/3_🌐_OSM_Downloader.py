@@ -97,7 +97,7 @@ map = leafmap_folium.Map(tiles='Stamen Toner',location = [10.77588,106.70388], t
 if lastest_drawing is not None:  
     gdf = None  
     if lastest_drawing['geometry']['type'] == 'Point':
-        lastest_point = shapely.geometry.asShape(lastest_drawing['geometry'])
+        lastest_point = shapely.geometry.shape(lastest_drawing['geometry'])
         with col2:
             radius = st.select_slider(
                         "Choose a radius (meters)", 
@@ -110,7 +110,7 @@ if lastest_drawing is not None:
                 )
     
     elif lastest_drawing['geometry']['type'] == 'Polygon':
-        lastest_polygon = shapely.geometry.asShape(lastest_drawing['geometry'])
+        lastest_polygon = shapely.geometry.shape(lastest_drawing['geometry'])
         wgs84 = pyproj.CRS('EPSG:4326')
         utm = pyproj.CRS('EPSG:3857')
         project = pyproj.Transformer.from_crs(wgs84, utm, always_xy=True).transform
