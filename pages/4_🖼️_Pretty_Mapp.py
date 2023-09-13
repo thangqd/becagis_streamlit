@@ -17,6 +17,8 @@ import folium
 from streamlit_folium import st_folium
 import pandas as pd
 import json
+import streamlit_ext as ste
+
 
 from becalib.prettymapp_utils import (
     st_get_osm_geometries,
@@ -272,7 +274,7 @@ with st.spinner("Creating map... (may take up to a minute)"):
 import io
 data = io.BytesIO()
 fig.savefig(data, pad_inches=0, bbox_inches="tight", transparent=True)
-st.download_button(label="Download image", data=data, file_name=f"prettymapp.png")
+ste.download_button(label="Download image", data=data, file_name=f"prettymapp.png")
 
 
 st.markdown("</br>", unsafe_allow_html=True)
@@ -281,7 +283,7 @@ ex1, ex2 = st.columns(2)
 
 with ex2.expander("Export geometries as GeoJSON"):
     st.write(f"{df.shape[0]} geometries")
-    st.download_button(
+    ste.download_button(
         label="Download",
         data=gdf_to_bytesio_geojson(df),
         file_name=f"becagis_prettymapp.geojson",
