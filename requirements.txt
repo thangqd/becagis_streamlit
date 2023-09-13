@@ -1,8 +1,9 @@
-folium
+pandas
 geopandas
 leafmap
 keplergl
 streamlit
+folium
 streamlit-keplergl
 streamlit-folium
 streamlit
@@ -15,3 +16,5 @@ pyproj
 what3words
 streamlit-aggrid
 streamlit_lottie
+osmnx
+matplotlib

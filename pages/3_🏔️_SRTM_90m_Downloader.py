@@ -72,9 +72,6 @@ def highlight_function(feature):
         'dashArray': '5, 5'
     }
 
- 
-
-
 popup = folium.GeoJsonPopup(
     fields=["dem_link"],
     aliases=['Download DEM: '],
