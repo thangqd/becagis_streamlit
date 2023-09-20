@@ -1,5 +1,4 @@
 import folium
-from folium.plugins import Geocoder
 from streamlit_folium import st_folium,folium_static
 import streamlit as st
 from becalib.latlong import parseDMSString, formatDmsString, formatMgrsString 
@@ -9,7 +8,6 @@ from pyproj.aoi import AreaOfInterest
 from pyproj.database import query_utm_crs_info
 import what3words
 from  becalib import olc, mgrs, geohash, maidenhead, georef, utm
-
 
 st.set_page_config(layout="wide")
 st.sidebar.info(
@@ -50,7 +48,6 @@ def antipodes(lat,lng):
         antipode_lng = lng + 180 
     else: antipode_lng = lng - 180  
     return antipode_lat,antipode_lng
-
 
 antipode_lat = None
 antipode_lng = None
@@ -214,7 +211,6 @@ with col2:
             custom_m = folium.Map(tiles="stamenterrain", location = [lat,lng], zoom_start =15)
             custom_m.add_child(marker)
             custom_map = folium_static(custom_m, width = 510, height = 450)
-
 
         
         DMS = formatDmsString(lat, lng, dms_mode=0, prec=conversion_settings['DMS_ss_precision'], order=conversion_settings['coordinate_order'], delimiter=conversion_settings['DDMMSS_delimeter'], useDmsSpace=conversion_settings['space_DMS_option'], padZeros=conversion_settings['pad_option'], nsewInFront=conversion_settings['NSEW_option'])
