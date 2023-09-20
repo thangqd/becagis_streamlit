@@ -291,7 +291,7 @@ with col1:
         # options = ['DMS', 'DMMM', 'DDMMSS' ,'UTM', 'MGRS', 'pluscode', 'geohash', 'maidenhead', 'georef', 'w3w']
         options = ['DMS', 'DMMM', 'DDMMSS' ,'UTM', 'MGRS', 'pluscode', 'geohash_code', 'maidenhead_code', 'georef_code', 'Antipodes', 'Coordinate Transformation']
         check_boxes = [st.checkbox(option, key=option) for option in options]         
-        target_CRS_selected = st.selectbox('🌐 Choose a target CRS', crs_list, index = conversion_settings['target_CRS']).split()[0]
+        target_CRS_selected = st.selectbox('🌐 Choose a target CRS to transform', crs_list, index = conversion_settings['target_CRS']).split()[0]
         crs_4326 = CRS.from_epsg(4326)         
         submitted = st.form_submit_button("Calculate LatLong")        
         if submitted:
