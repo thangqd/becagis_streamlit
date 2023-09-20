@@ -24,8 +24,8 @@ st.sidebar.info(
     """
 )
 
-st.title("LatLong Tools")
-st.write('LatLong Tools')
+st.title("BecaGIS LatLong Tools")
+st.write('BecaGIS LatLong Tools is inspired by [Lat Lon Tools](https://plugins.qgis.org/plugins/latlontools/) ')
 
 UTM_FORMATS = ['48N 686261 1192650', '686261,1192650,48N','686261mE,1192650mN,48N', '686261mE,1192650mN,48,N']
 COORDINATE_ODERS = ('Lat,Lon (Y,X) Googlemaps Order', 'Lon,Lat (X,Y) Order')

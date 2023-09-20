@@ -31,8 +31,8 @@ st.sidebar.info(
     """
 )
 
-st.title("LatLong Calculator")
-st.write('LatLong Calculator')
+st.title("BecaGIS LatLong Calculator")
+st.write('BecaGIS LatLong Calculator is inspired by [Lat Lon Tools](https://plugins.qgis.org/plugins/latlontools/) ')
 
 UTM_FORMATS = ['48N 686261 1192650', '686261,1192650,48N','686261mE,1192650mN,48N', '686261mE,1192650mN,48,N']
 
@@ -204,60 +204,70 @@ with col2:
             if submitted:
                 st.caption(":blue[Settings saved sucessfully!]") 
 
+@st.cache_data
 def DMS(row):    
     # st.write(row[lat])
     # st.write(lon[lon])
     DMS = formatDmsString(row[lat_column], row[lon_column], dms_mode=0, prec=conversion_settings['DMS_ss_precision'], order=0, delimiter=conversion_settings['DDMMSS_delimeter'], useDmsSpace=conversion_settings['space_DMS_option'], padZeros=conversion_settings['pad_option'], nsewInFront=conversion_settings['NSEW_option'])
     return DMS
 
+@st.cache_data
 def DMMM(row):
     D_M_MM = formatDmsString(row[lat_column], row[lon_column], dms_mode=2, prec=conversion_settings['DM_mm_precision'], order=0, delimiter=conversion_settings['DDMMSS_delimeter'], useDmsSpace=conversion_settings['space_DMS_option'], padZeros=conversion_settings['pad_option'], nsewInFront=conversion_settings['NSEW_option'])
     return   D_M_MM   
 
+@st.cache_data
 def DDMMSS(row):
     DDMMSS = formatDmsString(row[lat_column], row[lon_column], dms_mode=1, prec=conversion_settings['DMS_ss_precision'], order=0, delimiter=conversion_settings['DDMMSS_delimeter'], useDmsSpace=conversion_settings['space_DMS_option'], padZeros=conversion_settings['pad_option'], nsewInFront=conversion_settings['NSEW_option'])
     return  DDMMSS
 
+@st.cache_data
 def UTM(row):
     UTM = utm.latLon2Utm(row[lat_column], row[lon_column], conversion_settings['UTM_precision'], conversion_settings['UTM_format'])
     return UTM
 
+@st.cache_data
 def MGRS(row):
     MGRS = mgrs.toMgrs(row[lat_column], row[lon_column], conversion_settings['MGRS_precision'])
     MGRS = formatMgrsString(MGRS, conversion_settings['space_MGRS_option'])
     return MGRS
 
+@st.cache_data
 def pluscode(row):
     pluscode = olc.encode(row[lat_column], row[lon_column], conversion_settings['Plus_code_length'])
     return pluscode
 
+@st.cache_data
 def geohash_code(row):
     geohash_code = geohash.encode(row[lat_column], row[lon_column], conversion_settings['Geohash_precision'])
     return geohash_code
 
+@st.cache_data
 def maidenhead_code(row):
     maidenhead_code = maidenhead.toMaiden(row[lat_column], row[lon_column], conversion_settings['Maidenhead_grid_precision'])
     return maidenhead_code   
 
+@st.cache_data
 def georef_code(row):
     georef_code = georef.encode(row[lat_column], row[lon_column], conversion_settings['GEOREF_precision'])
     return georef_code   
 
+@st.cache_data
 def w3w(row):
     geocoder = what3words.Geocoder("0HQQGEX8")
     w3w = geocoder.convert_to_3wa(what3words.Coordinates(row[lat_column], row[lon_column]),language = 'vi')
     return w3w['words']      
 
-def antipodal_y(row):
+
+@st.cache_data
+def antipodes(row):
     antipode_lat = - row[lat_column]
-    return antipode_lat
-
-def antipodal_x(row):
     if row[lon_column]< 0:
-        antipode_lon = row[lon_column] + 180 
-    else: antipode_lon = row[lon_column] - 180  
-    return antipode_lon
+        antipode_lng = row[lon_column] + 180 
+    else: antipode_lng = row[lon_column] - 180  
+    return antipode_lat,antipode_lng
 
+@st.cache_data
 def transform(row,crs_source, crs_target):
    transformer = Transformer.from_crs(crs_source, crs_target)
    y, x = transformer.transform(row[lat_column],row[lon_column])
@@ -265,10 +275,10 @@ def transform(row,crs_source, crs_target):
 
 with col1:
     url = st.text_input(
-        "Enter CSV URL",
+        "Enter a CSV URL with Latitude and Longitude Columns",
         'https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/us_cities.csv'
     )
-    uploaded_file = st.file_uploader("Or upload a CSV file")
+    uploaded_file = st.file_uploader("Or upload a CSV file with Latitude and Longitude Columns")
     lat_column_index, lon_column_index = 0,0     
     if url:   
         df = pd.read_csv(url,skiprows=[1],encoding = "UTF-8")                
@@ -305,8 +315,7 @@ with col1:
                     if 'antipodal_y' and 'antipodal_x' not in df.columns:
                         df.insert(len(df.columns), 'antipodal_y', None)
                         df.insert(len(df.columns), 'antipodal_x', None)
-                    df['antipodal_y'] = df.apply(locals()['antipodal_y'], axis=1)
-                    df['antipodal_x'] = df.apply(locals()['antipodal_x'], axis=1)
+                    df[['antipodal_y','antipodal_x']] = df.apply(antipodes, axis=1, result_type = 'expand')
                 
                 elif option == 'Coordinate Transformation'and checked:                    
                     if 'transform_y' and 'transform_x' not in df.columns:
@@ -325,17 +334,13 @@ with col1:
                 force_separate_button   = True,                                         
             ).add_to(m)             
             cluster = MarkerCluster()
-            for lat_col, lon_col in zip(df[lat_column], df[lon_column]):
+            for i, j in df.iterrows():
                 icon=folium.Icon(color='purple', icon='ok-circle')
-                popContent = ("latitude: " + str(round(lat_col,5)) + '<br>' +\
-                                "longitude: " + str(round(lon_col,5)) 
-                                )
-                iframe = folium.IFrame(popContent)
-                popup = folium.Popup(iframe,
-                                    min_width=200,
-                                    max_width=200)   
-                folium.Marker(location=[lat_col, lon_col], icon=icon, popup=popup).add_to(cluster)    
-
+                # iframe = folium.IFrame(popContent)
+                # popup = folium.Popup(popContent,min_width=200,max_width=200) 
+                popup = j.to_frame().to_html()
+                folium.Marker(location=[df.loc[i,lat_column], df.loc[i, lon_column]], icon=icon, popup=popup).add_to(cluster)
+                                                                                                                     
             m.add_child(cluster)            
             folium_static(m, width = 700)
             download_csv(df)
