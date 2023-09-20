@@ -7,7 +7,7 @@ folium
 streamlit-keplergl
 streamlit-folium
 streamlit
-streamlit-extras
+streamlit_ext
 streamlit-elements
 streamlit-image-select
 prettymapp
