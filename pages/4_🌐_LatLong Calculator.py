@@ -342,7 +342,7 @@ with col1:
                 folium.Marker(location=[df.loc[i,lat_column], df.loc[i, lon_column]], icon=icon, popup=popup).add_to(cluster)
                                                                                                                      
             m.add_child(cluster)            
-            folium_static(m, width = 700)
+            folium_static(m, width = 600)
             download_csv(df)
             download_geojson(df)
 
