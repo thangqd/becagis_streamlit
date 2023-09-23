@@ -9,7 +9,7 @@ import streamlit_ext as ste
 import geopandas as gpd
 import fiona, os
 import leafmap
-from shapely.geometry import Point
+from shapely.geometry import Point, MultiPoint
 
 
 st.set_page_config(layout="wide")
@@ -57,11 +57,16 @@ def antipodes(lon, lat):
 #     return target
 
 def antipodes_transform(source):  
+    st.write(source.geometry.type)
     if (source.geometry.type == 'Point').all():
         geometry = [Point(antipodes(lon, lat)) for lon, lat in zip(source.geometry.x, source.geometry.y)]
         target = gpd.GeoDataFrame(source, geometry=geometry)        
         return target
-    
+    elif (source.geometry.type == 'MultiPoint').all():
+        source = source.explode()
+        geometry = [Point(antipodes(lon, lat)) for lon, lat in zip(source.geometry.x, source.geometry.y)]
+        target = gpd.GeoDataFrame(source, geometry=geometry)   
+        return target
         # source["x"] = source.geometry.x
         # source["y"] = source.geometry.y
         # target = source.set_geometry([Point(antipode_lat,antipode_lon)])     
@@ -147,7 +152,7 @@ form = st.form(key="latlon_calculator")
 with form:   
     url = st.text_input(
             "Enter a URL to a vector dataset",
-            "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/vn_cities.geojson",
+            "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/vn_cities_multipoint.geojson",
         )
 
     uploaded_file = st.file_uploader(
@@ -180,9 +185,10 @@ with form:
         if submitted:
             target = antipodes_transform(gdf)
             with col2:
-                center = target.dissolve().centroid
-                center_lon, center_lat = center.x, center.y             
-                m = folium.Map(tiles='stamenterrain', location = [center_lat, center_lon], zoom_start=4)
-                folium.GeoJson(target).add_to(m)
-                folium_static(m, width = 600)         
-                download_geojson(target)   
+                if not target.empty: 
+                    center = target.dissolve().centroid
+                    center_lon, center_lat = center.x, center.y             
+                    m = folium.Map(tiles='stamenterrain', location = [center_lat, center_lon], zoom_start=4)
+                    folium.GeoJson(target).add_to(m)
+                    folium_static(m, width = 600)         
+                    download_geojson(target)   
