@@ -43,37 +43,25 @@ def download_geojson(gdf):
             ) 
 
 def antipodes(lon, lat):
-    antipode_lat = - lat
+    antipode_lat = -lat
     if lon< 0:
         antipode_lon = lon + 180 
     else: antipode_lon = lon - 180  
-    return antipode_lat,antipode_lon
+    return antipode_lon, antipode_lat
 
-def antipode_geom(source, target): 
-    lon = source.geometry.x     
-    lat = source.geometry.y    
-    antipode_lat,antipode_lon =  antipodes(lat,lon) 
-    target = source.set_geometry([Point(antipode_lat,antipode_lon)])     
-    return target
+# def antipode_geom(source, target): 
+#     lon = source.geometry.x     
+#     lat = source.geometry.y    
+#     antipode_lon, antipode_lat =  antipodes(lon, lat) 
+#     target = source.set_geometry([Point(antipode_lon, antipode_lat)])     
+#     return target
 
-def antipodes_transform(source, target = None):  
-    st.write(source)  
+def antipodes_transform(source):  
     if (source.geometry.type == 'Point').all():
-        for index, row in source.iterrows():
-            lon = row.geometry.x
-            lat = row.geometry.y            
-            antipode_lat,antipode_lon =  antipodes(lon, lat) 
-            # row[index].set_geometry(Point(antipode_lat,antipode_lon), inplace=True)
-            anipode_point = Point(antipode_lon, antipode_lat)
-            anipode_geom = gpd.GeoSeries(anipode_point, crs=source.crs)
-            source.set_geometry(anipode_geom.geometry)
-    with col2:   
-        center_lon, center_lat = leafmap.gdf_centroid(gdf)               
-        m = folium.Map([center_lon, center_lat], zoom_start=4)
-        folium.GeoJson(source).add_to(m)
-        folium_static(m, width = 600)
-        st.write(source)
-
+        geometry = [Point(antipodes(lon, lat)) for lon, lat in zip(source.geometry.x, source.geometry.y)]
+        target = gpd.GeoDataFrame(source, geometry=geometry)        
+        return target
+    
         # source["x"] = source.geometry.x
         # source["y"] = source.geometry.y
         # target = source.set_geometry([Point(antipode_lat,antipode_lon)])     
@@ -180,15 +168,21 @@ with form:
         else:
             gdf = gpd.read_file(file_path)
         
-        lon, lat = leafmap.gdf_centroid(gdf)    
-
+        center = gdf.dissolve().centroid
+        center_lon, center_lat = center.x, center.y
+          
+        with col1:              
+            m = folium.Map(location = [center_lat, center_lon], zoom_start=4)           
+            folium.GeoJson(gdf, name = layer_name).add_to(m)
+            folium_static(m, width = 600)
+        
         submitted = st.form_submit_button("Antipodes Transform")        
         if submitted:
-            antipodes_transform(gdf, None)
-            with col2:         
-                download_geojson(gdf)
-    
-    with col1:              
-        m = folium.Map([lon, lat], zoom_start=4)
-        folium.GeoJson(gdf, name = layer_name).add_to(m)
-        folium_static(m, width = 600)
+            target = antipodes_transform(gdf)
+            with col2:
+                center = target.dissolve().centroid
+                center_lon, center_lat = center.x, center.y             
+                m = folium.Map(tiles='stamenterrain', location = [center_lat, center_lon], zoom_start=4)
+                folium.GeoJson(target).add_to(m)
+                folium_static(m, width = 600)         
+                download_geojson(target)   
