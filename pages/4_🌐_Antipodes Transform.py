@@ -41,8 +41,6 @@ def download_geojson(gdf):
                 mime="application/json",
                 data=geojson
             ) 
-def linestring_to_points(feature,line):
-    return {feature:line.coords}
 
 def antipodes(lon, lat):
     antipode_lat = -lat
@@ -51,8 +49,24 @@ def antipodes(lon, lat):
     else: antipode_lon = lon - 180  
     return antipode_lon, antipode_lat
 
+def antipode_lon(lon):
+    if lon< 0:
+        antipode_lon = lon + 180 
+    else: antipode_lon = lon - 180  
+    return antipode_lon
+
+def antipode_lat(lat):
+    antipode_lat = -lat
+    return antipode_lat
+
+
+def antipode_line(p):
+    coords = list(p.coords)
+    coords = [Point(antipode_lon(p[0]), antipode_lat(p[1])) for p in coords] #Swap each coordinate using list comprehension and create Points
+    return LineString(coords)
+
 def antipodes_transform(source): 
-    st.write(source.geometry.type) 
+    # st.write(source.geometry.type) 
     if (source.geometry.type == 'Point').all():
         geometry = [Point(antipodes(lon, lat)) for lon, lat in zip(source.geometry.x, source.geometry.y)]
         target = gpd.GeoDataFrame(source, geometry=geometry)        
@@ -64,10 +78,14 @@ def antipodes_transform(source):
         target = target.dissolve(by = target.index)  
         return target
     elif (source.geometry.type == 'LineString').all():
-        gdf['points'] = gdf.apply(lambda l: linestring_to_points(l.index, l['geometry']), axis=1)
-        target = source
-        st.write(target)
+        source['points'] = gdf.apply(lambda x: [y for y in x['geometry'].coords], axis=1)
+        source.to_dict('records')       
+        target = source.drop(['geometry'], axis=1) # drop coordinate tuples, if not needed anymore       
+        target = gpd.GeoDataFrame(target, crs=source.crs, geometry=[LineString(x) for x in source['points']])
+        target['geometry'] = target.geometry.map(antipode_line) 
+        target = target.drop(['points'], axis=1)
         return target
+    
     elif (source.geometry.type == 'MultiLineString').all():
         target = source
         return target
