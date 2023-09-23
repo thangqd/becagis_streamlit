@@ -90,15 +90,15 @@ def antipodes_transform(source):
         st.write(source.geometry.type)
         st.write(source)
         source = source.explode(index_parts=False)
-        st.write(source)
-        # source['points'] = gdf.apply(lambda x: [y for y in x['geometry'].coords], axis=1)
-        # source.to_dict('records')       
-        # target = source.drop(['geometry'], axis=1) # drop coordinate tuples, if not needed anymore       
-        # target = gpd.GeoDataFrame(target, crs=source.crs, geometry=[LineString(x) for x in source['points']])
-        # target['geometry'] = target.geometry.map(antipode_line) 
-        # target = target.drop(['points'], axis=1)
-        # target = target.dissolve(by = target.index)
-        # return target
+        source['points'] = gdf.apply(lambda x: [y for y in x['geometry'].geoms[0].coords], axis=1)
+        source.to_dict('records')      
+        st.write(source) 
+        target = source.drop(['geometry'], axis=1) # drop coordinate tuples, if not needed anymore       
+        target = gpd.GeoDataFrame(target, crs=source.crs, geometry=[LineString(x) for x in source['points']])
+        target['geometry'] = target.geometry.map(antipode_line) 
+        target = target.drop(['points'], axis=1)
+        target = target.dissolve(by = target.index)
+        return target
     
     else:
         return source
