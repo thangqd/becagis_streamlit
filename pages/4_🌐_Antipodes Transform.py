@@ -41,6 +41,8 @@ def download_geojson(gdf):
                 mime="application/json",
                 data=geojson
             ) 
+def linestring_to_points(feature,line):
+    return {feature:line.coords}
 
 def antipodes(lon, lat):
     antipode_lat = -lat
@@ -49,7 +51,8 @@ def antipodes(lon, lat):
     else: antipode_lon = lon - 180  
     return antipode_lon, antipode_lat
 
-def antipodes_transform(source):  
+def antipodes_transform(source): 
+    st.write(source.geometry.type) 
     if (source.geometry.type == 'Point').all():
         geometry = [Point(antipodes(lon, lat)) for lon, lat in zip(source.geometry.x, source.geometry.y)]
         target = gpd.GeoDataFrame(source, geometry=geometry)        
@@ -60,6 +63,17 @@ def antipodes_transform(source):
         target = gpd.GeoDataFrame(source, geometry=geometry) 
         target = target.dissolve(by = target.index)  
         return target
+    elif (source.geometry.type == 'LineString').all():
+        gdf['points'] = gdf.apply(lambda l: linestring_to_points(l.index, l['geometry']), axis=1)
+        target = source
+        st.write(target)
+        return target
+    elif (source.geometry.type == 'MultiLineString').all():
+        target = source
+        return target
+    
+    else:
+        return source
 
     # for index, row in source.iterrows():
     #     polygon_area = row["geometry"].length
@@ -139,7 +153,7 @@ form = st.form(key="latlon_calculator")
 with form:   
     url = st.text_input(
             "Enter a URL to a vector dataset",
-            "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/vn_cities_multipoint.geojson",
+            "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/polyline.geojson",
         )
 
     uploaded_file = st.file_uploader(
@@ -164,7 +178,7 @@ with form:
         center_lon, center_lat = center.x, center.y
           
         with col1:              
-            m = folium.Map(tiles='stamenterrain', location = [center_lat, center_lon], zoom_start=4)           
+            m = folium.Map(tiles='stamenterrain', location = [center_lat, center_lon], zoom_start=16)           
             folium.GeoJson(gdf, name = layer_name).add_to(m)
             folium_static(m, width = 600)
         
@@ -175,7 +189,7 @@ with form:
                 if not target.empty: 
                     center = target.dissolve().centroid
                     center_lon, center_lat = center.x, center.y             
-                    m = folium.Map(tiles='stamentoner', location = [center_lat, center_lon], zoom_start=4)
+                    m = folium.Map(tiles='stamentoner', location = [center_lat, center_lon], zoom_start=16)
                     folium.GeoJson(target).add_to(m)
                     folium_static(m, width = 600)         
                     download_geojson(target)   
