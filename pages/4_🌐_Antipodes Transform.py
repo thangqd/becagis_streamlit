@@ -31,13 +31,13 @@ st.title("BecaGIS Antipodes Transform")
 st.write('BecaGIS Antipodes Transform')
 col1, col2 = st.columns(2)    
 
-def download_geojson(gdf):
+def download_geojson(gdf, layer_name):
     if not gdf.empty:        
         geojson = gdf.to_json()  
         with col2:
             ste.download_button(
                 label="Download GeoJSON",
-                file_name= "antipodes.geojson",
+                file_name= 'antipodes_' + layer_name+ '.geojson',
                 mime="application/json",
                 data=geojson
             ) 
@@ -105,9 +105,19 @@ def antipodes_transform(source):
         target['geometry'] = target.geometry.map(antipode_polygon) 
         target = target.drop(['points'], axis=1)
         return target  
+
+    elif (source.geometry.type == 'MultiPolygon').all():
+        source = source.explode(index_parts=False)
+        source['points'] = source.geometry.apply(lambda x: list(x.exterior.coords))
+        target = source
+        target['geometry'] = target.geometry.map(antipode_polygon) 
+        target = target.drop(['points'], axis=1)
+        target = target.dissolve(by = target.index)
+        return target  
     
     else:
-        st.write('aaaaa')
+        st.warning('Cannot create Antipodes!')
+        return source
 
 @st.cache_data
 def save_uploaded_file(file_content, file_name):
@@ -131,7 +141,7 @@ form = st.form(key="latlon_calculator")
 with form:   
     url = st.text_input(
             "Enter a URL to a vector dataset",
-            "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/polygon.geojson",
+            "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/vn_cities.geojson",
         )
 
     uploaded_file = st.file_uploader(
@@ -155,9 +165,14 @@ with form:
         center = gdf.dissolve().centroid
         center_lon, center_lat = center.x, center.y
           
-        with col1:              
-            m = folium.Map(tiles='stamenterrain', location = [center_lat, center_lon], zoom_start=16)           
-            folium.GeoJson(gdf, name = layer_name).add_to(m)
+        with col1:   
+            fields = [ column for column in gdf.columns if column not in gdf.select_dtypes('geometry')]
+            m = folium.Map(tiles='stamenterrain', location = [center_lat, center_lon], zoom_start=4)           
+            folium.GeoJson(gdf, name = layer_name,  
+                            popup = folium.GeoJsonPopup(
+                            fields = fields
+                            )).add_to(m)
+            m.fit_bounds(m.get_bounds(), padding=(30, 30))
             folium_static(m, width = 600)
         
         submitted = st.form_submit_button("Antipodes Transform")        
@@ -167,7 +182,13 @@ with form:
                 if not target.empty: 
                     center = target.dissolve().centroid
                     center_lon, center_lat = center.x, center.y             
-                    m = folium.Map(tiles='stamentoner', location = [center_lat, center_lon], zoom_start=16)
-                    folium.GeoJson(target).add_to(m)
+                    fields = [ column for column in target.columns if column not in target.select_dtypes('geometry')]
+                    m = folium.Map(tiles='stamentoner', location = [center_lat, center_lon], zoom_start=4)
+                    folium.GeoJson(target,                            
+                                   popup = folium.GeoJsonPopup(
+                                   fields = fields
+                                    )).add_to(m)
+   
+                    m.fit_bounds(m.get_bounds(), padding=(30, 30))
                     folium_static(m, width = 600)         
-                    download_geojson(target)   
+                    download_geojson(target, layer_name)   
