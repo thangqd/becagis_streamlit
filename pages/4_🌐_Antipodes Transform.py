@@ -1,16 +1,12 @@
 import folium
-from streamlit_folium import st_folium,folium_static
+from streamlit_folium import folium_static
 import streamlit as st
-from becalib.latlong import parseDMSString, formatDmsString, formatMgrsString 
-from pyproj.database import query_utm_crs_info
-from folium.plugins import MarkerCluster, FastMarkerCluster, Fullscreen
-import pandas as pd
 import streamlit_ext as ste
 import geopandas as gpd
 import fiona, os
-import leafmap
 from shapely.geometry import Point, LineString, Polygon
-
+import json
+import numpy as np
 
 st.set_page_config(layout="wide")
 st.sidebar.info(
@@ -66,10 +62,18 @@ def antipode_line(p):
     return LineString(coords)
 
 def antipode_polygon(p):
-    coords = list(p.exterior.coords)
-    coords = [Point(antipode_lon(p[0]), antipode_lat(p[1])) for p in coords] 
-    return Polygon(coords)
+    coords_exterior = list(p.exterior.coords)
+    points_exterior = [Point(antipode_lon(p[0]), antipode_lat(p[1])) for p in coords_exterior] 
+    return Polygon(points_exterior)
 
+def antipode_polygon_with_holes(p):
+    coords_exterior = list(p.exterior.coords)
+    points_exterior = [Point(antipode_lon(p[0]), antipode_lat(p[1])) for p in coords_exterior] 
+    for interior in list(p.interiors):
+       xi,yi = interior.xy
+       st.write(xi, yi)
+    return Polygon(points_exterior)
+                   
 def antipodes_transform(source): 
     if (source.geometry.type == 'Point').all():
         geometry = [Point(antipodes(lon, lat)) for lon, lat in zip(source.geometry.x, source.geometry.y)]
@@ -83,11 +87,11 @@ def antipodes_transform(source):
         return target
     
     elif (source.geometry.type == 'LineString').all():
-        source['points'] = gdf.apply(lambda x: [y for y in x['geometry'].coords], axis=1)
+        # source['points'] = gdf.apply(lambda x: [y for y in x['geometry'].coords], axis=1)
         source.to_dict('records')     
         target = source
         target['geometry'] = target.geometry.map(antipode_line) 
-        target = target.drop(['points'], axis=1)        
+        # target = target.drop(['points'], axis=1)        
         return target    
     elif (source.geometry.type == 'MultiLineString').all():
         source = source.explode(index_parts=False)
@@ -100,18 +104,18 @@ def antipodes_transform(source):
         return target
     
     elif (source.geometry.type == 'Polygon').all():
-        source['points'] = source.geometry.apply(lambda x: list(x.exterior.coords))
+        # source['points'] = source.geometry.apply(lambda x: list(x.exterior.coords))
         target = source
         target['geometry'] = target.geometry.map(antipode_polygon) 
-        target = target.drop(['points'], axis=1)
+        # target = target.drop(['points'], axis=1)
         return target  
 
     elif (source.geometry.type == 'MultiPolygon').all():
         source = source.explode(index_parts=False)
-        source['points'] = source.geometry.apply(lambda x: list(x.exterior.coords))
+        # source['points'] = source.geometry.apply(lambda x: list(x.exterior.coords))
         target = source
         target['geometry'] = target.geometry.map(antipode_polygon) 
-        target = target.drop(['points'], axis=1)
+        # target = target.drop(['points'], axis=1)
         target = target.dissolve(by = target.index)
         return target  
     
@@ -137,11 +141,30 @@ def save_uploaded_file(file_content, file_name):
 
     return file_path
 
+def style_function(feature):
+    return {
+        'fillColor': '#b1ddf9',
+        'fillOpacity': 0.5,
+        'color': 'blue',
+        'weight': 2,
+        # 'dashArray': '5, 5'
+    }
+
+def highlight_function(feature):   
+    return {
+    'fillColor': '#ffff00',
+    'fillOpacity': 0.8,
+    'color': '#ffff00',
+    'weight': 4,
+    # 'dashArray': '5, 5'
+}
+
+
 form = st.form(key="latlon_calculator")
 with form:   
     url = st.text_input(
             "Enter a URL to a vector dataset",
-            "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/vn_cities.geojson",
+            "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/polygon.geojson",
         )
 
     uploaded_file = st.file_uploader(
@@ -169,9 +192,18 @@ with form:
             fields = [ column for column in gdf.columns if column not in gdf.select_dtypes('geometry')]
             m = folium.Map(tiles='stamenterrain', location = [center_lat, center_lon], zoom_start=4)           
             folium.GeoJson(gdf, name = layer_name,  
-                            popup = folium.GeoJsonPopup(
-                            fields = fields
+                           style_function = style_function, 
+                           highlight_function=highlight_function,
+                           marker = folium.Marker(icon=folium.Icon(
+                                     icon='ok-circle',
+                                     color = 'purple'
+                                     )),     
+                            # marker =  folium.CircleMarker(fill=True),
+                        #    zoom_on_click = True,
+                           popup = folium.GeoJsonPopup(
+                           fields = fields
                             )).add_to(m)
+           
             m.fit_bounds(m.get_bounds(), padding=(30, 30))
             folium_static(m, width = 600)
         
@@ -184,7 +216,13 @@ with form:
                     center_lon, center_lat = center.x, center.y             
                     fields = [ column for column in target.columns if column not in target.select_dtypes('geometry')]
                     m = folium.Map(tiles='stamentoner', location = [center_lat, center_lon], zoom_start=4)
-                    folium.GeoJson(target,                            
+                    folium.GeoJson(target,  
+                                   style_function = style_function, 
+                                   highlight_function=highlight_function,
+                                   marker = folium.Marker(icon=folium.Icon(
+                                     icon='ok-circle',
+                                     color = 'purple'
+                                     )),  
                                    popup = folium.GeoJsonPopup(
                                    fields = fields
                                     )).add_to(m)
