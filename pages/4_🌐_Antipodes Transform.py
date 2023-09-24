@@ -9,7 +9,7 @@ import streamlit_ext as ste
 import geopandas as gpd
 import fiona, os
 import leafmap
-from shapely.geometry import Point, LineString
+from shapely.geometry import Point, LineString, Polygon
 
 
 st.set_page_config(layout="wide")
@@ -101,6 +101,7 @@ def antipodes_transform(source):
         return target
     
     elif (source.geometry.type == 'Polygon').all():
+        st.write(source)
         source['points'] = gdf.apply(lambda x: [y for y in x['geometry'].coords], axis=1)
         source.to_dict('records')       
         target = source.drop(['geometry'], axis=1) # drop coordinate tuples, if not needed anymore       
