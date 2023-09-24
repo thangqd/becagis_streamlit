@@ -62,8 +62,14 @@ def antipode_lat(lat):
 
 def antipode_line(p):
     coords = list(p.coords)
-    coords = [Point(antipode_lon(p[0]), antipode_lat(p[1])) for p in coords] #Swap each coordinate using list comprehension and create Points
+    coords = [Point(antipode_lon(p[0]), antipode_lat(p[1])) for p in coords] 
     return LineString(coords)
+
+def antipode_polygon(p):
+    coords = list(p.coords)
+    coords = [Point(antipode_lon(p[0]), antipode_lat(p[1])) for p in coords] 
+    st.write(coords)
+    return Polygon(coords)
 
 def antipodes_transform(source): 
     # st.write(source.geometry.type) 
@@ -81,7 +87,7 @@ def antipodes_transform(source):
     elif (source.geometry.type == 'LineString').all():
         source['points'] = gdf.apply(lambda x: [y for y in x['geometry'].coords], axis=1)
         source.to_dict('records')       
-        target = source.drop(['geometry'], axis=1) # drop coordinate tuples, if not needed anymore       
+        target = source.drop(['geometry'], axis=1) 
         target = gpd.GeoDataFrame(target, crs=source.crs, geometry=[LineString(x) for x in source['points']])
         target['geometry'] = target.geometry.map(antipode_line) 
         target = target.drop(['points'], axis=1)
@@ -93,7 +99,7 @@ def antipodes_transform(source):
         source['points'] = gdf.apply(lambda x: [y for y in x['geometry'].geoms[0].coords], axis=1)
         source.to_dict('records')      
         st.write(source) 
-        target = source.drop(['geometry'], axis=1) # drop coordinate tuples, if not needed anymore       
+        target = source.drop(['geometry'], axis=1)       
         target = gpd.GeoDataFrame(target, crs=source.crs, geometry=[LineString(x) for x in source['points']])
         target['geometry'] = target.geometry.map(antipode_line) 
         target = target.drop(['points'], axis=1)
@@ -101,17 +107,18 @@ def antipodes_transform(source):
         return target
     
     elif (source.geometry.type == 'Polygon').all():
+        st.write(source.geometry.type)
         st.write(source)
         source['points'] = gdf.apply(lambda x: [y for y in x['geometry'].coords], axis=1)
         source.to_dict('records')       
-        target = source.drop(['geometry'], axis=1) # drop coordinate tuples, if not needed anymore       
+        # target = source.drop(['geometry'], axis=1) # drop coordinate tuples, if not needed anymore       
         target = gpd.GeoDataFrame(target, crs=source.crs, geometry=[Polygon(x) for x in source['points']])
-        target['geometry'] = target.geometry.map(antipode_line) 
-        target = target.drop(['points'], axis=1)
+        target['geometry'] = target.geometry.map(antipode_polygon) 
+        # target = target.drop(['points'], axis=1)
         return target  
     
     else:
-        return source
+        st.write('aaaaa')
 
     # for index, row in source.iterrows():
     #     polygon_area = row["geometry"].length
