@@ -77,6 +77,7 @@ def antipodes_transform(source):
         target = gpd.GeoDataFrame(source, geometry=geometry) 
         target = target.dissolve(by = target.index)  
         return target
+    
     elif (source.geometry.type == 'LineString').all():
         source['points'] = gdf.apply(lambda x: [y for y in x['geometry'].coords], axis=1)
         source.to_dict('records')       
@@ -84,8 +85,7 @@ def antipodes_transform(source):
         target = gpd.GeoDataFrame(target, crs=source.crs, geometry=[LineString(x) for x in source['points']])
         target['geometry'] = target.geometry.map(antipode_line) 
         target = target.drop(['points'], axis=1)
-        return target
-    
+        return target    
     elif (source.geometry.type == 'MultiLineString').all():
         st.write(source.geometry.type)
         st.write(source)
@@ -99,6 +99,15 @@ def antipodes_transform(source):
         target = target.drop(['points'], axis=1)
         target = target.dissolve(by = target.index)
         return target
+    
+    elif (source.geometry.type == 'Polygon').all():
+        source['points'] = gdf.apply(lambda x: [y for y in x['geometry'].coords], axis=1)
+        source.to_dict('records')       
+        target = source.drop(['geometry'], axis=1) # drop coordinate tuples, if not needed anymore       
+        target = gpd.GeoDataFrame(target, crs=source.crs, geometry=[Polygon(x) for x in source['points']])
+        target['geometry'] = target.geometry.map(antipode_line) 
+        target = target.drop(['points'], axis=1)
+        return target  
     
     else:
         return source
@@ -181,7 +190,7 @@ form = st.form(key="latlon_calculator")
 with form:   
     url = st.text_input(
             "Enter a URL to a vector dataset",
-            "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/multipolyline.geojson",
+            "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/polygon.geojson",
         )
 
     uploaded_file = st.file_uploader(
