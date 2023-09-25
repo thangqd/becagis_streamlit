@@ -85,11 +85,16 @@ def antipode_polygon_with_holes(p):
     # return Polygon(p.exterior.coords, [inner.exterior.coords for inner in p.interiors])    
     # exterior = polygon.exterior
     # interior = p.interiors
-    st.write(p)
+    st.write(len(str(p)))
+    st.write('exterior: ', p.exterior)
+    st.write(len(str(p.exterior)))
+
+    count = 0
     for interior in p.interiors:
         if interior.is_ring:
-            st.write(interior.coords.xy)
-    # return Polygon(p.exterior, [[c for c in list(interior.coords)[::-1]]])
+            count+=1
+            st.write('interior: ',count, interior)
+    return Polygon(p.exterior,[interior for interior in p.interiors ])
 
 
                    
@@ -137,7 +142,7 @@ def antipodes_transform(source):
         source = source.explode(index_parts=False)
         # source['points'] = source.geometry.apply(lambda x: list(x.exterior.coords))
         target = source
-        target['geometry'] = target.geometry.map(antipode_polygon) 
+        target['geometry'] = target.geometry.map(antipode_polygon_with_holes) 
         # target = target.drop(['points'], axis=1)
         target = target.dissolve(by = target.index)
         return target  
