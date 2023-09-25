@@ -50,11 +50,12 @@ def remove_holes_features(f):
     coords_exterior = f.exterior.coords
     linearing_interior = []
     for interior in f.interiors:
-        if (area_meter(Polygon(interior)) > 60 ):
+        if (area_meter(Polygon(interior)) > 1000 ):
             linearing_interior.append(interior)
 
     Antipodes_Polygon = Polygon(coords_exterior, holes = [interior for interior in linearing_interior])
-    return Antipodes_Polygon
+    # return Antipodes_Polygon
+    return Polygon(coords_exterior)
 
 
 def remove_holes_polygon(source):   
