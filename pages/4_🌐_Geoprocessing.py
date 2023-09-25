@@ -4,7 +4,7 @@ import streamlit as st
 import streamlit_ext as ste
 import geopandas as gpd
 import fiona, os
-from shapely.geometry import Point, LineString, Polygon, LinearRing
+from shapely.geometry import shape, Point, LineString, Polygon, LinearRing
 import pyproj
 import numpy as np
 from shapely.ops import transform
@@ -52,10 +52,24 @@ def remove_holes_features(f):
     for interior in f.interiors:
         if (area_meter(Polygon(interior)) > 1000 ):
             linearing_interior.append(interior)
-
-    Antipodes_Polygon = Polygon(coords_exterior, holes = [interior for interior in linearing_interior])
-    # return Antipodes_Polygon
+    Polygon_Removed_Holes = Polygon(coords_exterior, holes = [interior for interior in linearing_interior])
+    # return Polygon_Removed_Holes
     return Polygon(coords_exterior)
+
+def create_holes_features(f):
+    # linearing_interior = []
+    # for inner in f.interiors:
+    #     try:        
+    #         linearing_interior.append(Polygon(inner.coords))
+    #     except:
+    #         next
+    # st.write([i for i in linearing_interior])
+    # st.write(f.interiors)
+    st.write('feature:', f)
+    st.write('exterior:', Polygon(f.exterior))
+    a = f.difference(f.exterior) 
+    st.write(a)
+    return a
 
 
 def remove_holes_polygon(source):   
@@ -68,6 +82,23 @@ def remove_holes_polygon(source):
         source = source.explode(index_parts=False)
         target = source
         target['geometry'] = target.geometry.map(remove_holes_features) 
+        target = target.dissolve(by = target.index)
+        return target  
+    
+    else:
+        st.warning('Cannot remove holes in polygon!')
+        return source
+
+def create_holes_polygon(source):   
+    if (source.geometry.type == 'Polygon').all():
+        target = source
+        target['geometry'] = target.geometry.map(create_holes_features) 
+        return target  
+
+    elif (source.geometry.type == 'MultiPolygon').all():
+        source = source.explode(index_parts=False)
+        target = source
+        target['geometry'] = target.geometry.map(create_holes_features) 
         target = target.dissolve(by = target.index)
         return target  
     
@@ -116,7 +147,7 @@ form = st.form(key="latlon_calculator")
 with form:   
     url = st.text_input(
             "Enter a URL to a vector dataset",
-            "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/polygon_with_holes.geojson",
+            "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/polygon.geojson",
         )
 
     uploaded_file = st.file_uploader(
@@ -159,9 +190,9 @@ with form:
             m.fit_bounds(m.get_bounds(), padding=(30, 30))
             folium_static(m, width = 600)
         
-        submitted = st.form_submit_button("Remove Holes in Polygons ")        
+        submitted = st.form_submit_button("Create new Polygons from Polygons' Holes")        
         if submitted:
-            target = remove_holes_polygon(gdf)
+            target = create_holes_polygon(gdf)
             with col2:
                 if not target.empty: 
                     center = target.dissolve().centroid
