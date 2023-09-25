@@ -7,6 +7,7 @@ import fiona, os
 from shapely.geometry import shape, Point, LineString, Polygon, LinearRing
 import pyproj
 import numpy as np
+import shapely
 from shapely.ops import transform
 
 
@@ -56,21 +57,11 @@ def remove_holes_features(f):
     # return Polygon_Removed_Holes
     return Polygon(coords_exterior)
 
-def create_holes_features(f):
-    # linearing_interior = []
-    # for inner in f.interiors:
-    #     try:        
-    #         linearing_interior.append(Polygon(inner.coords))
-    #     except:
-    #         next
-    # st.write([i for i in linearing_interior])
-    # st.write(f.interiors)
-    st.write('feature:', f)
-    st.write('exterior:', Polygon(f.exterior))
-    a = f.difference(f.exterior) 
-    st.write(a)
-    return a
-
+def create_holes_features(f): 
+    holes = Polygon([(0,0),(0,0),(0,0)])
+    if (f != Polygon(f.exterior)): 
+        holes = f.symmetric_difference(Polygon(f.exterior)) 
+    return holes
 
 def remove_holes_polygon(source):   
     if (source.geometry.type == 'Polygon').all():
@@ -193,6 +184,8 @@ with form:
         submitted = st.form_submit_button("Create new Polygons from Polygons' Holes")        
         if submitted:
             target = create_holes_polygon(gdf)
+            target = target[target.geometry.area > 0]
+
             with col2:
                 if not target.empty: 
                     center = target.dissolve().centroid
