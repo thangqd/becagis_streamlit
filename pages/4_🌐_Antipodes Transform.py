@@ -64,45 +64,17 @@ def antipode_line(p):
 def antipode_polygon(p):
     coords_exterior = list(p.exterior.coords)
     points_exterior = [Point(antipode_lon(p[0]), antipode_lat(p[1])) for p in coords_exterior] 
-    return Polygon(points_exterior)
 
-def antipode_polygon_with_holes(p):
-    # Polygon(p.exterior.coords, [inner.exterior.coords for inner in p.interiors])
-    # coords_exterior = list(p.exterior.coords)
-    # points_exterior = [Point(antipode_lon(p[0]), antipode_lat(p[1])) for p in coords_exterior] 
-    # lr = [a for a in p.interiors if a is not None]
-    # st.write(lr)
-    # count = 0
-    # for interior in p.interiors:
-    #    if interior.is_ring:
-    #        count+=1
-    #        poly = Polygon(interior)
-    #        st.write(poly)
-    # st.write(count)
+    linearing_interior = []
+    for inner in p.interiors:
+        coords_interior = inner.coords
+        points_interior = [Point(antipode_lon(p[0]), antipode_lat(p[1])) for p in coords_interior]
+        linearing_interior.append(LinearRing(points_interior))
 
-    #    xi,yi = list(interior.xy)
-    #    st.write(xi, yi)
-    # return Polygon(p.exterior.coords, [inner.exterior.coords for inner in p.interiors])    
-    # exterior = polygon.exterior
-    # interior = p.interiors
-    st.write(len(str(p)))
-    st.write('exterior: ', p.exterior)
-    st.write(len(str(p.exterior)))
-
-    count = 0
-    for interior in p.interiors:
-        if interior.is_ring:
-            count+=1
-            st.write('interior: ',count, interior)
-    return Polygon(p.exterior,[interior for interior in p.interiors ])
-
-
+    Antipodes_Polygon = Polygon(points_exterior, holes = [inner for inner in linearing_interior])
+    return Antipodes_Polygon
                    
 def antipodes_transform(source):
-    # from shapely.geometry import mapping
-    # geom = source.loc[0, 'geometry']
-    # st.write(geom)
-
     if (source.geometry.type == 'Point').all():
         geometry = [Point(antipodes(lon, lat)) for lon, lat in zip(source.geometry.x, source.geometry.y)]
         target = gpd.GeoDataFrame(source, geometry=geometry)        
@@ -115,11 +87,9 @@ def antipodes_transform(source):
         return target
     
     elif (source.geometry.type == 'LineString').all():
-        # source['points'] = gdf.apply(lambda x: [y for y in x['geometry'].coords], axis=1)
         source.to_dict('records')     
         target = source
         target['geometry'] = target.geometry.map(antipode_line) 
-        # target = target.drop(['points'], axis=1)        
         return target    
     elif (source.geometry.type == 'MultiLineString').all():
         source = source.explode(index_parts=False)
@@ -132,18 +102,15 @@ def antipodes_transform(source):
         return target
     
     elif (source.geometry.type == 'Polygon').all():
-        # source['points'] = source.geometry.apply(lambda x: list(x.exterior.coords))
         target = source
-        target['geometry'] = target.geometry.map(antipode_polygon_with_holes) 
-        # target = target.drop(['points'], axis=1)
+        target['geometry'] = target.geometry.map(antipode_polygon) 
         return target  
 
     elif (source.geometry.type == 'MultiPolygon').all():
         source = source.explode(index_parts=False)
         # source['points'] = source.geometry.apply(lambda x: list(x.exterior.coords))
         target = source
-        target['geometry'] = target.geometry.map(antipode_polygon_with_holes) 
-        # target = target.drop(['points'], axis=1)
+        target['geometry'] = target.geometry.map(antipode_polygon) 
         target = target.dissolve(by = target.index)
         return target  
     
