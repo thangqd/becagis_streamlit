@@ -4,7 +4,7 @@ import streamlit as st
 import streamlit_ext as ste
 import geopandas as gpd
 import fiona, os
-from shapely.geometry import Point, LineString, Polygon
+from shapely.geometry import Point, LineString, Polygon, LinearRing
 import json
 import numpy as np
 
@@ -67,14 +67,37 @@ def antipode_polygon(p):
     return Polygon(points_exterior)
 
 def antipode_polygon_with_holes(p):
-    coords_exterior = list(p.exterior.coords)
-    points_exterior = [Point(antipode_lon(p[0]), antipode_lat(p[1])) for p in coords_exterior] 
-    for interior in list(p.interiors):
-       xi,yi = interior.xy
-       st.write(xi, yi)
-    return Polygon(points_exterior)
+    # Polygon(p.exterior.coords, [inner.exterior.coords for inner in p.interiors])
+    # coords_exterior = list(p.exterior.coords)
+    # points_exterior = [Point(antipode_lon(p[0]), antipode_lat(p[1])) for p in coords_exterior] 
+    # lr = [a for a in p.interiors if a is not None]
+    # st.write(lr)
+    # count = 0
+    # for interior in p.interiors:
+    #    if interior.is_ring:
+    #        count+=1
+    #        poly = Polygon(interior)
+    #        st.write(poly)
+    # st.write(count)
+
+    #    xi,yi = list(interior.xy)
+    #    st.write(xi, yi)
+    # return Polygon(p.exterior.coords, [inner.exterior.coords for inner in p.interiors])    
+    # exterior = polygon.exterior
+    # interior = p.interiors
+    st.write(p)
+    for interior in p.interiors:
+        if interior.is_ring:
+            st.write(interior.coords.xy)
+    # return Polygon(p.exterior, [[c for c in list(interior.coords)[::-1]]])
+
+
                    
-def antipodes_transform(source): 
+def antipodes_transform(source):
+    # from shapely.geometry import mapping
+    # geom = source.loc[0, 'geometry']
+    # st.write(geom)
+
     if (source.geometry.type == 'Point').all():
         geometry = [Point(antipodes(lon, lat)) for lon, lat in zip(source.geometry.x, source.geometry.y)]
         target = gpd.GeoDataFrame(source, geometry=geometry)        
@@ -106,7 +129,7 @@ def antipodes_transform(source):
     elif (source.geometry.type == 'Polygon').all():
         # source['points'] = source.geometry.apply(lambda x: list(x.exterior.coords))
         target = source
-        target['geometry'] = target.geometry.map(antipode_polygon) 
+        target['geometry'] = target.geometry.map(antipode_polygon_with_holes) 
         # target = target.drop(['points'], axis=1)
         return target  
 
@@ -164,7 +187,7 @@ form = st.form(key="latlon_calculator")
 with form:   
     url = st.text_input(
             "Enter a URL to a vector dataset",
-            "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/vn_cities.geojson",
+            "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/polygon.geojson",
         )
 
     uploaded_file = st.file_uploader(
