@@ -5,6 +5,6 @@ A BecaGIS Streamlit geospatial application inspired by [streamlit-geospatial](ht
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/thangqd/becagis_streamlit/HEAD)
 
-- Web app: <https://becagis.streamlit.app>
+- Web app: <https://becagis.streamlit.app> <https://streamlit.becagis.vn>
 - Source code: <https://github.com/thangqd/becagis_streamlit>
 ![flightroute](https://github.com/thangqd/becagis_streamlit/assets/1776420/7a1c0de3-c8a5-4e45-a42f-54b0ec77806b)
