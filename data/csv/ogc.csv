@@ -3,7 +3,6 @@ Sammeldienst Kreis Viersen (QGIS Server),https://geo.kreis-viersen.de/ows/sammel
 OSM-Daten Kreis Viersen (QGIS Server),https://geo.kreis-viersen.de/ows/osm-daten/wfs3
 MS4W Demo OGCAPI Server (UMN MapServer),https://demo.mapserver.org/cgi-bin/mapserv/localdemo/ogcapi
 NRW Topographie (Ldproxy),https://www.ldproxy.nrw.de/topographie
-Montreal Building (Ldproxy),https://d123.ldproxy.net/montreal
 CShapes Dataset of Historical Country Boundaries (Ldproxy),https://demo.ldproxy.net/cshapes
 Daraa - Syria (Ldproxy),https://demo.ldproxy.net/daraa
 OS Open Zoomstack (Ldproxy),https://demo.ldproxy.net/zoomstack

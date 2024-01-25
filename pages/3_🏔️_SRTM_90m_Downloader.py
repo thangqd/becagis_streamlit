@@ -51,7 +51,7 @@ with col2:
 
 srtm_gdp = gpd.read_file(srtm_url)
 srtm = json.loads(requests.get(srtm_url).text)
-m = folium.Map(tiles="stamenterrain", location = [-28, 14], zoom_start =2)
+m = folium.Map(tiles="cartodbpositron", location = [-28, 14], zoom_start =2)
 
  
 def style_function(feature):

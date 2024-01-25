@@ -64,8 +64,8 @@ def highlight_function(feature):
 srtm_bbox_url = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/srtm_bbox.geojson"
 srtm_bbox_gdp = gpd.read_file(srtm_bbox_url)
 srtm_bbox = json.loads(requests.get(srtm_bbox_url).text)
-# m = folium.Map(tiles="stamenterrain", location = [10.78418915150491, 106.70361262696979], zoom_start = 3)
-m = folium.Map(tiles="stamenterrain", location = [-28, 14], zoom_start =2)
+# m = folium.Map(tiles="cartodbpositron", location = [10.78418915150491, 106.70361262696979], zoom_start = 3)
+m = folium.Map(tiles="cartodbpositron", location = [-28, 14], zoom_start =2)
  
 
 # featuregroup = folium.map.FeatureGroup(name='SRTM BBox').add_to(m)

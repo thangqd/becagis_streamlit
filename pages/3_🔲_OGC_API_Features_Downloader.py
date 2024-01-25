@@ -109,7 +109,7 @@ def wfs_button(server, url):
                 layer_selected = st.selectbox('Choose an OGC API Features Layer',list)   
     uri_geojson = url + "/collections/"+ str(layer_selected).strip() + '/items?f=json'
     
-    m = folium.Map(tiles="stamenterrain", zoom_start = 2)
+    m = folium.Map(tiles="cartodbpositron", zoom_start = 2)
     geojson_layer = folium.GeoJson(uri_geojson)
     geojson_layer.add_to(m)
     m.fit_bounds(m.get_bounds(), padding=(30, 30))

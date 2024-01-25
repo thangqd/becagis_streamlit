@@ -25,7 +25,7 @@ with col2:
 st.image("./data/images/pythonmaps/flight_routes.png")
 
 # m = leafmap.Map(minimap_control=True,tiles=None)
-# m.add_basemap("Stamen.Watercolor")
+# m.add_basemap("cartodbpositron")
 # m.to_streamlit(height=500)
 
 # HtmlFile = open("./data/fansipan.html", 'r', encoding='utf-8')

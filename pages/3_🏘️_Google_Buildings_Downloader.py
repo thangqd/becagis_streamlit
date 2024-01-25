@@ -64,7 +64,7 @@ def highlight_function(feature):
 google_buildings_url = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/google_buildings.geojson"
 google_buildings_gdp = gpd.read_file(google_buildings_url)
 google_buildings = json.loads(requests.get(google_buildings_url).text)
-m = folium.Map(tiles="stamenterrain", location = [-28, 14], zoom_start = 2)
+m = folium.Map(tiles="cartodbpositron", location = [-28, 14], zoom_start = 2)
 
 
 popup = folium.GeoJsonPopup(

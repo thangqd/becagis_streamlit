@@ -14,7 +14,7 @@ prettymapp
 gpxpy
 pyproj
 what3words
-streamlit-aggrid
 streamlit_lottie
+streamlit-aggrid
 osmnx
 matplotlib

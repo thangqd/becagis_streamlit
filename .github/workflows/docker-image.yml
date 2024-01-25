@@ -1,0 +1,27 @@
+name: docker creation
+
+# Run on PR requests. And on main itself.
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+
+# A workflow run is made up of one or more jobs that can run sequentially or
+# in parallel
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can
+      # access it
+      - uses: actions/checkout@v3
+
+      - name: Build and push docker image
+        run: |
+          docker login --username ${{ github.actor }} --password ${{ secrets.CR_PAT }} ghcr.io
+          docker-compose build
+          docker tag becagis_streamlit_web ghcr.io/thangqd/becagis_streamlit:latest
+          docker push ghcr.io/thangqd/becagis_streamlit:latest

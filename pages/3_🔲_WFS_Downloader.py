@@ -118,7 +118,7 @@ def wfs_button(server, url):
                 layer_selected = st.selectbox('Choose a WFS Layer',layer_name)
             uri_geojson = url + "/wfs?request=GetFeature&format_options=CHARSET:UTF-8&typename="+ str(layer_selected).strip() + '&outputFormat=json'
             # geojson = urllib.request.urlretrieve(uri_geojson,slugify(layer_selected))
-            m = leafmap.Map(tiles='stamenterrain',toolbar_control=False, layers_control=True)
+            m = leafmap.Map(tiles='cartodbpositron',toolbar_control=False, layers_control=True)
             wms_url = url + '/ows'
             m.add_wms_layer(
                 wms_url, layers=layer_selected, name=slugify(layer_selected), attribution="", transparent=True

@@ -58,7 +58,7 @@ def download_geojson(gdf):
 
 col1, col2 = st.columns(2)
 with col1:
-    m = folium.Map(tiles="stamenterrain", location = [10.77588,106.70388], zoom_start =15)
+    m = folium.Map(tiles="cartodbpositron", location = [10.77588,106.70388], zoom_start =15)
     osm_tags = st.multiselect(
                     'Choose OSM tags',
                     ["aerialway", "aeroway", "amenity",
@@ -93,7 +93,7 @@ with col1:
     output = st_folium(m, width=500, height = 500)
     lastest_drawing =output.get('last_active_drawing')
 
-map = leafmap_folium.Map(tiles='Stamen Toner',location = [10.77588,106.70388], toolbar_control=False, layers_control=False,zoom_start =15)
+map = leafmap_folium.Map(tiles='cartodbpositron',location = [10.77588,106.70388], toolbar_control=False, layers_control=False,zoom_start =15)
 if lastest_drawing is not None:  
     gdf = None  
     if lastest_drawing['geometry']['type'] == 'Point':

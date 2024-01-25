@@ -112,7 +112,7 @@ if add_cord == 'Input coordinate':
 
 elif add_cord == 'Choose from map':
     with form:
-        m = folium.Map(tiles="stamenterrain", location = [10.77588,106.70388], zoom_start =14)       
+        m = folium.Map(tiles="cartodbpositron", location = [10.77588,106.70388], zoom_start =14)       
         markers = m.add_child(folium.ClickForMarker())
         map = st_folium(m, width=400, height=400)
         lat = 10.77588

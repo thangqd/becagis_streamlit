@@ -36,7 +36,7 @@ us_cities = pd.read_csv("https://raw.githubusercontent.com/thangqd/becagis_strea
 # us_cities = us_cities.dropna().reset_index()
 Minot_city_long = us_cities[us_cities["city"] == "Minot"].lon.values[0]
 Minot_city_lat = us_cities[us_cities["city"] == "Minot"].lat.values[0]
-m = folium.Map(tiles='Stamen Toner', location=[Minot_city_lat, Minot_city_long], zoom_start=3)
+m = folium.Map(tiles='cartodbpositron', location=[Minot_city_lat, Minot_city_long], zoom_start=3)
 
 # fc= FeatureGroup(name="US Cities",overlay=True)
 cities_cluster = MarkerCluster(name="US Cities").add_to(m)
