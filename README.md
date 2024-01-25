@@ -5,7 +5,7 @@ A BecaGIS Streamlit geospatial application inspired by [streamlit-geospatial](ht
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/thangqd/becagis_streamlit/HEAD)
 
-- Web app: <https://becagis.streamlit.app>
+- Web app: <https://becagis.streamlit.app> | <https://streamlit.becagis.vn>
 - Source code: <https://github.com/thangqd/becagis_streamlit>
 
 # Run Geoprocessing from popular Container Registries
