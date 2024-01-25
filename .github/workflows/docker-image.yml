@@ -23,5 +23,5 @@ jobs:
         run: |
           docker login --username ${{ github.actor }} --password ${{ secrets.CR_PAT }} ghcr.io
           docker-compose build
-          docker tag becagis_streamlit_web ghcr.io/thangqd/becagis_streamlit:latest
+          docker tag becagis_streamlit-web ghcr.io/thangqd/becagis_streamlit:latest
           docker push ghcr.io/thangqd/becagis_streamlit:latest
