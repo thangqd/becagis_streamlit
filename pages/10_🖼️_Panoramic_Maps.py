@@ -31,12 +31,12 @@ st.sidebar.info(
     """
 )
 
-st.title("Panoramic Map Collection")
+st.title("Panoramic Maps Collection")
 col1, col2 = st.columns([1,30])
 with col1:
     st.image("./data/images/loc.svg", width = 30)
 with col2:
-    st.write("Exploring [Panoramic Map Collection](https://www.loc.gov/collections/panoramic-maps/about-this-collection?loclr=blogmap) from [Library of Congress](https://www.loc.gov/collections/)")
+    st.write("Exploring [Panoramic Maps Collection](https://www.loc.gov/collections/panoramic-maps/about-this-collection?loclr=blogmap) from [Library of Congress](https://www.loc.gov/collections/)")
 
  
 def style_function(feature):
