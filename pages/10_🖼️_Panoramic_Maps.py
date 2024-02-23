@@ -80,7 +80,7 @@ zip(df.id, df.title, df.date, df.address, df.thumbnail, df.division, df.division
                 )   
     iframe = folium.IFrame(popContent)
     popup = folium.Popup(iframe,
-                        min_width=200,
+                        min_width=300,
                         max_width=400)   
     folium.Marker(location=[latitude, longitude], icon=icon, popup=popup).add_to(cluster)    
 m.add_child(cluster)            
