@@ -65,7 +65,8 @@ air_ports = pdk.Layer(
 st.pydeck_chart(pdk.Deck(
     layers=[air_lines,air_ports],
     initial_view_state=view_state,
-    map_style=None,
+    map_style='light_no_labels', # 'light', 'dark', 'road', 'satellite','dark_no_labels', 'light_no_labels'
+    map_provider='carto', #'carto', 'mapbox','google_maps'
     tooltip=TOOLTIP_TEXT
 ))
 
