@@ -7,19 +7,19 @@ import leafmap.kepler as leafmap
 # )
 st.set_page_config(layout="wide",page_icon="🖼️")
 
-st.sidebar.info(
-    """
-    - Web: [BecaGIS Streamlit](https://becagis.streamlit.app)
-    - GitHub: [BecaGIS Streamlit](https://github.com/thangqd/becagis_streamlit) 
-    """
-)
+# st.sidebar.info(
+#     """
+#     - Web: [BecaGIS Streamlit](https://becagis.streamlit.app)
+#     - GitHub: [BecaGIS Streamlit](https://github.com/thangqd/becagis_streamlit) 
+#     """
+# )
 
-st.sidebar.title("Contact")
-st.sidebar.info(
-    """
-    Thang Quach: [BecaGIS Homepage](https://becagis.vn/?lang=en) | [My Homepage](https://thangqd.github.io) | [GitHub](https://github.com/thangqd) | [LinkedIn](https://www.linkedin.com/in/thangqd)
-    """
-)
+# st.sidebar.title("Contact")
+# st.sidebar.info(
+#     """
+#     Thang Quach: [BecaGIS Homepage](https://becagis.vn/?lang=en) | [My Homepage](https://thangqd.github.io) | [GitHub](https://github.com/thangqd) | [LinkedIn](https://www.linkedin.com/in/thangqd)
+#     """
+# )
 st.title("Download Admistrative Boundaries from GADM")
 
 col1, col2 = st.columns([1,30])

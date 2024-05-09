@@ -5,21 +5,7 @@ import pandas as pd
 
 st.set_page_config(layout="wide")
 
-st.sidebar.info(
-    """
-    - Web: [BecaGIS Streamlit](https://becagis.streamlit.app)
-    - GitHub: [BecaGIS Streamlit](https://github.com/thangqd/becagis_streamlit) 
-    """
-)
-
-st.sidebar.title("Contact")
-st.sidebar.info(
-    """
-    Thang Quach: [BecaGIS Homepage](https://becagis.vn/?lang=en) | [My Homepage](https://thangqd.github.io) | [GitHub](https://github.com/thangqd) | [LinkedIn](https://www.linkedin.com/in/thangqd)
-    """
-)
 st.title("Kepler Arc")
-
 
 airports =  'https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/airports.csv'
 df_airports = pd.read_csv(airports)

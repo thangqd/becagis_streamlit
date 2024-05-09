@@ -4,19 +4,7 @@ import numpy as np
 import pydeck as pdk
 
 st.set_page_config(layout="wide")
-st.sidebar.info(
-    """
-    - Web: [BecaGIS Streamlit](https://becagis.streamlit.app)
-    - GitHub: [BecaGIS Streamlit](https://github.com/thangqd/becagis_streamlit) 
-    """
-)
 
-st.sidebar.title("Contact")
-st.sidebar.info(
-    """
-    Thang Quach: [BecaGIS Homepage](https://becagis.vn/?lang=en) | [My Homepage](https://thangqd.github.io) | [GitHub](https://github.com/thangqd) | [LinkedIn](https://www.linkedin.com/in/thangqd)
-    """
-)
 st.title("Pydeck Arc")
 
 # DATA_URL = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/airlines_vn.csv"

@@ -2,27 +2,11 @@ import streamlit as st
 from st_aggrid import AgGrid
 import pandas as pd
 import time
-
 from streamlit_lottie import st_lottie
 import requests
 from PIL import Image
 
-
 st.set_page_config(layout="wide")
-
-st.sidebar.info(
-    """
-    - Web: [BecaGIS Streamlit](https://becagis.streamlit.app)
-    - GitHub: [BecaGIS Streamlit](https://github.com/thangqd/becagis_streamlit) 
-    """
-)
-
-st.sidebar.title("Contact")
-st.sidebar.info(
-    """
-    Thang Quach: [BecaGIS Homepage](https://becagis.vn/?lang=en) | [My Homepage](https://thangqd.github.io) | [GitHub](https://github.com/thangqd) | [LinkedIn](https://www.linkedin.com/in/thangqd)
-    """
-)
 
 st.title("Streamlit Wizard")
 

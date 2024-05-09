@@ -5,20 +5,6 @@ import os
 
 st.set_page_config(layout="wide")
 
-st.sidebar.info(
-    """
-    - Web: [BecaGIS Streamlit](https://becagis.streamlit.app)
-    - GitHub: [BecaGIS Streamlit](https://github.com/thangqd/becagis_streamlit) 
-    """
-)
-
-st.sidebar.title("Contact")
-st.sidebar.info(
-    """
-    Thang Quach: [BecaGIS Homepage](https://becagis.vn/?lang=en) | [My Homepage](https://thangqd.github.io) | [GitHub](https://github.com/thangqd) | [LinkedIn](https://www.linkedin.com/in/thangqd)
-    """
-)
-
 # HtmlFile = open("./data/image_slideshow.html", 'r', encoding='utf-8')
 # source_code = HtmlFile.read() 
 # components.html(source_code,height = 800)

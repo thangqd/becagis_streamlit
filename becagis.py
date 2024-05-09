@@ -2,18 +2,18 @@ import streamlit as st
 
 st.set_page_config(layout="wide")
 
-st.sidebar.info(
-    """
-    - GitHub: [BecaGIS Streamlit](https://github.com/thangqd/becagis_streamlit) 
-    """
-)
+# st.sidebar.info(
+#     """
+#     - GitHub: [BecaGIS Streamlit](https://github.com/thangqd/becagis_streamlit) 
+#     """
+# )
 
-st.sidebar.title("Contact")
-st.sidebar.info(
-    """
-    Thang Quach: [BecaGIS Homepage](https://becagis.vn/?lang=en) | [My Homepage](https://thangqd.github.io) | [GitHub](https://github.com/thangqd) | [LinkedIn](https://www.linkedin.com/in/thangqd)
-    """
-)
+# st.sidebar.title("Contact")
+# st.sidebar.info(
+#     """
+#     Thang Quach: [BecaGIS Homepage](https://becagis.vn/?lang=en) | [My Homepage](https://thangqd.github.io) | [GitHub](https://github.com/thangqd) | [LinkedIn](https://www.linkedin.com/in/thangqd)
+#     """
+# )
 
 # Customize page title
 col1, mid, col2 = st.columns([1,1,20])
@@ -34,7 +34,7 @@ st.image("./data/images/pythonmaps/flight_routes.png")
 
 st.markdown(
     """
-    BecaGIS Streamlit is inspired by [streamlit-geospatial](https://github.com/giswqs/streamlit-geospatial).
+    [BecaGIS Streamlit](https://github.com/thangqd/becagis_streamlit) is inspired by [streamlit-geospatial](https://github.com/giswqs/streamlit-geospatial).
     """
 )
 # from streamlit_extras.buy_me_a_coffee import button

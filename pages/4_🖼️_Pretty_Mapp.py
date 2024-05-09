@@ -40,23 +40,7 @@ def update_latlong(geodataframe):
 # )
 st.set_page_config(layout="wide",page_icon="🖼️")
 
-st.sidebar.info(
-    """
-    - Web: [BecaGIS Streamlit](https://becagis.streamlit.app)
-    - GitHub: [BecaGIS Streamlit](https://github.com/thangqd/becagis_streamlit) 
-    """
-)
-
-st.sidebar.title("Contact")
-st.sidebar.info(
-    """
-    Thang Quach: [BecaGIS Homepage](https://becagis.vn/?lang=en) | [My Homepage](https://thangqd.github.io) | [GitHub](https://github.com/thangqd) | [LinkedIn](https://www.linkedin.com/in/thangqd)
-    """
-)
-
 st.title("BecaGIS Prettymapp")
-
-
 st.write(
     "BecaGIS Prettymapp is inspired by [prettymapp](https://github.com/chrieke/prettymapp)"
 )
