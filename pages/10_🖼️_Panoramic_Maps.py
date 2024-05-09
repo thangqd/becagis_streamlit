@@ -58,10 +58,10 @@ zip(df.id, df.title, df.date, df.address, df.thumbnail, df.division, df.division
     color = 'purple'
     icon=folium.Icon(color=color, icon='ok-circle')
     popContent = (
-                '<b>(' + address + ',' + str(date) + ')</b>, ' + title + '<br>' +\
+                '<b>(' + str(address) + ',' + str(date) + ')</b>, ' + str(title) + '<br>' +\
                 '<center><img src="{}" alt="Image">'.format(thumbnail)+ '<br>'+              
-                '<a href=' + id + ' target="_blank">' + title + '</a>' + '<br>'+\
-                'Published in ' + date + '</center><br>'+\
+                '<a href=' + str(id) + ' target="_blank">' + str(title) + '</a>' + '<br>'+\
+                'Published in ' + str(date) + '</center><br>'+\
                 'Available from ' + '<a href=' + division_url  +  ' target="_blank">' + division + ', Library of Congress' + '</a>'
                 )   
     iframe = folium.IFrame(popContent)
