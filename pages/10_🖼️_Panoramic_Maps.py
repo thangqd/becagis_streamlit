@@ -42,7 +42,7 @@ def highlight_function(feature):
         'weight': 3,
         'dashArray': '5, 5'
     }
-panorama_url = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/panorama.csv"
+panorama_url = "https://raw.githubusercontent.com/thangqd/becagis_streamlit/main/data/csv/panorama.geojson"
 df = gpd.read_file(panorama_url)
 
 m = folium.Map(tiles ="cartodbpositron", location = [40.10629422187102, -98.53718356247916], zoom_start =3)
