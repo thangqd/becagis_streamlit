@@ -18,3 +18,4 @@ streamlit_lottie
 streamlit-aggrid
 osmnx
 matplotlib
+fiona
