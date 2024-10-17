@@ -1,15 +1,7 @@
 import streamlit as st
-import urllib.request, urllib.parse
-from http.cookiejar import CookieJar
-import webbrowser
-import  leafmap.foliumap as leafmap
 from streamlit_folium import st_folium
 import folium
-from folium import FeatureGroup
-from folium.plugins import MarkerCluster
 import geopandas as gpd
-import pandas as pd
-from folium import plugins
 import json
 import requests
 

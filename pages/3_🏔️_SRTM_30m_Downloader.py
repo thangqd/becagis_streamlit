@@ -1,14 +1,9 @@
 import streamlit as st
-import  leafmap.foliumap as leafmap
 from streamlit_folium import st_folium
 import folium
 import geopandas as gpd
-import pandas as pd
-from folium import plugins
 import json
 import requests
-
-
 
 
 st.set_page_config(layout="wide")
